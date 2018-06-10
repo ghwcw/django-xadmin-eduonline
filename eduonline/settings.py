@@ -16,7 +16,10 @@ import os
 # 这里用到了python中一个神奇的变量"__file__"， 这个变量可以获取到当前文件的路径（含文件名）
 # 再来一个os.path.dirname()就是获得上一级目录
 # "BASE_DIR"就是工程根目录
+import sys
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(BASE_DIR, 'extraapps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -42,6 +45,8 @@ INSTALLED_APPS = [
     'apps.course',
     'apps.organization',
     'apps.operation',
+    'xadmin',
+    'crispy_forms',
 ]
 
 AUTH_USER_MODEL = 'myuser.UserProfile'
