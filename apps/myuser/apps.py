@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class MyuserConfig(AppConfig):
-    name = 'myuser'
+    name = 'apps.myuser'
+    verbose_name = '用户中心'

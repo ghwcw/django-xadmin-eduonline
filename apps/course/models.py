@@ -19,7 +19,7 @@ class Course(models.Model):
     learn_time = models.IntegerField(default=0, verbose_name='学习时长(分)')
     students = models.IntegerField(default=0, verbose_name='学生人数')
     fav_nums = models.IntegerField(default=0, verbose_name='收藏人数')
-    image = models.ImageField(upload_to='courseimg/%Y-%m-%d', max_length=100, verbose_name='封面')
+    image = models.ImageField(upload_to='courses/%Y/%m', max_length=100, verbose_name='封面')
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间')
 
@@ -70,7 +70,7 @@ class CourseResource(models.Model):
     course = models.ForeignKey(Course, on_delete=models.DO_NOTHING, verbose_name='课程外键')
     name = models.CharField(max_length=50, verbose_name='课程资源名')
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间')
-    download = models.FileField(upload_to='courseres/%Y-%m-%d', max_length=100, verbose_name='下载地址')
+    download = models.FileField(upload_to='course/resource/%Y/%m', max_length=100, verbose_name='下载地址')
 
     class Meta:
         verbose_name = '课程下载资源表'

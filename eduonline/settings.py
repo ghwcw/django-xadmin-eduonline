@@ -69,7 +69,7 @@ ROOT_URLCONF = 'eduonline.urls'  # 这里需要据实修改
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,10 +138,10 @@ STATIC_URL = '/static/'
 # STATIC_ROOT=os.path.join(BASE_DIR, 'collected_statics').replace('\\', '/')
 
 # 静态文件的公用目录，但不能与STATIC_ROOT冲突！
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'common_static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # 上传媒体文件
-MEDIA_URL = '/media/'
+MEDIA_URL = '/static/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 
 # 缓存配置，下方一般限开发者用

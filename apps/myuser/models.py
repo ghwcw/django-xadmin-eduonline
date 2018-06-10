@@ -16,7 +16,7 @@ class UserProfile(AbstractUser):
     gender = models.CharField(max_length=5, choices=GENDER_CHOICE, default=GENDER_CHOICE[0][0], verbose_name='性别')
     address = models.CharField(max_length=150, null=True, blank=True, verbose_name='地址')
     mobile = models.CharField(max_length=11, null=True, blank=True, verbose_name='手机号')
-    image = models.ImageField(max_length=100, upload_to='headimg/%Y-%m-%d', default='headimg/default.jpg',
+    image = models.ImageField(max_length=100, upload_to='image/%Y/%m', default='image/default.jpg',
                               verbose_name='上传的图片')
 
     class Meta:
@@ -51,7 +51,7 @@ class Banner(models.Model):
     轮播图表
     '''
     title = models.CharField(max_length=100, verbose_name='标题')
-    image = models.ImageField(max_length=100, upload_to='bannerimage/%Y-%m-%d', verbose_name='轮播图片地址')
+    image = models.ImageField(max_length=100, upload_to='banner/%Y/%m', verbose_name='轮播图片地址')
     imgurl = models.URLField(max_length=200, verbose_name='轮播图跳转URL')
     index = models.IntegerField(default=100, verbose_name='顺序')
     add_time = models.DateTimeField(auto_now_add=True)
