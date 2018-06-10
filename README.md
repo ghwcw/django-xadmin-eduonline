@@ -1,2 +1,3 @@
 # eduonline v1.0
-基于Django框架的网上课程系统。
+基于Django框架的网络课程系统。
+后台管理系统基于强大的Xadmin。

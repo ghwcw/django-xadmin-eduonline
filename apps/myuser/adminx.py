@@ -11,6 +11,21 @@ Description :
 """
 import xadmin
 from apps.myuser.models import EmailValiRecord, Banner
+from xadmin import views
+
+
+# 定制Xadmin界面
+# ********************** Begin **********************
+class BaseSettings():
+    enable_themes = True
+    use_bootswatch = True
+
+
+class GlobalSettings():
+    site_title = '汪春旺网络课程后台管理系统'
+    site_footer = '2018-汪春旺网络课程有限公司'
+
+# ********************** End **********************
 
 
 class EmailValiRecordAdmin():
@@ -27,3 +42,5 @@ class BannerAdmin():
 
 xadmin.site.register(EmailValiRecord, EmailValiRecordAdmin)
 xadmin.site.register(Banner, BannerAdmin)
+xadmin.site.register(views.BaseAdminView, BaseSettings)
+xadmin.site.register(views.CommAdminView, GlobalSettings)
