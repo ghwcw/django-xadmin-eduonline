@@ -51,7 +51,11 @@ INSTALLED_APPS = [
     'crispy_forms',
 ]
 
+# 自定义的用户表
 AUTH_USER_MODEL = 'myuser.UserProfile'
+
+# 自定义的用户验证后端类
+# AUTHENTICATION_BACKENDS = ['apps.myuser.views.CustomBackend', ]
 
 # 中间件
 MIDDLEWARE = [
