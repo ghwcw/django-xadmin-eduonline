@@ -11,14 +11,16 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # 这里用到了python中一个神奇的变量"__file__"， 这个变量可以获取到当前文件的路径（含文件名）
 # 再来一个os.path.dirname()就是获得上一级目录
 # "BASE_DIR"就是工程根目录
-import sys
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# 如果包含外部APP，Mark成Source Root后可能还需要添加如下配置，否则运行manage.py会报错No module named 'xx'
+# "extraapps"是外部APP上级目录包（Mark成Source Root）
 sys.path.insert(0, os.path.join(BASE_DIR, 'extraapps'))
 
 # Quick-start development settings - unsuitable for production
