@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # 国际化
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
-LANGUAGE_CODE = 'en-us'  # 中文简体是'zh-hans'，Admin后台管理系统的页面语言随之改变
+LANGUAGE_CODE = 'zh-hans'  # 中文简体是'zh-hans'，Admin后台管理系统的页面语言随之改变
 
 # 本地时间
 TIME_ZONE = 'Asia/Shanghai'
