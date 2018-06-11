@@ -1,11 +1,12 @@
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib import messages, auth
+from django.contrib.auth import authenticate
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 
+from apps.myuser.forms import LoginForm
 from apps.myuser.models import UserProfile
 
 
@@ -23,6 +24,15 @@ class CustomBackend(ModelBackend):
             return None
 
 
+class HomePageView(TemplateView):
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        context['flag'] = None
+        return context
+
+
 class IndexView(TemplateView):
     """
     基于通用类视图的首页
@@ -36,7 +46,6 @@ class IndexView(TemplateView):
         return context
 
 
-
 class LoginView(View):
     """
     基于通用类视图的登录验证
@@ -48,12 +57,14 @@ class LoginView(View):
     def post(self, request):
         global username, succ_msg
 
-        if request.method == 'POST':
-            username = request.POST.get('username', None)
-            password = request.POST.get('password', None)
+        form_data = LoginForm(request.POST)
+        if form_data.is_valid():
+            username = form_data.cleaned_data.get('username', None)
+            password = form_data.cleaned_data.get('password', None)
+
             userobj = authenticate(username=username, password=password)
             if userobj is not None:
-                login(request, userobj)
+                auth.login(request, userobj)
                 succ_msg = '欢迎，登录成功！'
                 request.session['username'] = username
                 request.session['succ_msg'] = succ_msg
@@ -61,10 +72,20 @@ class LoginView(View):
             else:
                 messages.error(request, '用户名或密码不正确！')
                 return render(request, 'login.html', locals())
+        else:
+            return render(request, 'login.html', context={'form_data': form_data})
+
+
+class LogoutView(View):
+    def get(self, request):
+        auth.logout(request)
+        return redirect(reverse('home'))
+
+
 
 # ******************************************************************************************* #
 
-#
+
 # def index(request):
 #     """
 #     首页视图
