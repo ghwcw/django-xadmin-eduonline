@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'myuser.UserProfile'
 
 # 自定义的用户验证后端类
-# AUTHENTICATION_BACKENDS = ['apps.myuser.views.CustomBackend', ]
+AUTHENTICATION_BACKENDS = ['apps.myuser.views.CustomBackend', ]
 
 # 中间件
 MIDDLEWARE = [

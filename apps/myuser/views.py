@@ -28,6 +28,8 @@ def index(request):
     :param request:
     :return:
     """
+    username = request.session.get('username', None)
+    succ_msg = request.session.get('succ_msg', None)
     return render(request, 'index.html', context={'username': username, 'succ_msg': succ_msg})
 
 
@@ -38,6 +40,7 @@ def user_login(request):
     :return:
     """
     global username, succ_msg
+
     if request.method == 'POST':
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
@@ -45,7 +48,9 @@ def user_login(request):
         if userobj is not None:
             login(request, userobj)
             succ_msg = '欢迎，登录成功！'
-            return redirect(reverse('index'))
+            request.session['username'] = username
+            request.session['succ_msg'] = succ_msg
+            return redirect(reverse('index'), username=username, succ_msg=succ_msg)
         else:
             messages.error(request, '用户名或密码不正确！')
             return render(request, 'login.html', locals())
