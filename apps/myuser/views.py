@@ -4,6 +4,7 @@ from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views.generic.base import View, TemplateView
 
 from apps.myuser.models import UserProfile
 
@@ -22,38 +23,80 @@ class CustomBackend(ModelBackend):
             return None
 
 
-def index(request):
+class IndexView(TemplateView):
     """
-    首页视图
-    :param request:
-    :return:
+    基于通用类视图的首页
     """
-    username = request.session.get('username', None)
-    succ_msg = request.session.get('succ_msg', None)
-    return render(request, 'index.html', context={'username': username, 'succ_msg': succ_msg})
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['username'] = username
+        context['succ_msg'] = succ_msg
+        return context
 
 
-def user_login(request):
-    """
-    用户登录视图
-    :param request:
-    :return:
-    """
-    global username, succ_msg
 
-    if request.method == 'POST':
-        username = request.POST.get('username', None)
-        password = request.POST.get('password', None)
-        userobj = authenticate(username=username, password=password)
-        if userobj is not None:
-            login(request, userobj)
-            succ_msg = '欢迎，登录成功！'
-            request.session['username'] = username
-            request.session['succ_msg'] = succ_msg
-            return redirect(reverse('index'), username=username, succ_msg=succ_msg)
-        else:
-            messages.error(request, '用户名或密码不正确！')
-            return render(request, 'login.html', locals())
+class LoginView(View):
+    """
+    基于通用类视图的登录验证
+    """
 
-    elif request.method == 'GET':
+    def get(self, request):
         return render(request, 'login.html')
+
+    def post(self, request):
+        global username, succ_msg
+
+        if request.method == 'POST':
+            username = request.POST.get('username', None)
+            password = request.POST.get('password', None)
+            userobj = authenticate(username=username, password=password)
+            if userobj is not None:
+                login(request, userobj)
+                succ_msg = '欢迎，登录成功！'
+                request.session['username'] = username
+                request.session['succ_msg'] = succ_msg
+                return redirect(reverse('index'), username=username, succ_msg=succ_msg)
+            else:
+                messages.error(request, '用户名或密码不正确！')
+                return render(request, 'login.html', locals())
+
+# ******************************************************************************************* #
+
+#
+# def index(request):
+#     """
+#     首页视图
+#     :param request:
+#     :return:
+#     """
+#     username = request.session.get('username', None)
+#     succ_msg = request.session.get('succ_msg', None)
+#     return render(request, 'index.html', context={'username': username, 'succ_msg': succ_msg})
+#
+#
+# def user_login(request):
+#     """
+#     用户登录视图
+#     :param request:
+#     :return:
+#     """
+#     global username, succ_msg
+#
+#     if request.method == 'POST':
+#         username = request.POST.get('username', None)
+#         password = request.POST.get('password', None)
+#         userobj = authenticate(username=username, password=password)
+#         if userobj is not None:
+#             login(request, userobj)
+#             succ_msg = '欢迎，登录成功！'
+#             request.session['username'] = username
+#             request.session['succ_msg'] = succ_msg
+#             return redirect(reverse('index'), username=username, succ_msg=succ_msg)
+#         else:
+#             messages.error(request, '用户名或密码不正确！')
+#             return render(request, 'login.html', locals())
+#
+#     elif request.method == 'GET':
+#         return render(request, 'login.html')

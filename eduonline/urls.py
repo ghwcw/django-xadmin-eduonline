@@ -18,9 +18,10 @@ from django.views.generic import TemplateView
 
 import xadmin
 from apps.myuser import views
+from apps.myuser.views import IndexView
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
-    url(r'^$', views.index, name='index'),
+    url(r'^$', IndexView.as_view(), name='index'),
     url(r'^user/', include('apps.myuser.myuserurl')),
 ]
