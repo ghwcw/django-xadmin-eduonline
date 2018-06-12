@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.operation',
     'xadmin',
     'crispy_forms',
+    'captcha',
 ]
 
 # 自定义的用户表

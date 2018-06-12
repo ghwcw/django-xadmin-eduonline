@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-{#{% load staticfiles %}#}
+{% load staticfiles %}
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <title>课程机构列表 - 网络课程教育</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/animate.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <title>首页-网络课程教育</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
-    <script src="/static/js/jquery.min.js" type="text/javascript"></script>
-    <script src="/static/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
 
 </head>
 <body>
@@ -30,14 +30,14 @@
                         <div class="personal">
 
                             <dl class="user fr">
-                                <dd>{{ username }}<img class="down fr" src="/static/images/top_down.png"/></dd>
-                                <dt><img width="20" height="20" src="/static/media/image/2016/12/default_big_14.png"/>
+                                <dd>{{ username }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
+                                <dt><img width="20" height="20" src="{% static 'media/image/2016/12/default_big_14.png' %}"/>
                                 </dt>
                             </dl>
                             <div class="userdetail">
                                 <dl>
                                     <dt><img width="80" height="80"
-                                             src="/static/media/image/2016/12/default_big_14.png"/></dt>
+                                             src="{% static 'media/image/2016/12/default_big_14.png' %}"/></dt>
                                     <dd>
                                         <h2>{{ request.user.nick_name }}</h2>
                                         <p>{{ username }}</p>
@@ -51,11 +51,11 @@
                         </div>
                     {% elif not flag %}
                         <!--未登录-->
-                        <a style="color:white" class="fr registerbtn" href="register.html">注册</a>
+                        <a style="color:white" class="fr registerbtn" href="{% url 'myuser:register' %}">注册</a>
                         <a style="color:white" class="fr loginbtn" href="{% url 'myuser:login' %}">登录</a>
                     {% else %}
                         <!--未登录-->
-                        <a style="color:white" class="fr registerbtn" href="register.html">注册</a>
+                        <a style="color:white" class="fr registerbtn" href="{% url 'myuser:register' %}">注册</a>
                         <a style="color:white" class="fr loginbtn" href="{% url 'myuser:login' %}">登录</a>
                     {% endif %}
 
@@ -64,7 +64,7 @@
 
             <div class="middle">
                 <div class="wp">
-                    <a href="index.html"><img class="fl" src="/static/images/logo.jpg"/></a>
+                    <a href="{% url 'index' %}"><img class="fl" src="{% static 'images/logo.jpg' %}"/></a>
                     <div class="searchbox fr">
                         <div class="selectContainer fl">
                             <span class="selectOption" id="jsSelectOption" data-value="course">
@@ -77,7 +77,7 @@
                             </ul>
                         </div>
                         <input id="search_keywords" class="fl" type="text" value="" placeholder="请输入搜索内容"/>
-                        <img class="search_btn fr" id="jsSearchBtn" src="/static/images/search_btn.png"/>
+                        <img class="search_btn fr" id="jsSearchBtn" src="{% static 'images/search_btn.png' %}"/>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                             <li class="active"><a href="{% url 'index' %}">首页</a></li>
                             <li>
                                 <a href="course-list.html">
-                                    公开课<img class="hot" src="/static/images/nav_hot.png">
+                                    公开课<img class="hot" src="{% static 'images/nav_hot.png' %}">
                                 </a>
                             </li>
                             <li>
@@ -117,35 +117,35 @@
                     <li>
                         <a href="http://www.imooc.com">
                             <img width="1200" height="478"
-                                 src="/static/media/banner/2016/11/57a801860001c34b12000460.jpg"/>
+                                 src="{% static 'media/banner/2016/11/57a801860001c34b12000460.jpg' %}"/>
                         </a>
                     </li>
 
                     <li>
                         <a href="http://www.projectsedu.com">
                             <img width="1200" height="478"
-                                 src="/static/media/banner/2016/11/57aa86a0000145c512000460.jpg"/>
+                                 src="{% static 'media/banner/2016/11/57aa86a0000145c512000460.jpg' %}"/>
                         </a>
                     </li>
 
                     <li>
                         <a href="http://www.projectsedu.com">
                             <img width="1200" height="478"
-                                 src="/static/media/banner/2016/11/57a801860001c34b12000460_z4Vb8zl.jpg"/>
+                                 src="{% static 'media/banner/2016/11/57a801860001c34b12000460_z4Vb8zl.jpg' %}"/>
                         </a>
                     </li>
 
                     <li>
                         <a href="http://www.projectsedu.com">
                             <img width="1200" height="478"
-                                 src="/static/media/banner/2016/11/57aa86a0000145c512000460_nMwvoQD.jpg"/>
+                                 src="{% static 'media/banner/2016/11/57aa86a0000145c512000460_nMwvoQD.jpg' %}"/>
                         </a>
                     </li>
 
                     <li>
                         <a href="http://www.projectsedu.com">
                             <img width="1200" height="478"
-                                 src="/static/media/banner/2016/11/57aa86a0000145c512000460_GXIBATC.jpg"/>
+                                 src="{% static 'media/banner/2016/11/57aa86a0000145c512000460_GXIBATC.jpg' %}"/>
                         </a>
                     </li>
 
@@ -166,19 +166,19 @@
     <div class="wp">
         <ul class="feature">
             <li class="feature1">
-                <img class="pic" src="/static/images/feature1.png"/>
+                <img class="pic" src="{% static 'images/feature1.png' %}"/>
                 <p class="center">专业权威</p>
             </li>
             <li class="feature2">
-                <img class="pic" src="/static/images/feature2.png"/>
+                <img class="pic" src="{% static 'images/feature2.png' %}"/>
                 <p class="center">课程最新</p>
             </li>
             <li class="feature3">
-                <img class="pic" src="/static/images/feature3.png"/>
+                <img class="pic" src="{% static 'images/feature3.png' %}"/>
                 <p class="center">名师授课</p>
             </li>
             <li class="feature4">
-                <img class="pic" src="/static/images/feature4.png"/>
+                <img class="pic" src="{% static 'images/feature4.png' %}"/>
                 <p class="center">数据真实</p>
             </li>
         </ul>
@@ -192,7 +192,7 @@
             <h1>公开课程</h1>
             <div class="module1 eachmod">
                 <div class="module1_1 left">
-                    <img width="228" height="614" src="/static/images/module1_1.jpg"/>
+                    <img width="228" height="614" src="{% static 'images/module1_1.jpg' %}"/>
                     <p class="fisrt_word">名师授课<br/>专业权威</p>
                     <a class="more" href="course-list.html">查看更多课程 ></a>
                 </div>
@@ -204,14 +204,14 @@
                                 <li>
                                     <a href="course-detail.html">
                                         <img width="470" height="300"
-                                             src="/static/media/courses/2016/12/python文件处理.jpg"/>
+                                             src="{% static 'media/courses/2016/12/python文件处理.jpg' %}"/>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="course-detail.html">
                                         <img width="470" height="300"
-                                             src="/static/media/courses/2016/12/python面向对象.jpg"/>
+                                             src="{% static 'media/courses/2016/12/python面向对象.jpg' %}"/>
                                     </a>
                                 </li>
 
@@ -223,7 +223,7 @@
 
                     <div class="module1_3 box">
                         <a href="course-detail.html">
-                            <img width="233" height="190" src="/static/media/courses/2016/11/mysql.jpg"/>
+                            <img width="233" height="190" src="{% static 'media/courses/2016/11/mysql.jpg' %}"/>
                         </a>
                         <div class="des">
                             <a href="course-detail.html">
@@ -233,7 +233,7 @@
                             <span class="fr">学习人数：3</span>
                         </div>
                         <div class="bottom">
-                            <span class="fl" title="慕课网">慕课网</span>
+                            <span class="fl" title="汪春旺教育网">汪春旺教育网</span>
                             <span class="star fr">0</span>
                         </div>
                     </div>
@@ -241,7 +241,7 @@
                     <div class="module1_4 box">
                         <a href="course-detail.html">
                             <img width="233" height="190"
-                                 src="/static/media/courses/2016/11/57035ff200014b8a06000338-240-135.jpg"/>
+                                 src="{% static 'media/courses/2016/11/57035ff200014b8a06000338-240-135.jpg' %}"/>
                         </a>
                         <div class="des">
                             <a href="course-detail.html">
@@ -259,7 +259,7 @@
                     <div class="module1_5 box">
                         <a href="course-detail.html">
                             <img width="233" height="190"
-                                 src="/static/media/courses/2016/11/540e57300001d6d906000338-240-135.jpg"/>
+                                 src="{% static 'media/courses/2016/11/540e57300001d6d906000338-240-135.jpg' %}"/>
                         </a>
                         <div class="des">
                             <a href="course-detail.html">
@@ -277,7 +277,7 @@
                     <div class="module1_6 box">
                         <a href="course-detail.html">
                             <img width="233" height="190"
-                                 src="/static/media/courses/2016/11/57035ff200014b8a06000338-240-135_dHfj8Nq.jpg"/>
+                                 src="{% static 'media/courses/2016/11/57035ff200014b8a06000338-240-135_dHfj8Nq.jpg' %}"/>
                         </a>
                         <div class="des">
                             <a href="course-detail.html">
@@ -287,7 +287,7 @@
                             <span class="fr">学习人数：0</span>
                         </div>
                         <div class="bottom">
-                            <span class="fl" title="慕课网2">慕课网2</span>
+                            <span class="fl" title="汪春旺教育网2">汪春旺教育网2</span>
                             <span class="star fr">0</span>
                         </div>
                     </div>
@@ -295,7 +295,7 @@
                     <div class="module1_7 box">
                         <a href="course-detail.html">
                             <img width="233" height="190"
-                                 src="/static/media/courses/2016/11/57035ff200014b8a06000338-240-135_0nFiBSI.jpg"/>
+                                 src="{% static 'media/courses/2016/11/57035ff200014b8a06000338-240-135_0nFiBSI.jpg' %}"/>
                         </a>
                         <div class="des">
                             <a href="course-detail.html">
@@ -305,7 +305,7 @@
                             <span class="fr">学习人数：1</span>
                         </div>
                         <div class="bottom">
-                            <span class="fl" title="慕课网3">慕课网3</span>
+                            <span class="fl" title="汪春旺教育网3">汪春旺教育网3</span>
                             <span class="star fr">0</span>
                         </div>
                     </div>
@@ -313,7 +313,7 @@
                     <div class="module1_8 box">
                         <a href="course-detail.html">
                             <img width="233" height="190"
-                                 src="/static/media/courses/2016/11/540e57300001d6d906000338-240-135_MSIqfvw.jpg"/>
+                                 src="{% static 'media/courses/2016/11/540e57300001d6d906000338-240-135_MSIqfvw.jpg' %}"/>
                         </a>
                         <div class="des">
                             <a href="course-detail.html">
@@ -323,7 +323,7 @@
                             <span class="fr">学习人数：0</span>
                         </div>
                         <div class="bottom">
-                            <span class="fl" title="慕课网666">慕课网666</span>
+                            <span class="fl" title="汪春旺教育网666">汪春旺教育网666</span>
                             <span class="star fr">0</span>
                         </div>
                     </div>
@@ -339,7 +339,7 @@
             <h1>课程机构</h1>
             <div class="module3 eachmod">
                 <div class="module3_1 left">
-                    <img width="228" height="463" src="/static/images/module3_1.jpg"/>
+                    <img width="228" height="463" src="{% static 'images/module3_1.jpg' %}"/>
                     <p class="fisrt_word">名校来袭<br/>权威认证</p>
                     <a class="more" href="org-list.html">查看更多机构 ></a>
                 </div>
@@ -349,21 +349,21 @@
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/imooc.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/imooc.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
                                         </div>
                                     </div>
                                 </div>
-                                <p><span class="key" title="慕课网">慕课网</span></p>
+                                <p><span class="key" title="汪春旺教育网">汪春旺教育网</span></p>
                             </a>
                         </li>
 
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/bjdx.jpg"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/bjdx.jpg' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
@@ -377,7 +377,7 @@
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/qhdx-logo.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/qhdx-logo.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
@@ -391,7 +391,7 @@
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/njdx.jpg"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/njdx.jpg' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
@@ -405,91 +405,91 @@
                         <li class="five">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/imooc_klgAUn5.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/imooc_klgAUn5.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
                                         </div>
                                     </div>
                                 </div>
-                                <p><span class="key" title="慕课网2">慕课网2</span></p>
+                                <p><span class="key" title="汪春旺教育网2">汪春旺教育网2</span></p>
                             </a>
                         </li>
 
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/imooc_Gn1sRjp.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/imooc_Gn1sRjp.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
                                         </div>
                                     </div>
                                 </div>
-                                <p><span class="key" title="慕课网3">慕课网3</span></p>
+                                <p><span class="key" title="汪春旺教育网3">汪春旺教育网3</span></p>
                             </a>
                         </li>
 
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/imooc_Y2Tonsq.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/imooc_Y2Tonsq.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
                                         </div>
                                     </div>
                                 </div>
-                                <p><span class="key" title="慕课网3">慕课网3</span></p>
+                                <p><span class="key" title="汪春旺教育网3">汪春旺教育网3</span></p>
                             </a>
                         </li>
 
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/imooc_OO2ykYP.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/imooc_OO2ykYP.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
                                         </div>
                                     </div>
                                 </div>
-                                <p><span class="key" title="慕课网4">慕课网4</span></p>
+                                <p><span class="key" title="汪春旺教育网4">汪春旺教育网4</span></p>
                             </a>
                         </li>
 
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/imooc_V0TJOyb.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/imooc_V0TJOyb.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
                                         </div>
                                     </div>
                                 </div>
-                                <p><span class="key" title="慕课网5">慕课网5</span></p>
+                                <p><span class="key" title="汪春旺教育网5">汪春旺教育网5</span></p>
                             </a>
                         </li>
 
                         <li class="five">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/11/imooc_qEaMov1.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/11/imooc_qEaMov1.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
                                         </div>
                                     </div>
                                 </div>
-                                <p><span class="key" title="慕课网666">慕课网666</span></p>
+                                <p><span class="key" title="汪春旺教育网666">汪春旺教育网666</span></p>
                             </a>
                         </li>
 
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/12/bjdx.jpg"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/12/bjdx.jpg' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
@@ -503,7 +503,7 @@
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/12/imooc_Gn1sRjp.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/12/imooc_Gn1sRjp.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
@@ -517,7 +517,7 @@
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/12/bjdx_cCpdUw8.jpg"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/12/bjdx_cCpdUw8.jpg' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
@@ -531,7 +531,7 @@
                         <li class="">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/12/imooc_klgAUn5.png"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/12/imooc_klgAUn5.png' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
@@ -545,7 +545,7 @@
                         <li class="five">
                             <a href="org-detail-homepage.html">
                                 <div class="company">
-                                    <img width="184" height="100" src="/static/media/org/2016/12/bjdx_bcd0m07.jpg"/>
+                                    <img width="184" height="100" src="{% static 'media/org/2016/12/bjdx_bcd0m07.jpg' %}"/>
                                     <div class="score">
                                         <div class="circle">
                                             <h2>全国知名</h2>
@@ -567,10 +567,10 @@
     <div class="footer">
         <div class="wp">
             <ul class="cont">
-                <li class="logo"><a href="{% url 'index' %}"><img src="/static/images/footlogo.png"/></a></li>
-                <li class="code"><img src="/static/images/code.jpg"/>
+                <li class="logo"><a href="{% url 'index' %}"><img src="{% static 'images/footlogo.png' %}"/></a></li>
+                <li class="code"><img src="{% static 'images/code.jpg' %}"/>
                     <p class="center">扫描关注微信</p></li>
-                <li class="third"><img class="fl" src="/static/images/tell.png"/>
+                <li class="third"><img class="fl" src="{% static 'images/tell.png' %}"/>
                     <p class="tell">010-12346688</p>
                     <p class="time">周一至周日 9:00-18:00</p></li>
             </ul>
@@ -592,16 +592,16 @@
         <li class="totop"></li>
     </ul>
 </section>
-<script src="/static/js/selectUi.js" type='text/javascript'></script>
-<script src="/static/js/deco-common.js" type='text/javascript'></script>
-<script type="text/javascript" src="/static/js/plugins/laydate/laydate.js"></script>
-<script src="/static/js/plugins/layer/layer.js"></script>
-<script src="/static/js/plugins/queryCity/js/public.js" type="text/javascript"></script>
-<script src="/static/js/unslider.js" type="text/javascript"></script>
-<script src="/static/js/plugins/jquery.scrollLoading.js" type="text/javascript"></script>
-<script src="/static/js/deco-common.js" type="text/javascript"></script>
+<script src="{% static 'js/selectUi.js' %}" type='text/javascript'></script>
+<script src="{% static 'js/deco-common.js' %}" type='text/javascript'></script>
+<script type="text/javascript" src="{% static 'js/plugins/laydate/laydate.js' %}"></script>
+<script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+<script src="{% static 'js/plugins/queryCity/js/public.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/unslider.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/plugins/jquery.scrollLoading.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/deco-common.js' %}" type="text/javascript"></script>
 
-<script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 
 </body>
 </html>

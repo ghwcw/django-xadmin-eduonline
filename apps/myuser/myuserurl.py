@@ -10,11 +10,12 @@ Description :
 -------------------------------------------------------------
 """
 from django.conf.urls import url
-from apps.myuser.views import LoginView, LogoutView
+from apps.myuser.views import LoginView, LogoutView, RegisterView
 
 app_name = 'myuser'
 urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
+    url(r'^register/$', RegisterView.as_view(), name='register'),
 
 ]

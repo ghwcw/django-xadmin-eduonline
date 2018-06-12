@@ -4,9 +4,10 @@ from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import View, TemplateView
 
-from apps.myuser.forms import LoginForm
+from apps.myuser.forms import LoginForm, RegisterForm
 from apps.myuser.models import UserProfile
 
 
@@ -25,6 +26,9 @@ class CustomBackend(ModelBackend):
 
 
 class HomePageView(TemplateView):
+    """
+    基于通用类视图的首页(首次登陆)
+    """
     template_name = "index.html"
 
     def get_context_data(self, **kwargs):
@@ -35,7 +39,7 @@ class HomePageView(TemplateView):
 
 class IndexView(TemplateView):
     """
-    基于通用类视图的首页
+    基于通用类视图的首页(重定向后)
     """
     template_name = 'index.html'
 
@@ -77,9 +81,30 @@ class LoginView(View):
 
 
 class LogoutView(View):
+    """
+    退出
+    """
+
     def get(self, request):
         auth.logout(request)
         return redirect(reverse('home'))
+
+
+class RegisterView(View):
+    """
+    注册用户
+    """
+
+    def get(self, request):
+        reg_form = RegisterForm()
+        return render(request, template_name='register.html', context={'reg_form': reg_form})
+
+    def post(self, request):
+        reg_form = RegisterForm(request.POST)
+        if reg_form.is_valid():
+            pass
+
+
 
 
 

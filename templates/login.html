@@ -42,7 +42,7 @@
             <ul class="fr hd-bar">
                 <li>服务电话：<span>010-12346688</span></li>
                 <li class="active"><a href="{% url 'myuser:login' %}">[登录]</a></li>
-                <li><a href="register.html">[注册]</a></li>
+                <li><a href={% url 'myuser:register' %}>[注册]</a></li>
             </ul>
         </div>
     </div>
@@ -95,7 +95,7 @@
 
                     <input class="btn btn-green" id="jsLoginBtn" type="submit" value="立即登录 > "/>
                 </form>
-                <p class="form-p">没有帐号？<a href="register.html">[立即注册]</a></p>
+                <p class="form-p">没有帐号？<a href={% url 'myuser:register' %}>[立即注册]</a></p>
             </div>
         </div>
     </div>
