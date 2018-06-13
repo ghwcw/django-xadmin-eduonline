@@ -1,14 +1,15 @@
 from django.contrib import messages, auth
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, hashers
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import View, TemplateView
 
 from apps.myuser.forms import LoginForm, RegisterForm
-from apps.myuser.models import UserProfile
+from apps.myuser.models import UserProfile, EmailValiRecord
+from custmethods.send_email import SendEmail
 
 
 class CustomBackend(ModelBackend):
@@ -68,11 +69,15 @@ class LoginView(View):
 
             userobj = authenticate(username=username, password=password)
             if userobj is not None:
-                auth.login(request, userobj)
-                succ_msg = '欢迎，登录成功！'
-                request.session['username'] = username
-                request.session['succ_msg'] = succ_msg
-                return redirect(reverse('index'), username=username, succ_msg=succ_msg)
+                if userobj.is_active:
+                    auth.login(request, userobj)
+                    succ_msg = '欢迎，登录成功！'
+                    request.session['username'] = username
+                    request.session['succ_msg'] = succ_msg
+                    return redirect(reverse('index'), username=username, succ_msg=succ_msg)
+                else:
+                    messages.error(request, '用户名未激活！')
+                    return render(request, 'login.html', locals())
             else:
                 messages.error(request, '用户名或密码不正确！')
                 return render(request, 'login.html', locals())
@@ -102,9 +107,46 @@ class RegisterView(View):
     def post(self, request):
         reg_form = RegisterForm(request.POST)
         if reg_form.is_valid():
-            pass
+            email = reg_form.cleaned_data.get('email', '')
+            if UserProfile.objects.filter(email=email):
+                messages.error(request, '用户名已存在！')
+                return render(request, 'register.html', {'reg_form': reg_form})
+            password = reg_form.cleaned_data.get('password', '')
+            user_profile = UserProfile()
+            user_profile.username = email
+            user_profile.email = email
+            user_profile.password = hashers.make_password(password=password)  # 没有加盐
+            user_profile.is_active = 0      # 还未邮箱验证，所以设为未激活0
+
+            # 发送注册邮件
+            send_email = SendEmail(email, send_type='register')
+            send_status = send_email.send_acti_email()
+            if send_status:
+                user_profile.save()
+                reg_msg = 'OK！邮件已发送，请登录您的邮箱按提示激活。。'
+                return render(request, 'register.html', {'send_status': send_status, 'reg_msg': reg_msg})
+            else:
+                return render(request, 'register.html', {'reg_form': reg_form})
+        else:
+            return render(request, 'register.html', {'reg_form': reg_form})
 
 
+class ActivateView(View):
+    """
+    邮箱验证
+    """
+
+    def get(self, request, activate_reg_code):
+        email_vali = EmailValiRecord.objects.filter(code=activate_reg_code).last()
+        if email_vali:
+            email = email_vali.email
+            user = UserProfile.objects.get(email=email)
+            user.is_active = 1
+            user.save()
+
+            return HttpResponse('<h1>✔激活成功☞<a href="http://127.0.0.1:8000/user/login" %}">返回登录页面</a></h1>')
+        else:
+            return HttpResponse('<h1>✘激活失败</h1>')
 
 
 

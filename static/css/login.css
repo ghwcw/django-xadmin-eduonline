@@ -266,6 +266,14 @@ a:hover {
     margin: 10px 0;
 }
 
+.success {
+    background: #36a438;
+    color: #fff !important;
+    text-align: center;
+    line-height: 40px !important;
+    margin: 10px 0;
+}
+
 .form-group {
     position: relative;
     width: 288px;
@@ -438,7 +446,7 @@ a:hover {
     bottom: 0;
     left: 0;
     overflow: auto;
-    display: none;
+    //display: none;
     z-index: 9999;
 }
 

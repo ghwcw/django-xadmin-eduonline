@@ -8,6 +8,7 @@
     <title>汪春旺教育网在线注册</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
 </head>
 <body>
@@ -38,6 +39,7 @@
         </form>
     </div>
 </div>
+
 <div class="dialog" id="jsDialog">
     <!--提示弹出框-->
     <div class="successbox dialogbox" id="jsSuccessTips">
@@ -135,11 +137,11 @@
 
                 <div class="tab-form">
                     <form id="email_register_form" method="post" action="{% url 'myuser:register' %}" autocomplete="off">
-                        <div class="form-group marb20 ">
+                        <div class="form-group marb20 {% if reg_form.errors.email %}errorput{% endif %}">
                             <label>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-                            <input  type="text" id="id_email" name="email" placeholder="请输入您的邮箱地址" />
+                            <input  type="text" id="id_email" name="email" value="{{ reg_form.email.value }}" placeholder="请输入您的邮箱地址" />
                         </div>
-                        <div class="form-group marb8 ">
+                        <div class="form-group marb8 {% if reg_form.errors.password %}errorput{% endif %}">
                             <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
                             <input type="password" id="id_password" name="password" placeholder="请输入6-20位非中文字符密码" />
                         </div>
@@ -158,6 +160,12 @@
                                 {{ reg_form.errors.password }}
                             {% endif %}
                         </div>
+                        <!--注册邮件发送成功提示-->
+                        {% if send_status %}
+                           <div class="success btns" id="jsEmailTips">
+                                {{ reg_msg }}
+                           </div>
+                        {% endif %}
                         <div class="auto-box marb8">
                         </div>
                         <input class="btn btn-green" id="jsEmailRegBtn" type="submit" value="注册并登录" />
