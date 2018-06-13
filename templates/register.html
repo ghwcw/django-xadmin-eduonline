@@ -8,7 +8,6 @@
     <title>汪春旺教育网在线注册</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
 </head>
 <body>
@@ -139,13 +138,13 @@
                     <form id="email_register_form" method="post" action="{% url 'myuser:register' %}" autocomplete="off">
                         <div class="form-group marb20 {% if reg_form.errors.email %}errorput{% endif %}">
                             <label>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-                            <input  type="text" id="id_email" name="email" value="{{ reg_form.email.value }}" placeholder="请输入您的邮箱地址" />
+                            <input  type="text" id="id_email" name="email" value="" placeholder="请输入您的邮箱地址" />
                         </div>
                         <div class="form-group marb8 {% if reg_form.errors.password %}errorput{% endif %}">
                             <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
                             <input type="password" id="id_password" name="password" placeholder="请输入6-20位非中文字符密码" />
                         </div>
-                        <div class="form-group marb8 captcha1 ">
+                        <div class="form-group marb8 captcha1 {% if reg_form.errors.captcha %}errorput{% endif %}">
                             <!-- django-simple-captcha验证码插件 -->
                             <label>验&nbsp;证&nbsp;码</label>
                             {{ reg_form.captcha }}
@@ -155,8 +154,8 @@
                             {% for msg in messages %}
                                 {{ msg }}
                             {% endfor %}
-                            {% if reg_form.errors.username or reg_form.errors.password %}
-                                {{ reg_form.errors.username }}
+                            {% if reg_form.errors.email or reg_form.errors.password %}
+                                {{ reg_form.errors.email }}
                                 {{ reg_form.errors.password }}
                             {% endif %}
                         </div>

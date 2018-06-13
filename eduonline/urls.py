@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.views.generic import TemplateView
 
 import xadmin
-from apps.myuser.views import IndexView, HomePageView, ActivateView
+from apps.myuser.views import IndexView, HomePageView, ActivateRegView, ActivateForgetView
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^test/$', TemplateView.as_view(template_name='test.html')),
     url(r'^user/', include('apps.myuser.myuserurl')),
     url(r'^captcha/', include('captcha.urls')),
-    url(r'^activate/reg/(?P<activate_reg_code>.*)/$', ActivateView.as_view(), name='activate_reg'),
+    url(r'^activate/reg/(?P<activate_reg_code>.*)/$', ActivateRegView.as_view(), name='activate_reg'),
+    url(r'^activate/forget/(?P<activate_forget_code>.*)/$', ActivateForgetView.as_view(), name='activate_forget'),
 
 ]

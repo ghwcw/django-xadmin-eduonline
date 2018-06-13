@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 
-from apps.myuser.forms import LoginForm, RegisterForm
+from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm
 from apps.myuser.models import UserProfile, EmailValiRecord
 from custmethods.send_email import SendEmail
 
@@ -116,7 +116,7 @@ class RegisterView(View):
             user_profile.username = email
             user_profile.email = email
             user_profile.password = hashers.make_password(password=password)  # 没有加盐
-            user_profile.is_active = 0      # 还未邮箱验证，所以设为未激活0
+            user_profile.is_active = 0  # 还未邮箱验证，所以设为未激活0
 
             # 发送注册邮件
             send_email = SendEmail(email, send_type='register')
@@ -131,7 +131,7 @@ class RegisterView(View):
             return render(request, 'register.html', {'reg_form': reg_form})
 
 
-class ActivateView(View):
+class ActivateRegView(View):
     """
     邮箱验证
     """
@@ -147,6 +147,58 @@ class ActivateView(View):
             return HttpResponse('<h1>✔激活成功☞<a href="http://127.0.0.1:8000/user/login" %}">返回登录页面</a></h1>')
         else:
             return HttpResponse('<h1>✘激活失败</h1>')
+
+
+class ForgetPwdView(View):
+    def get(self, request):
+        forget_pwd_form = ForgetPwdForm()
+        return render(request, 'forgetpwd.html', context={'forget_pwd_form': forget_pwd_form})
+
+    def post(self, request):
+        forget_pwd_form = ForgetPwdForm(request.POST)
+        if forget_pwd_form.is_valid():
+            email = forget_pwd_form.cleaned_data.get('email', '')
+            user = UserProfile.objects.filter(email=email)
+            if not user:
+                messages.error(request, '用户名不存在！')
+                return render(request, 'forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
+
+            # 发送重置密码邮件
+            send_email = SendEmail(email, send_type='forget')
+            send_status = send_email.send_acti_email()
+            if send_status:
+                forget_msg = 'OK！邮件已发送，请登录您的邮箱按提示重置密码。。'
+                return render(request, 'forgetpwd.html', {'send_status': send_status, 'forget_msg': forget_msg})
+            else:
+                return render(request, 'forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
+        else:
+            return render(request, 'forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
+
+
+class ActivateForgetView(View):
+    """
+    重置密码验证
+    """
+
+    def get(self, request, activate_forget_code):
+        email_vali = EmailValiRecord.objects.filter(code=activate_forget_code).last()
+        if email_vali:
+            email = email_vali.email
+            return HttpResponse(
+                '<h1>✔验证成功☞<a href="http://127.0.0.1:8000/user/resetpwd/{0}">立即重置密码</a></h1>'.format(email))
+        else:
+            return HttpResponse('<h1>✘验证失败</h1>')
+
+
+class ResetPwdView(View):
+    """
+    重置密码
+    """
+    def get(self, request):
+
+        return render(request, 'password_reset.html')
+
+
 
 
 
