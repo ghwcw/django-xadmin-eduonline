@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 
-from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm
+from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm
 from apps.myuser.models import UserProfile, EmailValiRecord
 from custmethods.send_email import SendEmail
 
@@ -150,6 +150,9 @@ class ActivateRegView(View):
 
 
 class ForgetPwdView(View):
+    """
+    忘记密码
+    """
     def get(self, request):
         forget_pwd_form = ForgetPwdForm()
         return render(request, 'forgetpwd.html', context={'forget_pwd_form': forget_pwd_form})
@@ -177,15 +180,15 @@ class ForgetPwdView(View):
 
 class ActivateForgetView(View):
     """
-    重置密码验证
+    邮箱重置密码验证
     """
 
     def get(self, request, activate_forget_code):
         email_vali = EmailValiRecord.objects.filter(code=activate_forget_code).last()
         if email_vali:
-            email = email_vali.email
             return HttpResponse(
-                '<h1>✔验证成功☞<a href="http://127.0.0.1:8000/user/resetpwd/{0}">立即重置密码</a></h1>'.format(email))
+                '<h1>✔验证成功☞<a href="http://127.0.0.1:8000/user/resetpwd/{0}">立即重置密码</a></h1>'.format(
+                    activate_forget_code))
         else:
             return HttpResponse('<h1>✘验证失败</h1>')
 
@@ -194,13 +197,24 @@ class ResetPwdView(View):
     """
     重置密码
     """
-    def get(self, request):
 
-        return render(request, 'password_reset.html')
+    def get(self, request, email_code):
+        email_vali = EmailValiRecord.objects.filter(code=email_code).last()
+        if email_vali:
+            reset_email = email_vali.email
+            return render(request, 'password_reset.html', context={'reset_email': reset_email})
+        else:
+            return HttpResponse('<h1>未进行邮箱验证，不能修改密码！</h1>')
 
-
-
-
+    def post(self, request):
+        reset_pwd_form = ResetPwdForm(request.POST)
+        if reset_pwd_form.is_valid():
+            emial = reset_pwd_form.cleaned_data.get('email', '')
+            pwd1 = reset_pwd_form.cleaned_data.get('password1', '')
+            pwd2 = reset_pwd_form.cleaned_data.get('password2', '')
+            if pwd1 != pwd2:
+                return render(request, 'password_reset.html', context={'msg': '两次输入的密码不一致。'})
+        return HttpResponse('TODO')
 
 # ******************************************************************************************* #
 

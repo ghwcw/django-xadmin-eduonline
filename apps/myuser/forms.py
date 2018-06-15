@@ -38,3 +38,10 @@ class ForgetPwdForm(forms.Form):
     captcha = CaptchaField(required=True, error_messages={'invalid': '验证码错误'})
 
 
+class ResetPwdForm(forms.Form):
+    """
+    重置密码表单
+    """
+    email = forms.EmailField(required=True)
+    password1 = forms.CharField(min_length=6, max_length=20, required=True)
+    password2 = forms.CharField(min_length=6, max_length=20, required=True)
