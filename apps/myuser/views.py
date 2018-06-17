@@ -115,7 +115,7 @@ class RegisterView(View):
             user_profile = UserProfile()
             user_profile.username = email
             user_profile.email = email
-            user_profile.password = hashers.make_password(password=password)  # 没有加盐
+            user_profile.password = hashers.make_password(password=password) # 没有加盐
             user_profile.is_active = 0  # 还未邮箱验证，所以设为未激活0
 
             # 发送注册邮件
@@ -153,6 +153,7 @@ class ForgetPwdView(View):
     """
     忘记密码
     """
+
     def get(self, request):
         forget_pwd_form = ForgetPwdForm()
         return render(request, 'forgetpwd.html', context={'forget_pwd_form': forget_pwd_form})
@@ -209,12 +210,17 @@ class ResetPwdView(View):
     def post(self, request):
         reset_pwd_form = ResetPwdForm(request.POST)
         if reset_pwd_form.is_valid():
-            emial = reset_pwd_form.cleaned_data.get('email', '')
+            email = reset_pwd_form.cleaned_data.get('email', '')
             pwd1 = reset_pwd_form.cleaned_data.get('password1', '')
             pwd2 = reset_pwd_form.cleaned_data.get('password2', '')
             if pwd1 != pwd2:
-                return render(request, 'password_reset.html', context={'msg': '两次输入的密码不一致。'})
-        return HttpResponse('TODO')
+                return render(request, 'password_reset.html', context={'msg': '错误：两次输入的密码不一致，请重新输入。'})
+            else:
+                user = UserProfile.objects.get(email=email)
+                user.password = hashers.make_password(password=pwd1)
+                user.save()
+                return HttpResponse('<h1>密码修改成功！<<<a href="http://127.0.0.1:8000/user/login">请返回登录页面</a></h1>')
+        return render(request, 'password_reset.html', context={'reset_pwd_form': reset_pwd_form})
 
 # ******************************************************************************************* #
 

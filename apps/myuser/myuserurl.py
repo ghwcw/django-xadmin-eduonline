@@ -19,5 +19,6 @@ urlpatterns = [
     url(r'^register/$', RegisterView.as_view(), name='register'),
     url(r'^forgetpwd/$', ForgetPwdView.as_view(), name='forget_pwd'),
     url(r'^resetpwd/(?P<email_code>.*)/$', ResetPwdView.as_view(), name='reset_pwd'),
+    url(r'^resetpwdpost/$', ResetPwdView.as_view(), name='reset_pwd_post'),
 
 ]
