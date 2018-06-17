@@ -82,7 +82,7 @@
                 <form id="jsFindPwdForm" method="post" action="{% url 'myuser:forget_pwd' %}" autocomplete="off">
                     <div class="form-group marb20 {% if forget_pwd_form.errors.email %}errorput{% endif %}">
                         <label>帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
-                        <input type="text" id="account" name="email" value="{{ forget_pwd_form.email.value }}" placeholder="邮箱" />
+                        <input type="text" id="account" name="email" value="{% if forget_pwd_form.email.value %} {{ forget_pwd_form.email.value }} {% endif %}" placeholder="邮箱" />
                     </div>
                     <div class="form-group captcha1 marb38 {% if forget_pwd_form.errors.captcha %}errorput{% endif %}">
                         <label>验&nbsp;证&nbsp;码</label>

@@ -47,7 +47,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         try:
-            context['username'] = username
+            context['username'] = username      # 使用了全局变量
             context['succ_msg'] = succ_msg
         except NameError as e:
             context['username'] = ''
@@ -120,7 +120,7 @@ class RegisterView(View):
             user_profile = UserProfile()
             user_profile.username = email
             user_profile.email = email
-            user_profile.password = hashers.make_password(password=password) # 没有加盐
+            user_profile.password = hashers.make_password(password=password)  # 没有加盐
             user_profile.is_active = 0  # 还未邮箱验证，所以设为未激活0
 
             # 发送注册邮件
