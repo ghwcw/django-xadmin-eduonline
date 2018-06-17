@@ -46,9 +46,14 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['username'] = username
-        context['succ_msg'] = succ_msg
-        return context
+        try:
+            context['username'] = username
+            context['succ_msg'] = succ_msg
+        except NameError as e:
+            context['username'] = ''
+            context['succ_msg'] = ''
+        finally:
+            return context
 
 
 class LoginView(View):
