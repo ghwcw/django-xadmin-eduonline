@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="eduonline">
-  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.8">
-    <root id="1">
-      <ServerVersion>3.20.1</ServerVersion>
-    </root>
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.7">
+    <root id="1"/>
     <schema id="2" parent="1" name="main">
       <Current>1</Current>
       <Visible>1</Visible>
@@ -90,7 +88,8 @@
     <index id="45" parent="7" name="auth_group_permissions_group_id_permission_id_0cd325b0_uniq">
       <ColNames>group_id
 permission_id</ColNames>
-      <ColumnCollations></ColumnCollations>
+      <ColumnCollations>
+</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="46" parent="7" name="auth_group_permissions_group_id_b120cbf9">
@@ -139,7 +138,8 @@ permission_id</ColNames>
     <index id="55" parent="8" name="auth_permission_content_type_id_codename_01ab375a_uniq">
       <ColNames>content_type_id
 codename</ColNames>
-      <ColumnCollations></ColumnCollations>
+      <ColumnCollations>
+</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="56" parent="8" name="auth_permission_content_type_id_2f476e4b">
@@ -442,7 +442,8 @@ codename</ColNames>
     <index id="117" parent="15" name="django_content_type_app_label_model_76bd3d3b_uniq">
       <ColNames>app_label
 model</ColNames>
-      <ColumnCollations></ColumnCollations>
+      <ColumnCollations>
+</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="118" parent="15">
@@ -684,7 +685,8 @@ model</ColNames>
     <index id="166" parent="21" name="myuser_userprofile_groups_userprofile_id_group_id_98f53fbc_uniq">
       <ColNames>userprofile_id
 group_id</ColNames>
-      <ColumnCollations></ColumnCollations>
+      <ColumnCollations>
+</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="167" parent="21" name="myuser_userprofile_groups_userprofile_id_6dc36d4a">
@@ -728,7 +730,8 @@ group_id</ColNames>
     <index id="175" parent="22" name="myuser_userprofile_user_permissions_userprofile_id_permission_id_8765d44a_uniq">
       <ColNames>userprofile_id
 permission_id</ColNames>
-      <ColumnCollations></ColumnCollations>
+      <ColumnCollations>
+</ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="176" parent="22" name="myuser_userprofile_user_permissions_userprofile_id_2b320b0e">

@@ -82,6 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -145,8 +146,11 @@ STATIC_URL = '/static/'
 # 静态文件的公用目录，但不能与STATIC_ROOT冲突！
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# 上传媒体文件
-MEDIA_URL = '/static/media/'
+# 媒体文件(用户上传的文件)配置
+# 不能像静态文件那样调用，而是先配置"TEMPLATES"中的"context_processors"添加'django.template.context_processors.media'；
+# 然后配置URL，如'url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})'；
+# 调用示例：{{ MEDIA_URL }}{{ modelobj.fieldname }}
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 
 # 缓存配置，下方一般限开发者用

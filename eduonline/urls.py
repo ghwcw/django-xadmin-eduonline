@@ -15,18 +15,25 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
+from django.views.static import serve
 
 import xadmin
 from apps.myuser.views import IndexView, HomePageView, ActivateRegView, ActivateForgetView
+from eduonline import settings
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
+
     url(r'^$', HomePageView.as_view(template_name='index.html'), name='home'),
     url(r'^index/$', IndexView.as_view(), name='index'),
     url(r'^test/$', TemplateView.as_view(template_name='test.html')),
+
     url(r'^user/', include('apps.myuser.myuserurl')),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^activate/reg/(?P<activate_reg_code>.*)/$', ActivateRegView.as_view(), name='activate_reg'),
     url(r'^activate/forget/(?P<activate_forget_code>.*)/$', ActivateForgetView.as_view(), name='activate_forget'),
+
+    url(r'^org/', include('apps.organization.orgurl')),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 
 ]
