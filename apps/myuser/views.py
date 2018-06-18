@@ -47,7 +47,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         try:
-            context['username'] = username      # 使用了全局变量
+            context['username'] = username  # 使用了全局变量
             context['succ_msg'] = succ_msg
         except NameError as e:
             context['username'] = ''
