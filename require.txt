@@ -3,6 +3,7 @@ Django==1.11.13
 django-crispy-forms==1.7.2
 django-formtools==2.1
 django-import-export==1.0.1
+django-pure-pagination==0.3.0
 django-reversion==2.0.13
 django-simple-captcha==0.5.5
 et-xmlfile==1.0.1
