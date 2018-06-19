@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic.base import View
 
 from apps.organization.models import CityDict, CourseOrg
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from pure_pagination import Paginator, PageNotAnInteger
 
 
 class OrgListView(View):
@@ -19,7 +19,7 @@ class OrgListView(View):
         all_city = CityDict.objects.all()
         all_org = CourseOrg.objects.all()
 
-        hot_org = CourseOrg.objects.order_by('-click_nums')[:3]
+        hot_org = CourseOrg.objects.order_by('-click_nums')[:3]     # 用于机构排行
 
         # 城市筛选
         city_id = request.GET.get('city', '')
