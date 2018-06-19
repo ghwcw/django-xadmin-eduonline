@@ -13,8 +13,12 @@ class OrgListView(View):
     """
 
     def get(self, request):
-        username = request.session['username']
-        succ_msg = request.session['succ_msg']
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
 
         all_city = CityDict.objects.all()
         all_org = CourseOrg.objects.all()
