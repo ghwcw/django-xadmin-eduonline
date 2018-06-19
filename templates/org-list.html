@@ -31,7 +31,7 @@
                         <div class="personal">
 
                             <dl class="user fr">
-                                <dd>{{ username }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
+                                <dd> {{ username }} <img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
                                 <dt><img width="20" height="20" src="{% static 'media/image/2016/12/default_big_14.png' %}"/>
                                 </dt>
                             </dl>
@@ -117,7 +117,6 @@
     </div>
 </section>
 
-
 <section>
 	<div class="wp butler_list_box list">
 	<div class='left'>
@@ -140,8 +139,10 @@
 					<div class="cont">
                         <a href="?ct="><span class="active2">全部</span></a>
                             
+                        {% for city in all_city %}
+                            <a href="?ct="><span>{{ city }}</span></a>
+                        {% endfor %}
 
-                            
 					</div>
 				</li>
 			</ul>
