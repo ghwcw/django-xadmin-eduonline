@@ -36,4 +36,6 @@ urlpatterns = [
     url(r'^org/', include('apps.organization.orgurl', namespace='org')),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 
+    url(r'^oper/', include('apps.operation.operurl', namespace='oper')),
+
 ]

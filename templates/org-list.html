@@ -242,7 +242,7 @@
                     <input type="text" name="course_name" id="companyAddress" placeholder="课程名" maxlength="50" />
                 </div>
                 <p class="error company-tips" id="jsCompanyTips"></p>
-				<input class="btn" type="text" id="jsStayBtn" value="立即咨询 >" />
+				<input class="btn" type="button" id="jsStayBtn" value="立即咨询 >" />
                 {% csrf_token %}
             </form>
 		</div>
@@ -303,25 +303,27 @@
 <script src="{% static 'js/deco-common.js' %}"  type="text/javascript"></script>
 
 <script>
+
     $(function(){
-        $('#jsStayBtn').on('click', function(){
+        $('#jsStayBtn').click(function(){
             $.ajax({
                 cache: false,
                 type: "POST",
-                url:"/org/add_ask/",
-                data:$('#jsStayForm').serialize(),
+                url: "{% url 'oper:user_ask' %}",
+                data: $('#jsStayForm').serialize(),
                 async: true,
                 success: function(data) {
                     if(data.status == 'success'){
                         $('#jsStayForm')[0].reset();
                         alert("提交成功")
                     }else if(data.status == 'fail'){
-                        $('#jsCompanyTips').html(data.msg)
+                        $('#jsCompanyTips').html(data.errmsg)
                     }
                 },
             });
         });
     })
+
 
 </script>
 
