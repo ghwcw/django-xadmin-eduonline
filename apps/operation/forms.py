@@ -20,6 +20,7 @@ class UserAskForm(forms.ModelForm):
     """
     我要学习表单
     """
+
     class Meta:
         model = UserAsk
         exclude = ['add_time']

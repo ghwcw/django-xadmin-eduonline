@@ -241,7 +241,7 @@
                     <img src="{% static 'images/rightform3.png' %}"/>
                     <input type="text" name="course_name" id="companyAddress" placeholder="课程名" maxlength="50" />
                 </div>
-                <p class="error company-tips" id="jsCompanyTips"></p>
+                <p class="error" id="jsCompanyTips"></p>
 				<input class="btn" type="button" id="jsStayBtn" value="立即咨询 >" />
                 {% csrf_token %}
             </form>
@@ -317,6 +317,7 @@
                         $('#jsStayForm')[0].reset();
                         alert("提交成功")
                     }else if(data.status == 'fail'){
+                        $('#jsCompanyTips').addClass('company-tips');
                         $('#jsCompanyTips').html(data.errmsg)
                     }
                 },

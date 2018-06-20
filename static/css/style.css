@@ -5046,6 +5046,8 @@ footer .footer .line {
     text-align: center;
     color: #fff;
     background-color: #ff261e;
+    height: 25px;
+    padding-top: 8px;
 }
 .companyright .rightform div.errorput {
     border-color: #ff1b11;
