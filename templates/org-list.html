@@ -152,10 +152,11 @@
 		<div class="butler_list company list">
 		<div class="layout">
 			<div class="head">
+{#            排序 #}
 				<ul class="tab_header">
-					<li class="active"><a href="?ct=&city=">全部</a> </li>
-					<li class=""><a href="?sort=students&ct=&city=">学习人数 &#8595;</a></li>
-					<li class=""><a href="?sort=courses&ct=&city=">课程数 &#8595;</a></li>
+					<li class="{% if sort == '' %} active {% endif %}"><a href="?sort=category=&city=">全部</a> </li>
+					<li class="{% if sort == 'students' %} active {% endif %}"><a href="?sort=students&category={{ category }}&city={{ city_id }}">学习人数 &#8595;</a></li>
+					<li class="{% if sort == 'courses' %} active {% endif %}"><a href="?sort=courses&category={{ category }}&city={{ city_id }}">课程数 &#8595;</a></li>
 				</ul>
 			</div>
 
@@ -180,7 +181,7 @@
                              </a>
                         </div>
                         <ul class="cont">
-                            <li class="first"><p class="pic9">课程数：<span>1</span></p><p class="c7">学习人数：<span>1000</span></p></li>
+                            <li class="first"><p class="pic9">课程数：<span>{{ org.courses }}</span></p><p class="c7">学习人数：<span>{{ org.students }}</span></p></li>
                             <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
                             <li class="pic10" style="padding-left:18px;">经典课程：
 
@@ -242,7 +243,7 @@
                 </div>
                 <p class="error company-tips" id="jsCompanyTips"></p>
 				<input class="btn" type="text" id="jsStayBtn" value="立即咨询 >" />
-            <input type='hidden' name='csrfmiddlewaretoken' value='5I2SlleZJOMUX9QbwYLUIAOshdrdpRcy' />
+                {% csrf_token %}
             </form>
 		</div>
 

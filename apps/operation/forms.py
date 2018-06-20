@@ -3,20 +3,18 @@
 """
 -------------------------------------------------------------
     Creator : 汪春旺
-       Date : 2018-06-18
+       Date : 2018-06-20
     Project : eduonline
-   FileName : orgurl.py
+   FileName : forms.py
 Description : 
 -------------------------------------------------------------
 """
-from django.conf.urls import url
+from django import forms
 
-from apps.organization.views import OrgListView
+from apps.operation.models import UserAsk
 
-# app_name = 'org'
 
-urlpatterns = [
-    url(r'^orglist/$', OrgListView.as_view(), name='orglist'),
-
-]
-
+class UserAskForm(forms.ModelForm):
+    class Meta:
+        model = UserAsk
+        exclude = ['add_time']

@@ -28,12 +28,12 @@ urlpatterns = [
     url(r'^index/$', IndexView.as_view(), name='index'),
     url(r'^test/$', TemplateView.as_view(template_name='test.html')),
 
-    url(r'^user/', include('apps.myuser.myuserurl')),
+    url(r'^user/', include('apps.myuser.myuserurl', namespace='myuser')),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^activate/reg/(?P<activate_reg_code>.*)/$', ActivateRegView.as_view(), name='activate_reg'),
     url(r'^activate/forget/(?P<activate_forget_code>.*)/$', ActivateForgetView.as_view(), name='activate_forget'),
 
-    url(r'^org/', include('apps.organization.orgurl')),
+    url(r'^org/', include('apps.organization.orgurl', namespace='org')),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 
 ]

@@ -23,7 +23,7 @@ class OrgListView(View):
         all_city = CityDict.objects.all()
         all_org = CourseOrg.objects.all()
 
-        hot_org = CourseOrg.objects.order_by('-click_nums')[:3]     # 用于机构排行
+        hot_org = CourseOrg.objects.order_by('-click_nums')[:3]  # 用于机构排行
 
         # 城市筛选
         city_id = request.GET.get('city', '')
@@ -34,6 +34,13 @@ class OrgListView(View):
         category = request.GET.get('category', '')
         if category:
             all_org = all_org.filter(category=category)
+
+        # 排序筛选
+        sort = request.GET.get('sort', '')
+        if sort == 'students':
+            all_org = all_org.order_by('-students')
+        if sort == 'courses':
+            all_org = all_org.order_by('-courses')
 
         org_nums = all_org.count()
 
@@ -56,4 +63,5 @@ class OrgListView(View):
             'city_id': city_id,
             'category': category,
             'hot_org': hot_org,
+            'sort': sort,
         })
