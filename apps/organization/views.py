@@ -65,3 +65,29 @@ class OrgListView(View):
             'hot_org': hot_org,
             'sort': sort,
         })
+
+
+class OrgHomeView(View):
+    """
+    机构详情首页
+    """
+
+    def get(self, request, org_id):
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        courses = course_org.course_set.all()[:3]
+        teachers = course_org.teacher_set.all()[:1]
+        return render(request, 'org-detail-homepage.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+            'course_org': course_org,
+            'courses': courses,
+            'teachers': teachers,
+        })
+

@@ -27,11 +27,11 @@ class CourseOrgAdmin():
 
 class TeacherAdmin():
     list_display = ['id', 'org', 'name', 'work_year', 'work_company', 'work_position', 'click_nums', 'fav_nums',
-                    'add_time']
+                    'image', 'add_time']
     list_filter = ['id', 'org', 'name', 'work_year', 'work_company', 'work_position', 'click_nums', 'fav_nums',
-                   'add_time']
+                   'image', 'add_time']
     search_fields = ['id', 'org', 'name', 'work_year', 'work_company', 'work_position', 'click_nums', 'fav_nums',
-                     'add_time']
+                     'image', 'add_time']
 
 
 xadmin.site.register(CityDict, CityDictAdmin)

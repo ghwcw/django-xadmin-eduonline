@@ -15,11 +15,11 @@ from apps.course.models import Course, Section, Video, CourseResource
 
 
 class CourseAdmin():
-    list_display = ['id', 'name', 'desc', 'detail', 'degree', 'learn_time', 'students', 'fav_nums', 'image',
+    list_display = ['id', 'name', 'desc', 'detail', 'courseorg', 'degree', 'learn_time', 'students', 'fav_nums', 'image',
                     'click_nums', 'add_time']
-    search_fields = ['id', 'name', 'desc', 'detail', 'degree', 'learn_time', 'students', 'fav_nums', 'image',
+    search_fields = ['id', 'name', 'desc', 'detail', 'courseorg', 'degree', 'learn_time', 'students', 'fav_nums', 'image',
                      'click_nums', 'add_time']
-    list_filter = ['id', 'name', 'desc', 'detail', 'degree', 'learn_time', 'students', 'fav_nums', 'image',
+    list_filter = ['id', 'name', 'desc', 'detail', 'courseorg', 'degree', 'learn_time', 'students', 'fav_nums', 'image',
                    'click_nums', 'add_time']
 
 

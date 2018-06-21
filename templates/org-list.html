@@ -16,9 +16,9 @@
 
 </head>
 <body>
-<section class="headerwrap ">
+<section class="headerwrap">
     <header>
-        <div class=" header">
+        <div class="header">
             <div class="top">
                 <div class="wp">
                     <div class="fl"><p>服务电话：<b>010-12346688</b></p></div>
@@ -164,13 +164,13 @@
             {% for org in page_obj.object_list %}
                 <dl class="des difdes">
                     <dt>
-                        <a href="org-detail-homepage.html">
+                        <a href="{% url 'org:orghome' org_id=org.id %}">
                             <img width="200" height="120" class="scrollLoading" data-url="{{ MEDIA_URL }}{{ org.image }}"/>
                         </a>
                     </dt>
                     <dd>
                         <div class="clearfix">
-                             <a href="org-detail-homepage.html">
+                             <a href="{% url 'org:orghome' org_id=org.id %}">
                                  <h1>{{ org.name }}</h1>
                                  <div class="pic fl">
 
@@ -304,27 +304,34 @@
 
 <script>
 
-    $(function(){
-        $('#jsStayBtn').click(function(){
-            $.ajax({
-                cache: false,
-                type: "POST",
-                url: "{% url 'oper:user_ask' %}",
-                data: $('#jsStayForm').serialize(),
-                async: true,
-                success: function(data) {
-                    if(data.status == 'success'){
-                        $('#jsStayForm')[0].reset();
-                        alert("提交成功")
-                    }else if(data.status == 'fail'){
-                        $('#jsCompanyTips').addClass('company-tips');
-                        $('#jsCompanyTips').html(data.errmsg)
-                    }
-                },
-            });
-        });
-    })
+$(function(){
 
+    $('#jsStayBtn').click(function(){
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "{% url 'oper:user_ask' %}",
+            data: $('#jsStayForm').serialize(),
+            async: true,
+            success: function(data) {
+                if(data.status == 'success'){
+                    $('#jsStayForm')[0].reset();
+                    alert("提交成功")
+                }else if(data.status == 'fail'){
+                    $('#jsCompanyTips').addClass('company-tips');
+                    $('#jsCompanyTips').html(data.errmsg)
+                }
+            },
+        });
+    });
+
+    /*
+    if($('#jsStayForm:focus').length>0){
+        $('#jsCompanyTips').removeClass('company-tips');
+    }
+    */
+
+});
 
 </script>
 
