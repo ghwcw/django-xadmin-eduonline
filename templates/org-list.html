@@ -204,9 +204,15 @@
                                     <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
                                     <li class="pic10" style="padding-left:18px;">经典课程：
 
-                                        <a href="/diary/19/">c语言基础入门</a>
-
-                                        <a href="/diary/16/">数据库基础</a>
+                                        {% for course in org.course_set.all %}
+                                            <a href="">{{ course.name }}</a>
+                                            {% if forloop.revcounter > 1 %}
+                                                |&nbsp;&nbsp;
+                                            {% else %}
+                                            {% endif %}
+                                        {% empty %}
+                                            暂无经典课程
+                                        {% endfor %}
 
                                     </li>
                                 </ul>

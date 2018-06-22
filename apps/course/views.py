@@ -21,12 +21,15 @@ class CourseListView(View):
 
         all_courses = Course.objects.all().order_by('-add_time')
 
+        hot_courses = Course.objects.all().order_by('-click_nums')[:3]
+
         # 筛选排序
         sort = request.GET.get('sort', '')
-        if sort == 'hot':
-            all_courses = all_courses.order_by('-click_nums')
-        if sort == 'student':
-            all_courses = all_courses.order_by('-students')
+        if sort:
+            if sort == 'students':
+                all_courses = all_courses.order_by('-students')
+            elif sort == 'hot':
+                all_courses = all_courses.order_by('-click_nums')
 
         # 分页
         try:
@@ -43,4 +46,5 @@ class CourseListView(View):
             'succ_msg': succ_msg,
             'page_obj': page_obj,
             'sort': sort,
+            'hot_courses': hot_courses,
         })
