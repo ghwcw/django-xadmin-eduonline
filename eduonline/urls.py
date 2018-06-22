@@ -24,18 +24,27 @@ from eduonline import settings
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
 
+    # 首页相关
     url(r'^$', HomePageView.as_view(template_name='index.html'), name='home'),
     url(r'^index/$', IndexView.as_view(), name='index'),
     url(r'^test/$', TemplateView.as_view(template_name='test.html')),
 
+    # 用户相关
     url(r'^user/', include('apps.myuser.myuserurl', namespace='myuser')),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^activate/reg/(?P<activate_reg_code>.*)/$', ActivateRegView.as_view(), name='activate_reg'),
     url(r'^activate/forget/(?P<activate_forget_code>.*)/$', ActivateForgetView.as_view(), name='activate_forget'),
 
-    url(r'^org/', include('apps.organization.orgurl', namespace='org')),
+    # 用户上传文件显示
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 
+    # 机构相关
+    url(r'^org/', include('apps.organization.orgurl', namespace='org')),
+
+    # 用户操作相关
     url(r'^oper/', include('apps.operation.operurl', namespace='oper')),
+
+    # 课程相关
+    url(r'^course/', include('apps.course.courseurl', namespace='course')),
 
 ]

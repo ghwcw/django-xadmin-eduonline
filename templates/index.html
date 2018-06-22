@@ -49,6 +49,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        <a href="usercenter-message.html">
+                            <div class="msg-num"><span id="MsgNum">0</span></div>
+                        </a>
+
                     {% elif not flag %}
                         <!--未登录-->
                         <a style="color:white" class="fr registerbtn" href="{% url 'myuser:register' %}">注册</a>
@@ -58,6 +63,7 @@
                         <a style="color:white" class="fr registerbtn" href="{% url 'myuser:register' %}">注册</a>
                         <a style="color:white" class="fr loginbtn" href="{% url 'myuser:login' %}">登录</a>
                     {% endif %}
+
 
                 </div>
             </div>
@@ -89,7 +95,7 @@
                         <ul>
                             <li class="active"><a href="{% url 'index' %}">首页</a></li>
                             <li>
-                                <a href="course-list.html">
+                                <a href="{% url 'course:course_list' %}">
                                     公开课<img class="hot" src="{% static 'images/nav_hot.png' %}">
                                 </a>
                             </li>
