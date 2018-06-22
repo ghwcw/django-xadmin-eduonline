@@ -11,8 +11,10 @@ Description :
 """
 from django.conf.urls import url
 
-from apps.operation.views import UserAskView
+from apps.operation.views import UserAskView, AddFavView
 
 urlpatterns = [
     url(r'^userask/$', UserAskView.as_view(), name='user_ask'),
+    url(r'^addfav/$', AddFavView.as_view(), name='add_fav'),
+
 ]

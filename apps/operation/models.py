@@ -45,7 +45,7 @@ class UserFavorite(models.Model):
     '''
     FAV_TYPE_CHOICE = (
         (1, '课程'),
-        (2, '课程机构'),
+        (2, '机构'),
         (3, '教师'),
     )
 

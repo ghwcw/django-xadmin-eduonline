@@ -83,7 +83,11 @@
                     </div>
                     <div class="btn fr collectionbtn  notlogin
                          " data-favid="22" data-fav-type="1">
-                        收藏
+                        {% if is_fav %}
+                            取消收藏
+                        {% else %}
+                            收藏
+                        {% endif %}
                     </div>
 
                 </div>
@@ -173,21 +177,21 @@
 <script type="text/javascript" src="{% static 'js/plugins/jquery.raty.js' %}"></script>
 <script type="text/javascript">
 
-    //收藏分享
+    //收藏
     function add_fav(current_elem, fav_id, fav_type) {
         $.ajax({
             cache: false,
             type: "POST",
-            url: "/org/add_fav/",
+            url: "{% url 'oper:add_fav' %}",
             data: {'fav_id': fav_id, 'fav_type': fav_type},
             async: true,
             beforeSend: function (xhr, settings) {
-                xhr.setRequestHeader("X-CSRFToken", "5I2SlleZJOMUX9QbwYLUIAOshdrdpRcy");
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
             },
             success: function (data) {
                 if (data.status == 'fail') {
                     if (data.msg == '用户未登录') {
-                        window.location.href = "login.html";
+                        alert('您还未登录！请点击右上角登录按钮进行登录。')
                     } else {
                         alert(data.msg)
                     }
@@ -200,8 +204,10 @@
     }
 
     $('.collectionbtn').on('click', function () {
-        add_fav($(this), 1, 2);
+        add_fav($(this), {{ course_org.id }}, 2);
     });
+
+
 
     $(function () {
         var $precision = $('.precision'),

@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.generic.base import View
 
+from apps.operation.models import UserFavorite
 from apps.organization.models import CityDict, CourseOrg
 from pure_pagination import Paginator, PageNotAnInteger
 
@@ -81,6 +82,13 @@ class OrgHomeView(View):
             succ_msg = ''
 
         course_org = CourseOrg.objects.get(id=int(org_id))
+
+        # 判断是否收藏
+        is_fav = False
+        if request.user.is_authenticated():
+            if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
+                is_fav = True
+
         courses = course_org.course_set.all()[:2]
         teachers = course_org.teacher_set.all()[:1]
         return render(request, 'org-detail-homepage.html', context={
@@ -89,6 +97,7 @@ class OrgHomeView(View):
             'course_org': course_org,
             'courses': courses,
             'teachers': teachers,
+            'is_fav': is_fav,
         })
 
 
@@ -106,12 +115,20 @@ class OrgCourseView(View):
             succ_msg = ''
 
         course_org = CourseOrg.objects.get(id=int(org_id))
+
+        # 判断是否收藏
+        is_fav = False
+        if request.user.is_authenticated():
+            if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
+                is_fav = True
+
         courses = course_org.course_set.all()
         return render(request, 'org-detail-course.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
             'courses': courses,
+            'is_fav': is_fav,
         })
 
 
@@ -128,10 +145,18 @@ class OrgDescView(View):
             succ_msg = ''
 
         course_org = CourseOrg.objects.get(id=int(org_id))
+
+        # 判断是否收藏
+        is_fav = False
+        if request.user.is_authenticated():
+            if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
+                is_fav = True
+
         return render(request, 'org-detail-desc.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
+            'is_fav': is_fav,
         })
 
 
@@ -148,11 +173,19 @@ class OrgTeacherView(View):
             succ_msg = ''
 
         course_org = CourseOrg.objects.get(id=int(org_id))
-        teachers = course_org.teacher_set.all()[:1]
+
+        # 判断是否收藏
+        is_fav = False
+        if request.user.is_authenticated():
+            if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
+                is_fav = True
+
+        teachers = course_org.teacher_set.all()
         return render(request, 'org-detail-teachers.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
             'teachers': teachers,
+            'is_fav': is_fav,
         })
 
