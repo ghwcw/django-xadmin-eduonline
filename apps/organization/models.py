@@ -48,6 +48,9 @@ class CourseOrg(models.Model):
     def __str__(self):
         return self.name
 
+    def get_course_set(self):
+        return self.course_set.order_by('-fav_nums').all()[:3]
+
 
 class Teacher(models.Model):
     '''
@@ -69,3 +72,5 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.name
+
+

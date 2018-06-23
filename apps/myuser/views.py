@@ -28,7 +28,7 @@ class CustomBackend(ModelBackend):
 
 class HomePageView(TemplateView):
     """
-    基于通用类视图的首页(首次登陆)
+    基于通用类视图的首页(未登陆)
     """
     template_name = "index.html"
 
@@ -38,22 +38,35 @@ class HomePageView(TemplateView):
         return context
 
 
-class IndexView(TemplateView):
+class IndexView(View):
     """
-    基于通用类视图的首页(重定向后)
+    基于通用类视图的首页(登陆后)
     """
-    template_name = 'index.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+    # template_name = 'index.html'
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super(IndexView, self).get_context_data(**kwargs)
+    #     try:
+    #         context['username'] = username  # 使用了全局变量
+    #         context['succ_msg'] = succ_msg
+    #     except NameError as e:
+    #         context['username'] = ''
+    #         context['succ_msg'] = ''
+    #     finally:
+    #         return context
+
+    def get(self, request):
         try:
-            context['username'] = username  # 使用了全局变量
-            context['succ_msg'] = succ_msg
-        except NameError as e:
-            context['username'] = ''
-            context['succ_msg'] = ''
-        finally:
-            return context
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+        return render(request, 'index.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+        })
 
 
 class LoginView(View):

@@ -204,8 +204,8 @@
                                     <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
                                     <li class="pic10" style="padding-left:18px;">经典课程：
 
-                                        {% for course in org.course_set.all %}
-                                            <a href="">{{ course.name }}</a>
+                                        {% for course in org.get_course_set %}
+                                            <a href="{% url 'course:course_detail' course_id=course.id %}">{{ course.name }}</a>
                                             {% if forloop.revcounter > 1 %}
                                                 |&nbsp;&nbsp;
                                             {% else %}
