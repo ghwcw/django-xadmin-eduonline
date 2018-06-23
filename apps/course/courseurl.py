@@ -11,11 +11,13 @@ Description :
 """
 from django.conf.urls import url
 
-from apps.course.views import CourseListView, CourseDetailView, CourseVideoView
+from apps.course.views import CourseListView, CourseDetailView, CourseVideoView, play_video
 
 urlpatterns = [
-    url(r'^courselist/$', CourseListView.as_view(), name='course_list'),
-    url(r'^coursedetail/(?P<course_id>\d+)/$', CourseDetailView.as_view(), name='course_detail'),
-    url(r'^coursevideo/(?P<course_id>\d+)/$', CourseVideoView.as_view(), name='course_video'),
+    url(r'^course-list/$', CourseListView.as_view(), name='course_list'),
+    url(r'^course-detail/(?P<course_id>\d+)/$', CourseDetailView.as_view(), name='course_detail'),
+    url(r'^course-video/(?P<course_id>\d+)/$', CourseVideoView.as_view(), name='course_video'),
+
+    url(r'^video-play/$', play_video, name='video_play'),
 
 ]

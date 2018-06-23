@@ -5,7 +5,7 @@ from django.views.generic.base import View
 from pure_pagination import Paginator, PageNotAnInteger
 
 from apps.course.models import Course, CourseResource
-from apps.operation.models import UserFavorite
+from apps.operation.models import UserFavorite, UserCourse
 from apps.organization.models import CourseOrg
 
 
@@ -13,6 +13,7 @@ class CourseListView(View):
     """
     课程列表页
     """
+
     def get(self, request):
         try:
             username = request.session['username']
@@ -56,6 +57,7 @@ class CourseDetailView(View):
     """
     课程详情
     """
+
     def get(self, request, course_id):
         try:
             username = request.session['username']
@@ -81,8 +83,7 @@ class CourseDetailView(View):
 
         is_fav_org = False
         if request.user.is_authenticated():
-            org_id = course.courseorg.id
-            if UserFavorite.objects.filter(user=request.user, fav_id=org_id, fav_type=2):
+            if UserFavorite.objects.filter(user=request.user, fav_id=course.courseorg.pk, fav_type=2):
                 is_fav_org = True
 
         return render(request, 'course-detail.html', context={
@@ -99,6 +100,7 @@ class CourseVideoView(View):
     """
     课程章节（视频）
     """
+
     def get(self, request, course_id):
         try:
             username = request.session['username']
@@ -113,7 +115,15 @@ class CourseVideoView(View):
         teacher = org.teacher_set.first()
         download_res = get_list_or_404(CourseResource)
 
-        print(teacher)
+        # 根据用户课程ID，查询出收藏过该课程的用户及其收藏的课程
+        usercourse = UserCourse.objects.filter(course=course_id).first()
+        if usercourse:
+            user = usercourse.user
+            course_id_list = UserCourse.objects.filter(user=user).values_list('course')
+            usercourse_list = Course.objects.filter(id__in=course_id_list)[:3]
+            # print(usercourse_list)
+        else:
+            usercourse_list =[]
 
         return render(request, 'course-video.html', context={
             'username': username,
@@ -122,5 +132,14 @@ class CourseVideoView(View):
             'course': course,
             'download_res': download_res,
             'teacher': teacher,
+            'usercourse_list': usercourse_list,
         })
 
+
+def play_video(request):
+    """
+    视频播放页
+    :param request:
+    :return:
+    """
+    return render(request, 'videoplay.html')

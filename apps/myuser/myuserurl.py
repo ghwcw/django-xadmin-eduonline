@@ -18,8 +18,8 @@ urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
-    url(r'^forgetpwd/$', ForgetPwdView.as_view(), name='forget_pwd'),
-    url(r'^resetpwd/(?P<email_code>.*)/$', ResetPwdView.as_view(), name='reset_pwd'),
-    url(r'^resetpwdpost/$', ResetPwdView.as_view(), name='reset_pwd_post'),
+    url(r'^forget-pwd/$', ForgetPwdView.as_view(), name='forget_pwd'),
+    url(r'^reset-pwd/(?P<email_code>.*)/$', ResetPwdView.as_view(), name='reset_pwd'),
+    url(r'^reset-pwd-post/$', ResetPwdView.as_view(), name='reset_pwd_post'),
 
 ]

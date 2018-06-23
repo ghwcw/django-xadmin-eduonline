@@ -39,6 +39,10 @@ class Course(models.Model):
         verbose_name_plural = verbose_name
 
     def get_usercourse_set(self):
+        """
+        该课程的学习用户
+        :return:
+        """
         return self.usercourse_set.all()[:5]
 
     def __str__(self):

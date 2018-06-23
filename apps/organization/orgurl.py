@@ -16,11 +16,11 @@ from apps.organization.views import OrgListView, OrgHomeView, OrgCourseView, Org
 # app_name = 'org'
 
 urlpatterns = [
-    url(r'^orglist/$', OrgListView.as_view(), name='orglist'),
-    url(r'orghome/(?P<org_id>\d+)/$', OrgHomeView.as_view(), name='orghome'),
-    url(r'orgcourse/(?P<org_id>\d+)/$', OrgCourseView.as_view(), name='orgcourse'),
-    url(r'orgdesc/(?P<org_id>\d+)/$', OrgDescView.as_view(), name='orgdesc'),
-    url(r'orgteacher/(?P<org_id>\d+)/$', OrgTeacherView.as_view(), name='orgteacher'),
+    url(r'^org-list/$', OrgListView.as_view(), name='orglist'),
+    url(r'org-home/(?P<org_id>\d+)/$', OrgHomeView.as_view(), name='orghome'),
+    url(r'org-course/(?P<org_id>\d+)/$', OrgCourseView.as_view(), name='orgcourse'),
+    url(r'org-desc/(?P<org_id>\d+)/$', OrgDescView.as_view(), name='orgdesc'),
+    url(r'org-teacher/(?P<org_id>\d+)/$', OrgTeacherView.as_view(), name='orgteacher'),
 
 ]
 
