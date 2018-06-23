@@ -1,0 +1,30 @@
+【举例PyCharm 2018.1.2版】
+破解方法一：
+
+1.下载“JetbrainsCrack-2.7-release-str.jar”；
+
+2.编辑PyCharm安装目录下bin文件夹中的“PyCharm.exe.vmoptions” 与“PyCharm 64.exe.vmoptions” 文件，在头部加上“-javaagent:***”（其中***指JetbrainsCrack-2.7-release-str.jar的完整路径），然后启动PyCharm 2018.1.2；
+
+3.把以下自定义激活码复制进 Activation Code 激活（licenseId可以修改）：
+
+{"licenseId":"201805201314",
+"licenseeName":"汪春旺",
+"assigneeName":"",
+"assigneeEmail":"",
+"licenseRestriction":"",
+"checkConcurrentUse":false,
+"products":[
+{"code":"II","paidUpTo":"2099-12-31"},{"code":"DM","paidUpTo":"2099-12-31"},{"code":"AC","paidUpTo":"2099-12-31"},{"code":"RS0","paidUpTo":"2099-12-31"},{"code":"WS","paidUpTo":"2099-12-31"},{"code":"DPN","paidUpTo":"2099-12-31"},{"code":"RC","paidUpTo":"2099-12-31"},{"code":"PS","paidUpTo":"2099-12-31"},{"code":"DC","paidUpTo":"2099-12-31"},{"code":"RM","paidUpTo":"2099-12-31"},{"code":"CL","paidUpTo":"2099-12-31"},{"code":"PC","paidUpTo":"2099-12-31"}
+],
+"hash":"2911276/0",
+"gracePeriodDays":7,
+"autoProlongated":false}
+
+## 如果注册失败，需要将“0.0.0.0    account.jetbrains.com”添加到hosts文件中。
+
+
+破解方法二：
+
+选择一个license注册网址：
+http://idea.imsxm.com/
+http://idea.lanyus.com/
