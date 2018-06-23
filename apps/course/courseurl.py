@@ -11,9 +11,10 @@ Description :
 """
 from django.conf.urls import url
 
-from apps.course.views import CourseListView
+from apps.course.views import CourseListView, CourseDetailView
 
 urlpatterns = [
     url(r'^courselist/$', CourseListView.as_view(), name='course_list'),
+    url(r'^coursedetail/(?P<course_id>\d+)/$', CourseDetailView.as_view(), name='course_detail'),
 
 ]

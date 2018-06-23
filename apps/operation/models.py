@@ -93,4 +93,4 @@ class UserCourse(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.user
+        return str(self.user)

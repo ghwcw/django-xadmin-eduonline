@@ -26,6 +26,7 @@ class AddFavView(View):
     """
     收藏
     """
+
     def post(self, request):
         fav_id = request.POST.get('fav_id', 0)
         fav_type = request.POST.get('fav_type', 0)
@@ -40,7 +41,7 @@ class AddFavView(View):
                 exist_rec.delete()
                 return HttpResponse('{"status":"success", "msg":"收藏"}', content_type='application/json')
             else:
-                if fav_id>0 and fav_type>0:
+                if fav_id > 0 and fav_type > 0:
                     user_fav = UserFavorite()
                     user_fav.user = request.user
                     user_fav.fav_id = fav_id
@@ -49,4 +50,3 @@ class AddFavView(View):
                     return HttpResponse('{"status":"success", "msg":"取消收藏"}', content_type='application/json')
                 else:
                     return HttpResponse('{"status":"fail", "msg":"收藏出错"}', content_type='application/json')
-

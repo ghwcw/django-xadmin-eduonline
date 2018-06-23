@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 from apps.organization.models import CourseOrg
 
@@ -15,6 +14,12 @@ class Course(models.Model):
         ('gj', '高级'),
     )
 
+    CATEGORY_CHOICE = (
+        (0, '后端开发'),
+        (1, 'Web前端开发'),
+        (2, '数据库设计'),
+    )
+
     courseorg = models.ForeignKey(CourseOrg, on_delete=models.DO_NOTHING, null=True, blank=True, verbose_name='课程机构')
     name = models.CharField(max_length=50, verbose_name='课程名')
     desc = models.CharField(max_length=200, verbose_name='课程简述')
@@ -25,11 +30,16 @@ class Course(models.Model):
     fav_nums = models.IntegerField(default=0, verbose_name='收藏人数')
     image = models.ImageField(upload_to='courses/%Y/%m', max_length=100, verbose_name='封面')
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
+    category = models.SmallIntegerField(choices=CATEGORY_CHOICE, default=0)
+    tag = models.CharField(max_length=50, null=True, blank=True, verbose_name='课程标签')   # 可用于相关课程推荐
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间')
 
     class Meta:
         verbose_name = '课程信息表'
         verbose_name_plural = verbose_name
+
+    def get_usercourse_set(self):
+        return self.usercourse_set.all()[:5]
 
     def __str__(self):
         return self.name
