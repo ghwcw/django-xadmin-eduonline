@@ -200,7 +200,7 @@
                 <div class="module1_1 left">
                     <img width="228" height="614" src="{% static 'images/module1_1.jpg' %}"/>
                     <p class="fisrt_word">名师授课<br/>专业权威</p>
-                    <a class="more" href="course-list.html">查看更多课程 ></a>
+                    <a class="more" href="{% url 'course:course_list' %}">查看更多课程 ></a>
                 </div>
                 <div class="right group_list">
                     <div class="module1_2 box">
@@ -208,14 +208,14 @@
                             <ul class="imgs">
 
                                 <li>
-                                    <a href="course-detail.html">
+                                    <a href="">
                                         <img width="470" height="300"
                                              src="{% static 'media/courses/2016/12/python文件处理.jpg' %}"/>
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="course-detail.html">
+                                    <a href="">
                                         <img width="470" height="300"
                                              src="{% static 'media/courses/2016/12/python面向对象.jpg' %}"/>
                                     </a>
@@ -228,30 +228,30 @@
                     </div>
 
                     <div class="module1_3 box">
-                        <a href="course-detail.html">
+                        <a href="{% url 'course:course_detail' course_id=13 %}">
                             <img width="233" height="190" src="{% static 'media/courses/2016/11/mysql.jpg' %}"/>
                         </a>
                         <div class="des">
-                            <a href="course-detail.html">
-                                <h2 title="django入门">MySQL数据库</h2>
+                            <a href="{% url 'course:course_detail' course_id=13 %}">
+                                <h2>MySQL数据库</h2>
                             </a>
                             <span class="fl">难度：<i class="key">初级</i></span>
                             <span class="fr">学习人数：3</span>
                         </div>
                         <div class="bottom">
-                            <span class="fl" title="汪春旺教育网">汪春旺教育网</span>
+                            <span class="fl" title="上海交通大学">上海交通大学</span>
                             <span class="star fr">0</span>
                         </div>
                     </div>
 
                     <div class="module1_4 box">
-                        <a href="course-detail.html">
+                        <a href="{% url 'course:course_detail' course_id=9 %}">
                             <img width="233" height="190"
                                  src="{% static 'media/courses/2016/11/java.jpg' %}"/>
                         </a>
                         <div class="des">
-                            <a href="course-detail.html">
-                                <h2 title="java入门">java程序设计</h2>
+                            <a href="{% url 'course:course_detail' course_id=9 %}">
+                                <h2>java程序设计</h2>
                             </a>
                             <span class="fl">难度：<i class="key">中级</i></span>
                             <span class="fr">学习人数：0</span>
@@ -263,73 +263,73 @@
                     </div>
 
                     <div class="module1_5 box">
-                        <a href="course-detail.html">
+                        <a href="{% url 'course:course_detail' course_id=2 %}">
                             <img width="233" height="190"
                                  src="{% static 'media/courses/2016/11/python.jpg' %}"/>
                         </a>
                         <div class="des">
-                            <a href="course-detail.html">
-                                <h2 title="python入门">python开发</h2>
+                            <a href="{% url 'course:course_detail' course_id=2 %}">
+                                <h2>python开发</h2>
                             </a>
                             <span class="fl">难度：<i class="key">中级</i></span>
                             <span class="fr">学习人数：0</span>
                         </div>
                         <div class="bottom">
-                            <span class="fl" title="南京大学">南京大学</span>
+                            <span class="fl" title="北京大学">北京大学</span>
                             <span class="star fr">0</span>
                         </div>
                     </div>
 
                     <div class="module1_6 box">
-                        <a href="course-detail.html">
+                        <a href="{% url 'course:course_detail' course_id=3 %}">
                             <img width="233" height="190"
                                  src="{% static 'media/courses/2016/11/django.jpg' %}"/>
                         </a>
                         <div class="des">
-                            <a href="course-detail.html">
-                                <h2 title="java入门2">Django web开发</h2>
+                            <a href="{% url 'course:course_detail' course_id=3 %}">
+                                <h2>Django web开发</h2>
                             </a>
                             <span class="fl">难度：<i class="key">高级</i></span>
                             <span class="fr">学习人数：0</span>
                         </div>
                         <div class="bottom">
-                            <span class="fl" title="汪春旺教育网2">汪春旺教育网2</span>
+                            <span class="fl" title="清华大学">清华大学</span>
                             <span class="star fr">0</span>
                         </div>
                     </div>
 
                     <div class="module1_7 box">
-                        <a href="course-detail.html">
+                        <a href="{% url 'course:course_detail' course_id=5 %}">
                             <img width="233" height="190"
                                  src="{% static 'media/courses/2016/11/php.jpg' %}"/>
                         </a>
                         <div class="des">
-                            <a href="course-detail.html">
-                                <h2 title="java入门3">PHP开发</h2>
+                            <a href="{% url 'course:course_detail' course_id=5 %}">
+                                <h2>PHP开发</h2>
                             </a>
                             <span class="fl">难度：<i class="key">初级</i></span>
                             <span class="fr">学习人数：1</span>
                         </div>
                         <div class="bottom">
-                            <span class="fl" title="汪春旺教育网3">汪春旺教育网3</span>
+                            <span class="fl" title="上海交通大学">上海交通大学</span>
                             <span class="star fr">0</span>
                         </div>
                     </div>
 
                     <div class="module1_8 box">
-                        <a href="course-detail.html">
+                        <a href="{% url 'course:course_detail' course_id=1 %}">
                             <img width="233" height="190"
                                  src="{% static 'media/courses/2016/11/cyuyan.jpg' %}"/>
                         </a>
                         <div class="des">
-                            <a href="course-detail.html">
-                                <h2 title="python入门2">C语言程序设计</h2>
+                            <a href="{% url 'course:course_detail' course_id=1 %}">
+                                <h2>C语言程序设计</h2>
                             </a>
                             <span class="fl">难度：<i class="key">中级</i></span>
                             <span class="fr">学习人数：0</span>
                         </div>
                         <div class="bottom">
-                            <span class="fl" title="汪春旺教育网666">汪春旺教育网</span>
+                            <span class="fl" title="山西农业大学">山西农业大学</span>
                             <span class="star fr">0</span>
                         </div>
                     </div>
@@ -353,7 +353,7 @@
                     <ul>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/sxnd.jpg' %}"/>
                                     <div class="score">
@@ -367,7 +367,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/qhdx-logo.png' %}"/>
                                     <div class="score">
@@ -381,7 +381,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/shjd.jpg' %}"/>
                                     <div class="score">
@@ -395,7 +395,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/bjdx.jpg' %}"/>
                                     <div class="score">
@@ -409,7 +409,7 @@
                         </li>
 
                         <li class="five">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/fddx.jpg' %}"/>
                                     <div class="score">
@@ -423,7 +423,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/zjdx.jpg' %}"/>
                                     <div class="score">
@@ -437,7 +437,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/bjsd.jpg' %}"/>
                                     <div class="score">
@@ -451,7 +451,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/ncdx.jpg' %}"/>
                                     <div class="score">
@@ -465,7 +465,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/sddx.jpg' %}"/>
                                     <div class="score">
@@ -479,7 +479,7 @@
                         </li>
 
                         <li class="five">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/zjdx.jpg' %}"/>
                                     <div class="score">
@@ -493,7 +493,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/zgkd.JPEG' %}"/>
                                     <div class="score">
@@ -507,7 +507,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/scdx.jpg' %}"/>
                                     <div class="score">
@@ -521,7 +521,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/whdx.png' %}"/>
                                     <div class="score">
@@ -535,7 +535,7 @@
                         </li>
 
                         <li class="">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/zgkd.JPEG' %}"/>
                                     <div class="score">
@@ -549,7 +549,7 @@
                         </li>
 
                         <li class="five">
-                            <a href="org-detail-homepage.html">
+                            <a href="{% url 'org:orglist' %}">
                                 <div class="company">
                                     <img width="184" height="100" src="{% static 'media/org/2016/11/sxnd.jpg' %}"/>
                                     <div class="score">

@@ -67,6 +67,8 @@ class Video(models.Model):
     '''
     section = models.ForeignKey(Section, on_delete=models.DO_NOTHING, verbose_name='章节外键')
     name = models.CharField(max_length=50, verbose_name='视频名')
+    url = models.URLField(default='', verbose_name='视频访问地址')
+    howlong = models.IntegerField(default=0, verbose_name='视频时长（分）')
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间')
 
     class Meta:

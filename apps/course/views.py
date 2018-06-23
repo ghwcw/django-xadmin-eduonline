@@ -4,8 +4,9 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.views.generic.base import View
 from pure_pagination import Paginator, PageNotAnInteger
 
-from apps.course.models import Course
+from apps.course.models import Course, CourseResource
 from apps.operation.models import UserFavorite
+from apps.organization.models import CourseOrg
 
 
 class CourseListView(View):
@@ -92,3 +93,34 @@ class CourseDetailView(View):
             'is_fav_course': is_fav_course,
             'is_fav_org': is_fav_org,
         })
+
+
+class CourseVideoView(View):
+    """
+    课程章节（视频）
+    """
+    def get(self, request, course_id):
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        course = Course.objects.get(id=course_id)
+        org_id = course.courseorg.id
+        org = CourseOrg.objects.get(id=org_id)
+        teacher = org.teacher_set.first()
+        download_res = get_list_or_404(CourseResource)
+
+        print(teacher)
+
+        return render(request, 'course-video.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+            'course_id': course_id,
+            'course': course,
+            'download_res': download_res,
+            'teacher': teacher,
+        })
+
