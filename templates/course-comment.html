@@ -33,19 +33,18 @@
 
                     {% if request.user.is_authenticated %}
                         <!--登录成功-->
-                        <span id="succ_msg" style="margin-left: 600px;">{{ succ_msg }}</span>
+                        <span id="succ_msg" style="margin-left: 100px;">{{ succ_msg }}</span>
                         <div class="personal">
 
                             <dl class="user fr">
-                                <dd>{{ username }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
-                                <dt><img width="20" height="20"
-                                         src="{% static 'media/image/2016/12/default_big_14.png' %}"/>
+                                <dd>{{ request.user.nick_name }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
+                                <dt><img width="20" height="20" src="{{ MEDIA_URL }}{{ request.user.image }}"/>
                                 </dt>
                             </dl>
                             <div class="userdetail">
                                 <dl>
                                     <dt><img width="80" height="80"
-                                             src="{% static 'media/image/2016/12/default_big_14.png' %}"/></dt>
+                                             src="{{ MEDIA_URL }}{{ request.user.image }}"/></dt>
                                     <dd>
                                         <h2>{{ request.user.nick_name }}</h2>
                                         <p>{{ username }}</p>
@@ -195,7 +194,7 @@
                             {% for comment in comments %}
                                 <li class="post-row" style="border-bottom: lightgrey 0.5px solid; padding: 8px 0 8px 0">
                                     <div class="media">
-                                        <span target="_blank"><img title="{{ comment.user.nick_name }}的头像" src='{{ MEDIA_URL }}{{ comment.user.image }}' width='40' height='40'/></span>
+                                        <span target="_blank"><img style="border-radius: 50%" title="{{ comment.user.nick_name }}的头像" src='{{ MEDIA_URL }}{{ comment.user.image }}' width='40' height='40'/></span>
                                     </div>
                                     <div class="bd">
                                         <div class="tit">

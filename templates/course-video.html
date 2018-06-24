@@ -32,19 +32,18 @@
 
                     {% if request.user.is_authenticated %}
                         <!--登录成功-->
-                        <span id="succ_msg" style="margin-left: 600px;">{{ succ_msg }}</span>
+                        <span id="succ_msg" style="margin-left: 100px;">{{ succ_msg }}</span>
                         <div class="personal">
 
                             <dl class="user fr">
-                                <dd>{{ username }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
-                                <dt><img width="20" height="20"
-                                         src="{% static 'media/image/2016/12/default_big_14.png' %}"/>
+                                <dd>{{ request.user.nick_name }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
+                                <dt><img width="20" height="20" src="{{ MEDIA_URL }}{{ request.user.image }}"/>
                                 </dt>
                             </dl>
                             <div class="userdetail">
                                 <dl>
                                     <dt><img width="80" height="80"
-                                             src="{% static 'media/image/2016/12/default_big_14.png' %}"/></dt>
+                                             src="{{ MEDIA_URL }}{{ request.user.image }}"/></dt>
                                     <dd>
                                         <h2>{{ request.user.nick_name }}</h2>
                                         <p>{{ username }}</p>

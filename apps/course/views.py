@@ -109,7 +109,7 @@ class CourseStudyView(View):
         if request.user and int(course_id) > 0:
             if not UserCourse.objects.filter(user=request.user, course_id=course_id):
                 UserCourse.objects.create(user=request.user, course_id=int(course_id))
-            return JsonResponse({"status": "success", "msg": "开始学习之旅"})
+            return JsonResponse({"status": "success", "msg": "开启学习之旅..."})
         else:
             return JsonResponse({"status": "fail", "msg": "出错了"})
 
