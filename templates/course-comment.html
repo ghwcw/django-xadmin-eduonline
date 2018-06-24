@@ -195,9 +195,7 @@
                             {% for comment in comments %}
                                 <li class="post-row" style="border-bottom: lightgrey 0.5px solid; padding: 8px 0 8px 0">
                                     <div class="media">
-                                        <span target="_blank"><img
-                                                src='{{ MEDIA_URL }}{{ comment.user.image }}' width='40'
-                                                height='40'/></span>
+                                        <span target="_blank"><img title="{{ comment.user.nick_name }}的头像" src='{{ MEDIA_URL }}{{ comment.user.image }}' width='40' height='40'/></span>
                                     </div>
                                     <div class="bd">
                                         <div class="tit">

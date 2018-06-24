@@ -425,8 +425,8 @@
                 xhr.setRequestHeader('X-CSRFToken', "{{ csrf_token }}");
             },
             success: function (data) {
-                if (data.status == 'fail') {
-                    if (data.msg == '用户未登录') {
+                if (data.status === 'fail') {
+                    if (data.msg === '用户未登录') {
                         alert('您还未登录！请点击右上角登录后才能开始学习。');
                         location.href = "{% url 'course:course_detail' course.id %}";
                     } else {
@@ -434,7 +434,7 @@
                         location.href = "{% url 'course:course_detail' course.id %}";
                     }
                 }
-                else if (data.status == 'success') {
+                else if (data.status === 'success') {
                     alert(data.msg);
                     location.href = '{% url "course:course_video" course.id %}';
                 }
