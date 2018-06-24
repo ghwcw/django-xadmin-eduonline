@@ -37,9 +37,11 @@ class AddFavView(View):
         if not request.user.is_authenticated():
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
         else:
-            exist_rec = UserFavorite.objects.filter(user=request.user, fav_id=fav_id, fav_type=fav_type)
-            if exist_rec:
-                exist_rec.delete()
+            exist_fav_rec = UserFavorite.objects.filter(user=request.user, fav_id=fav_id, fav_type=fav_type)
+            exist_usercourse_rec = UserCourse.objects.filter(user=request.user, course_id=fav_id)
+            if exist_fav_rec or exist_usercourse_rec:
+                exist_fav_rec.delete()
+                exist_usercourse_rec.delete()
                 return HttpResponse('{"status":"success", "msg":"收藏"}', content_type='application/json')
             else:
                 if fav_id > 0 and fav_type > 0:

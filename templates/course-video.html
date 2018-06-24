@@ -3,19 +3,19 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
-	<title>公开课视频信息 - 教育在线网</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>公开课视频信息 - 教育在线网</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/base.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/common-less.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/learn-less.css' %}" />
-{#    <link rel="stylesheet" type="text/css" href="{% static 'css/aui.css' %}" />#}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/common-less.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/learn-less.css' %}"/>
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'css/aui.css' %}" />#}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/common-less.css' %}">
 
     <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
@@ -119,21 +119,21 @@
 </section>
 <!--crumbs start-->
 
-    <section>
-	<div class="wp">
-		<div class="crumbs">
-			<ul>
-				<li><a href="{% url 'index' %}">首页</a>></li>
+<section>
+    <div class="wp">
+        <div class="crumbs">
+            <ul>
+                <li><a href="{% url 'index' %}">首页</a>></li>
                 <li><a href="{% url 'course:course_list' %}">公开课程</a>></li>
-				<li><a href="{% url 'course:course_detail' course_id=course_id %}">课程详情</a>></li>
+                <li><a href="{% url 'course:course_detail' course_id=course_id %}">课程详情</a>></li>
                 <li>章节信息</li>
-			</ul>
-		</div>
-	</div>
+            </ul>
+        </div>
+    </div>
 </section>
 
 
-    <div id="main">
+<div id="main">
     <div class="course-infos">
         <div class="w pr">
             <div style="height: 15px" class="path">
@@ -163,128 +163,139 @@
     <div class="course-info-main clearfix w has-progress">
 
         <div class="info-bar clearfix">
-        <div class="content-wrap clearfix">
-            <div class="content">
-                <div class="mod-tab-menu">
-                    <ul class="course-menu clearfix">
-                        <li><a class="ui-tabs-active active" id="learnOn"  href="course-video.html"><span>章节</span></a></li>
-                        <li><a id="commentOn" class="" href="course-comment.html"><span>评论</span></a></li>
-                    </ul>
-                </div>
-                <div id="notice" class="clearfix">
-                    <div class="l"> <strong>课程公告:</strong> <a  href="javascript:void(0)">（没新公告）</a> </div>
-                </div>
-
-                <div class="mod-chapters">
-{#                课程章节 #}
-                    {% for sec in course.section_set.all %}
-                        <div class="chapter chapter-active" >
-                            <h3>
-                                <strong><i class="state-expand"></i>{{ sec.name }}</strong>
-                            </h3>
-                            <ul class="video">
-                                {% for vi in sec.video_set.all %}
-                                    <li>
-                                        <a target="_blank" href='{% url 'course:video_play' %}' class="J-media-item studyvideo">{{ vi.name }} ({{ vi.howlong }}分钟)
-                                            <i class="study-state"></i>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-
-                            </ul>
-                        </div>
-
-                    {% endfor %}
-
-                </div>
-
-            </div>
-            <div class="aside r">
-                <div class="bd">
-
-                    <div class="box mb40">
-                        <h4>资料下载</h4>
-                        <ul class="downlist">
-                            {% for res in download_res %}
-                                <li>
-                                    <span ><i class="aui-iconfont aui-icon-file"></i>&nbsp;&nbsp;{{ res.name }}</span>
-                                    <a href="{{ MEDIA_URL }}{{ res.download }}" class="downcode" target="_blank" download="" data-id="274" title="">下载</a>
-                                </li>
-                            {% endfor %}
-
+            <div class="content-wrap clearfix">
+                <div class="content">
+                    <div class="mod-tab-menu">
+                        <ul class="course-menu clearfix">
+                            <li><a class="ui-tabs-active active" id="learnOn"
+                                   href="{% url 'course:course_video' course_id=course_id %}"><span>章节</span></a></li>
+                            <li><a id="commentOn" class="" href="{% url 'oper:course_comment' course_id=course_id %}"><span>评论</span></a>
+                            </li>
                         </ul>
                     </div>
-                    <div class="box mb40">
-                        <h4>讲师提示</h4>
-                        <div class="teacher-info">
-                            <a href="" target="_blank">
-                                <img data-url="{{ MEDIA_URL }}{{ teacher.image }}" src="{{ MEDIA_URL }}{{ teacher.image }}" width='80' height='80' />
-                            </a>
-        <span class="tit">
-          <a href="" target="_blank">{{ teacher.name }}</a>
-        </span>
-                            <span class="job">{{ teacher.work_position }}</span>
-                        </div>
-                        <div class="course-info-tip">
-                            <dl class="first">
-                                <dt>课程须知</dt>
-                                <dd class="autowrap">python基础你需要有</dd>
-                            </dl>
-                            <dl>
-                                <dt>老师告诉你能学到什么？</dt>
-                                <dd class="autowrap">django的进阶开发</dd>
-                            </dl>
-                        </div>
+                    <div id="notice" class="clearfix">
+                        <div class="l"><strong>课程公告:</strong> <a href="javascript:void(0)">（没新公告）</a></div>
                     </div>
 
-
-                    <div class="cp-other-learned  js-comp-tabs">
-                        <div class="cp-header clearfix">
-                            <h2 class="cp-tit l">收藏该课的同学还学过</h2>
-                        </div>
-                        <div class="cp-body">
-                            <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="course" style="display: block">
-                                <!-- img 200 x 112 -->
-                                <ul class="other-list">
-
-                                    {% for usercourse in usercourse_list %}
-                                        <li class="curr">
-                                            <a href="{% url 'course:course_detail' course_id=usercourse.id %}" target="_blank">
-                                                <img src="{{ MEDIA_URL }}{{ usercourse.image }}" alt="{{ usercourse.name }}">
-                                                <span class="name autowrap">{{ usercourse.name }}</span>
+                    <div class="mod-chapters">
+                        {#                课程章节 #}
+                        {% for sec in course.section_set.all %}
+                            <div class="chapter chapter-active">
+                                <h3>
+                                    <strong><i class="state-expand"></i>{{ sec.name }}</strong>
+                                </h3>
+                                <ul class="video">
+                                    {% for vi in sec.video_set.all %}
+                                        <li>
+                                            <a target="_blank" href='{% url 'course:video_play' %}'
+                                               class="J-media-item studyvideo">{{ vi.name }} ({{ vi.howlong }}分钟)
+                                                <i class="study-state"></i>
                                             </a>
                                         </li>
                                     {% endfor %}
 
                                 </ul>
                             </div>
-                            <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="plan">
-                                <ul class="other-list">
-                                    <li class="curr">
-                                        <a href="/course/programdetail/pid/31?src=sug" target="_blank">
-                                            <img src="http://img.mukewang.com/56551e6700018b0c09600720-240-135.jpg" alt="Java工程师">
-                                            <span class="name autowrap">Java工程师</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+
+                        {% endfor %}
+
                     </div>
 
-                </div>    </div>
+                </div>
+                <div class="aside r">
+                    <div class="bd">
+
+                        <div class="box mb40">
+                            <h4>资料下载</h4>
+                            <ul class="downlist">
+                                {% for res in download_res %}
+                                    <li>
+                                        <span><i
+                                                class="aui-iconfont aui-icon-file"></i>&nbsp;&nbsp;{{ res.name }}</span>
+                                        <a href="{{ MEDIA_URL }}{{ res.download }}" class="downcode" target="_blank"
+                                           download="" data-id="274" title="">下载</a>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                        <div class="box mb40">
+                            <h4>讲师提示</h4>
+                            <div class="teacher-info">
+                                <a href="" target="_blank">
+                                    <img data-url="{{ MEDIA_URL }}{{ teacher.image }}"
+                                         src="{{ MEDIA_URL }}{{ teacher.image }}" width='80' height='80'/>
+                                </a>
+                                <span class="tit"><a href="" target="_blank">{{ teacher.name }}</a></span>
+                                <span class="job">{{ teacher.work_position }}</span>
+                            </div>
+                            <div class="course-info-tip">
+                                <dl class="first">
+                                    <dt>课程须知</dt>
+                                    <dd class="autowrap">python基础你需要有</dd>
+                                </dl>
+                                <dl>
+                                    <dt>老师告诉你能学到什么？</dt>
+                                    <dd class="autowrap">django的进阶开发</dd>
+                                </dl>
+                            </div>
+                        </div>
+
+
+                        <div class="cp-other-learned  js-comp-tabs">
+                            <div class="cp-header clearfix">
+                                <h2 class="cp-tit l">收藏该课的同学还学过</h2>
+                            </div>
+                            <div class="cp-body">
+                                <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="course"
+                                     style="display: block">
+                                    <!-- img 200 x 112 -->
+                                    <ul class="other-list">
+
+                                        {% for usercourse in usercourse_list %}
+                                            <li class="curr">
+                                                <a href="{% url 'course:course_detail' course_id=usercourse.id %}"
+                                                   target="_blank">
+                                                    <img src="{{ MEDIA_URL }}{{ usercourse.image }}"
+                                                         alt="{{ usercourse.name }}">
+                                                    <span class="name autowrap">{{ usercourse.name }}</span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                                <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="plan">
+                                    <ul class="other-list">
+                                        <li class="curr">
+                                            <a href="/course/programdetail/pid/31?src=sug" target="_blank">
+                                                <img src="http://img.mukewang.com/56551e6700018b0c09600720-240-135.jpg"
+                                                     alt="Java工程师">
+                                                <span class="name autowrap">Java工程师</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
         </div>
-        <div class="clear"></div>
 
     </div>
-
-</div>
 </div>
 
 <footer>
-    <div class="footer" >
+    <div class="footer">
         <div class="wp">
             <ul class="cont">
-                <li class="logo"><a href="{% url 'index' %}"  style="width: 300px; height: 100px"><img style="display: block; width: 100%; height: 100%" src="{% static 'images/footlogo.png' %}"/></a></li>
+                <li class="logo"><a href="{% url 'index' %}" style="width: 300px; height: 100px"><img
+                        style="display: block; width: 100%; height: 100%" src="{% static 'images/footlogo.png' %}"/></a>
+                </li>
                 <li class="code"><img src="{% static 'images/code.jpg' %}"/>
                     <p class="center">扫描关注微信</p></li>
                 <li class="third"><img class="fl" src="{% static 'images/tell.png' %}"/>
@@ -292,10 +303,10 @@
                     <p class="time">周一至周日 9:00-18:00</p></li>
             </ul>
             <p class="line"></p>
-        <div class="wp" >
-            <span class="fl">©2018 www.cnblogs.com/wcwnina 汪春旺网络教育有限公司- 保留所有权利</span>
-            <span class="fr">copyright©2018 ICP备案证书号：京ICP备xxxxx号-1</span>
-        </div>
+            <div class="wp">
+                <span class="fl">©2018 www.cnblogs.com/wcwnina 汪春旺网络教育有限公司- 保留所有权利</span>
+                <span class="fr">copyright©2018 ICP备案证书号：京ICP备xxxxx号-1</span>
+            </div>
 
         </div>
 
@@ -317,8 +328,8 @@
 <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
 <script src="{% static 'js/plugins/queryCity/js/public.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/unslider.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/plugins/jquery.scrollLoading.js' %}"  type="text/javascript"></script>
-<script src="{% static 'js/deco-common.js' %}"  type="text/javascript"></script>
+<script src="{% static 'js/plugins/jquery.scrollLoading.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/deco-common.js' %}" type="text/javascript"></script>
 
 </body>
 </html>

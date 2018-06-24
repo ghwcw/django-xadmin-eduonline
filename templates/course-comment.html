@@ -1,67 +1,83 @@
 <!DOCTYPE html>
+{% load staticfiles %}
+{% load humanize %}
 <html>
 
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
-	<title>公开课评论 - 慕学在线网</title>
-	<link rel="stylesheet" type="text/css" href="../css/reset.css">
-	<link rel="stylesheet" type="text/css" href="../css/animate.css">
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-    
-    <link rel="stylesheet" type="text/css" href="../css/muke/course/learn-less.css" />
-	<link rel="stylesheet" type="text/css" href="../css/muke/course/course-comment.css" />
-    <link rel="stylesheet" type="text/css" href="../css/muke/base.css">
-    <link rel="stylesheet" type="text/css" href="../css/muke/common-less.css">
-    <link rel="stylesheet" type="text/css" href="../css/muke/course/common-less.css">
-    <link rel="stylesheet" type="text/css" href="../css/mooc.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>公开课评论 - 教育在线网</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
-    <script src="../js/jquery.min.js" type="text/javascript"></script>
-    <script src="../js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/learn-less.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/course-comment.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/base.cs' %}s">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/common-less.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/common-less.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}"/>
+
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
 
 </head>
 <body>
 <section class="headerwrap ">
     <header>
-		<div  class=" header">
- 			<div class="top">
-				<div class="wp">
-					<div class="fl"><p>服务电话：<b>33333333</b></p></div>
-					<!--登录后跳转-->
+        <div class=" header">
+            <div class="top">
+                <div class="wp">
+                    <div class="fl"><p>服务电话：<b>010-12346688</b></p></div>
 
-                        
+                    {% if request.user.is_authenticated %}
+                        <!--登录成功-->
+                        <span id="succ_msg" style="margin-left: 600px;">{{ succ_msg }}</span>
                         <div class="personal">
+
                             <dl class="user fr">
-                                <dd>bobby<img class="down fr" src="../images/top_down.png"/></dd>
-                                <dt><img width="20" height="20" src="../media/image/2016/12/default_big_14.png"/></dt>
+                                <dd>{{ username }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
+                                <dt><img width="20" height="20"
+                                         src="{% static 'media/image/2016/12/default_big_14.png' %}"/>
+                                </dt>
                             </dl>
                             <div class="userdetail">
-                            	<dl>
-	                                <dt><img width="80" height="80" src="../media/image/2016/12/default_big_14.png"/></dt>
-	                                <dd>
-	                                    <h2>django</h2>
-	                                    <p>bobby</p>
-	                                </dd>
+                                <dl>
+                                    <dt><img width="80" height="80"
+                                             src="{% static 'media/image/2016/12/default_big_14.png' %}"/></dt>
+                                    <dd>
+                                        <h2>{{ request.user.nick_name }}</h2>
+                                        <p>{{ username }}</p>
+                                    </dd>
                                 </dl>
                                 <div class="btn">
-	                                <a class="personcenter fl" href="usercenter-info.html">进入个人中心</a>
-	                                <a class="fr" href="/logout/">退出</a>
+                                    <a class="personcenter fl" href="usercenter-info.html">进入个人中心</a>
+                                    <a class="fr" href="{% url 'myuser:logout' %}">退出</a>
                                 </div>
                             </div>
                         </div>
+
                         <a href="usercenter-message.html">
-                            <div class="msg-num"> <span id="MsgNum">0</span></div>
+                            <div class="msg-num"><span id="MsgNum">0</span></div>
                         </a>
-                    
 
+                    {% elif not flag %}
+                        <!--未登录-->
+                        <a style="color:white" class="fr registerbtn" href="{% url 'myuser:register' %}">注册</a>
+                        <a style="color:white" class="fr loginbtn" href="{% url 'myuser:login' %}">登录</a>
+                    {% else %}
+                        <!--未登录-->
+                        <a style="color:white" class="fr registerbtn" href="{% url 'myuser:register' %}">注册</a>
+                        <a style="color:white" class="fr loginbtn" href="{% url 'myuser:login' %}">登录</a>
+                    {% endif %}
 
-				</div>
-			</div>
+                </div>
+            </div>
 
             <div class="middle">
                 <div class="wp">
-                    <a href="index.html"><img class="fl" src="../images/logo.jpg"/></a>
+                    <a href="index.html"><img class="fl" src="{% static 'images/logo.jpg' %}"/></a>
                     <div class="searchbox fr">
                         <div class="selectContainer fl">
                             <span class="selectOption" id="jsSelectOption" data-value="course">
@@ -74,71 +90,71 @@
                             </ul>
                         </div>
                         <input id="search_keywords" class="fl" type="text" value="" placeholder="请输入搜索内容"/>
-                        <img class="search_btn fr" id="jsSearchBtn" src="../images/search_btn.png"/>
+                        <img class="search_btn fr" id="jsSearchBtn" src="{% static 'images/search_btn.png' %}"/>
                     </div>
                 </div>
             </div>
-            
-            
-			<nav>
-				<div class="nav">
-					<div class="wp">
-						<ul>
-							<li ><a href="index.html">首页</a></li>
-							<li class="active">
-								<a href="course-list.html">
-									公开课<img class="hot" src="../images/nav_hot.png">
-								</a>
-							</li>
-							<li >
-								<a href="teachers-list.html">授课教师</a>
-							</li>
-							<li ><a href="org-list.html">授课机构</a></li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-            
-			</div>
+
+
+            <nav>
+                <div class="nav">
+                    <div class="wp">
+                        <ul>
+                            <li><a href="{% url 'index' %}">首页</a></li>
+                            <li class="active">
+                                <a href="{% url 'course:course_list' %}">
+                                    公开课<img class="hot" src="{% static 'images/nav_hot.png' %}"/>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="teachers-list.html">授课教师</a>
+                            </li>
+                            <li><a href="{% url 'org:orglist' %}">授课机构</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
     </header>
 </section>
 <!--crumbs start-->
 
-    <section>
-	<div class="wp">
-		<div class="crumbs">
-			<ul>
-				<li><a href="index.html">首页</a>></li>
-                <li><a href="course-list.html">公开课程</a>></li>
-				<li><a href="course-detail.html">课程详情</a>></li>
+<section>
+    <div class="wp">
+        <div class="crumbs">
+            <ul>
+                <li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="{% url 'course:course_list' %}">公开课程</a>></li>
+                <li><a href="{% url 'course:course_detail' course_id=course_id %}">课程详情</a>></li>
                 <li>课程评论</li>
-			</ul>
-		</div>
-	</div>
+            </ul>
+        </div>
+    </div>
 </section>
 
 
-    <div id="main">
+<div id="main">
     <div class="course-infos">
         <div class="w pr">
             <div style="height: 15px" class="path">
             </div>
             <div class="hd">
-                <h2 class="l">django与vuejs实战项目2</h2>
+                <h2 class="l">&nbsp;&nbsp;{{ course.name }}</h2>
             </div>
             <div class="statics clearfix">
                 <div class="static-item ">
-                    <span class="meta-value"><strong>高级</strong></span>
+                    <span class="meta-value"><strong>{{ course.get_degree_display }}</strong></span>
                     <span class="meta">难度</span>
                     <em></em>
                 </div>
                 <div class="static-item static-time">
-                    <span class="meta-value">0分钟</span>
+                    <span class="meta-value">{{ course.learn_time }}</span>
                     <span class="meta">时长</span>
                     <em></em>
                 </div>
                 <div class="static-item">
-                    <span class="meta-value"><strong>12</strong></span>
+                    <span class="meta-value"><strong>{{ course.students }}</strong></span>
                     <span class="meta">学习人数</span>
                     <em></em>
                 </div>
@@ -152,202 +168,50 @@
                 <div class="content">
                     <div class="mod-tab-menu">
                         <ul class="course-menu clearfix">
-                            <li><a class="ui-tabs-active " id="learnOn"  href="course-video.html"><span>章节</span></a></li>
-                            <li><a id="commentOn" class="active" href="course-comment.html"><span>评论</span></a></li>
+                            <li><a id="learnOn"
+                                   href="{% url 'course:course_video' course_id=course_id %}"><span>章节</span></a></li>
+                            <li><a class="ui-tabs-active active" id="commentOn" class=""
+                                   href="{% url 'oper:course_comment' course_id=course_id %}"><span>评论</span></a>
+                            </li>
                         </ul>
                     </div>
+                    <div id="notice" class="clearfix">
+                        <div class="l"><strong>课程公告:</strong> <a href="javascript:void(0)">（没新公告）</a></div>
+                    </div>
+                    <br>
 
                     <!--发布评论-->
                     <div id="js-pub-container" class="issques clearfix js-form">
-                        <div class="wgt-ipt-wrap pub-editor-wrap " id="js-pl-input-fake">
-                            <textarea id="js-pl-textarea" class="" placeholder="扯淡、吐槽、表扬、鼓励……想说啥就说啥！" ></textarea>
-                        </div>
-                        <input type="button" id="js-pl-submit" class="pub-btn" data-cid="452" value="发表评论">
+{#                        <div class="wgt-ipt-wrap pub-editor-wrap" id="js-pl-input-fake">#}
+                            <textarea id="js-pl-textarea" class="wgt-ipt-wrap" rows="5" cols="120" placeholder="扯淡、吐槽、表扬、鼓励……想说啥就说啥！"></textarea>
+{#                        </div>#}
+                        <input type="button" id="js-pl-submit" style="width: 80px; height: 30px; cursor: pointer; background-color: #FF7800; color: white;" data-cid="452" value="发表评论">
                         <p class="global-errortip js-global-error"></p>
                     </div>
+                    <span style="color: #00a0dc">评论内容列表↓↓</span>
                     <div id="course_note">
                         <ul class="mod-post" id="comment-list">
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
+
+                            {% for comment in comments %}
+                                <li class="post-row" style="border-bottom: lightgrey 0.5px solid; padding: 8px 0 8px 0">
+                                    <div class="media">
+                                        <span target="_blank"><img
+                                                src='{{ MEDIA_URL }}{{ comment.user.image }}' width='40'
+                                                height='40'/></span>
                                     </div>
-                                    <p class="cnt">看到第三章了，虽然有些知识还不是听得很懂，但是感觉很有用的样子，想的是先听完一遍再说。然后再来听第二遍。最后想说老师棒棒哒！！！</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年12月13日 22:14</span>
+                                    <div class="bd">
+                                        <div class="tit">
+                                            <span target="_blank" title="评论用户" style="color: #00a0dc">{{ comment.user.nick_name }}</span>
+                                        </div>
+                                        <p class="cnt">{{ comment.comment }}</p>
+                                        <div class="footer clearfix">
+                                            <span title="评论时间" class="l timeago" style="font-size: smaller; color: #9F9F9F;">发表于：{{ comment.add_time|naturaltime }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">老师您讲的很好，很期待下次的课程。我有个小问题，jedi我用git clone 和 apt-get 都装上了，:help jedi-vim ,提示我E149: 抱歉，没有 jedi-vim 的说明，补全也不能用，有点搞不清楚了。我安装vim插件python-mode也不能用...</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年12月13日 22:13</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">你好。我在看7.3节 关于使用上下文管理的那个例子。关于telnetlib库使用的一些问题。 Telnet.read_until(expected, timeout=None) ;使用这个方法容易卡在输入登陆用户名的位置就不执行了。假如telnet到目标主机，如果提示符不是login ，就无法登陆吗？</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年12月13日 22:13</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">精品，老早就听医生的课了，这次的课程又让我长见识了，就像别的同学说的那样，如此简洁的实现酷炫动画的方式让我激动，赶快学完视频内容好去实现那10个任务，到时候希望徐大神好好指导指导我，如果学完后能给我个行业推荐啥的就更好了，明年就开始实习了！老紧张了--</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年12月13日 22:12</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">测试一下</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年12月13日 22:11</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">好</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年12月8日 22:07</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">好</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年12月8日 22:07</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">好</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年12月8日 22:06</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">再来一次</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年11月5日 23:18</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">good </p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年11月5日 23:18</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">讲的很不错</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年11月5日 23:13</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                            <li class="post-row">
-                                <div class="media">
-                                    <span target="_blank"><img src='../media/image/2016/12/default_big_14.png' width='40' height='40' /></span>
-                                </div>
-                                <div class="bd">
-                                    <div class="tit">
-                                        <span target="_blank">bobby</span>
-                                    </div>
-                                    <p class="cnt">给问问</p>
-                                    <div class="footer clearfix">
-                                        <span title="创建时间" class="l timeago">时间：2016年11月5日 23:09</span>
-                                    </div>
-                                </div>
-                            </li>
-                            
+                                </li>
+
+                            {% endfor %}
+
                         </ul>
                     </div>
 
@@ -356,85 +220,71 @@
                     <div class="bd">
 
                         <div class="box mb40">
-                        <h4>资料下载</h4>
-                        <ul class="downlist">
-                            
-                            <li>
-                                <span ><i class="aui-iconfont aui-icon-file"></i>&nbsp;&nbsp;前端页面</span>
-                                <a href="../media/course/resource/2016/11/media.zip" class="downcode" target="_blank" download="" data-id="274" title="">下载</a>
-                            </li>
-                            
-                        </ul>
-                    </div>
+                            <h4>资料下载</h4>
+                            <ul class="downlist">
+                                {% for res in download_res %}
+                                    <li>
+                                        <span><i
+                                                class="aui-iconfont aui-icon-file"></i>&nbsp;&nbsp;{{ res.name }}</span>
+                                        <a href="{{ MEDIA_URL }}{{ res.download }}" class="downcode" target="_blank"
+                                           download="" data-id="274" title="">下载</a>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
                         <div class="box mb40">
-                        <h4>讲师提示</h4>
-                        <div class="teacher-info">
-                            <a href="/u/315464/courses?sort=publish" target="_blank">
-                                <img src='../media/teacher/2016/11/aobama_CXWwMef.png' width='80' height='80' />
-                            </a>
-        <span class="tit">
-          <a href="/u/315464/courses?sort=publish" target="_blank">bobby</a>
-        </span>
-                            <span class="job">xxx</span>
+                            <h4>讲师提示</h4>
+                            <div class="teacher-info">
+                                <a href="" target="_blank">
+                                    <img data-url="{{ MEDIA_URL }}{{ teacher.image }}"
+                                         src="{{ MEDIA_URL }}{{ teacher.image }}" width='80' height='80'/>
+                                </a>
+                                <span class="tit"><a href="" target="_blank">{{ teacher.name }}</a></span>
+                                <span class="job">{{ teacher.work_position }}</span>
+                            </div>
+                            <div class="course-info-tip">
+                                <dl class="first">
+                                    <dt>课程须知</dt>
+                                    <dd class="autowrap">python基础你需要有</dd>
+                                </dl>
+                                <dl>
+                                    <dt>老师告诉你能学到什么？</dt>
+                                    <dd class="autowrap">django的进阶开发</dd>
+                                </dl>
+                            </div>
                         </div>
-                        <div class="course-info-tip">
-                            <dl class="first">
-                                <dt>课程须知</dt>
-                                <dd class="autowrap">python基础你需要有</dd>
-                            </dl>
-                            <dl>
-                                <dt>老师告诉你能学到什么？</dt>
-                                <dd class="autowrap">django的进阶开发</dd>
-                            </dl>
-                        </div>
-                    </div>
 
 
                         <div class="cp-other-learned  js-comp-tabs">
                             <div class="cp-header clearfix">
-                                <h2 class="cp-tit l">该课的同学还学过</h2>
+                                <h2 class="cp-tit l">收藏该课的同学还学过</h2>
                             </div>
                             <div class="cp-body">
-                                <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="course" style="display: block">
+                                <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="course"
+                                     style="display: block">
                                     <!-- img 200 x 112 -->
                                     <ul class="other-list">
-                                        <li class="curr">
-                                            <a href="/view/85?src=sug" target="_blank">
-                                                <img src="http://img.mukewang.com/57035ff200014b8a06000338-240-135.jpg" alt="Java入门第一季">
-                                                <span class="name autowrap">Java入门第一季</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/view/110?src=sug" target="_blank">
-                                                <img src="http://img.mukewang.com/5703604a0001694406000338-240-135.jpg" alt="Java入门第三季">
-                                                <span class="name autowrap">Java入门第三季</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/view/124?src=sug" target="_blank">
-                                                <img src="http://img.mukewang.com/570360620001390f06000338-240-135.jpg" alt="Java入门第二季">
-                                                <span class="name autowrap">Java入门第二季</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/view/47?src=sug" target="_blank">
-                                                <img src="http://img.mukewang.com/570765d90001bf1406000338-240-135.jpg" alt="Spring MVC起步">
-                                                <span class="name autowrap">Spring MVC起步</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/view/36?src=sug" target="_blank">
-                                                <img src="http://img.mukewang.com/53e1d0470001ad1e06000338-240-135.jpg" alt="JavaScript入门篇">
-                                                <span class="name autowrap">JavaScript入门篇</span>
-                                            </a>
-                                        </li>
+
+                                        {% for usercourse in usercourse_list %}
+                                            <li class="curr">
+                                                <a href="{% url 'course:course_detail' course_id=usercourse.id %}"
+                                                   target="_blank">
+                                                    <img src="{{ MEDIA_URL }}{{ usercourse.image }}"
+                                                         alt="{{ usercourse.name }}">
+                                                    <span class="name autowrap">{{ usercourse.name }}</span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+
                                     </ul>
                                 </div>
                                 <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="plan">
                                     <ul class="other-list">
                                         <li class="curr">
                                             <a href="/course/programdetail/pid/31?src=sug" target="_blank">
-                                                <img src="http://img.mukewang.com/56551e6700018b0c09600720-240-135.jpg" alt="Java工程师">
+                                                <img src="http://img.mukewang.com/56551e6700018b0c09600720-240-135.jpg"
+                                                     alt="Java工程师">
                                                 <span class="name autowrap">Java工程师</span>
                                             </a>
                                         </li>
@@ -443,7 +293,8 @@
                             </div>
                         </div>
 
-                    </div>    </div>
+                    </div>
+                </div>
             </div>
             <div class="clear"></div>
 
@@ -453,22 +304,28 @@
 </div>
 
 <footer>
-		<div class="footer">
-			<div class="wp">
-				<ul class="cont">
-					<li class="logo"><a href=""><img src="../images/footlogo.png"/></a></li>
-					<li class="code"><img src="../images/code.jpg"/><p class="center">扫描关注微信</p></li>
-					<li class="third"><img class="fl" src="../images/tell.png"/><p class="tell">33333333</p><p class="time">周一至周日 9:00-18:00</p></li>
-				</ul>
+    <div class="footer">
+        <div class="wp">
+            <ul class="cont">
+                <li class="logo"><a href="{% url 'index' %}" style="width: 300px; height: 100px"><img
+                        style="display: block; width: 100%; height: 100%" src="{% static 'images/footlogo.png' %}"/></a>
+                </li>
+                <li class="code"><img src="{% static 'images/code.jpg' %}"/>
+                    <p class="center">扫描关注微信</p></li>
+                <li class="third"><img class="fl" src="{% static 'images/tell.png' %}"/>
+                    <p class="tell">010-12346688</p>
+                    <p class="time">周一至周日 9:00-18:00</p></li>
+            </ul>
+            <p class="line"></p>
+            <div class="wp">
+                <span class="fl">©2018 www.cnblogs.com/wcwnina 汪春旺网络教育有限公司- 保留所有权利</span>
+                <span class="fr">copyright©2018 ICP备案证书号：京ICP备xxxxx号-1</span>
+            </div>
 
-			</div>
-			<p class="line"></p>
-			<div class="wp clear">
-                <span class="fl">? 2016 www.projectsedu.com 慕学在线-在线学习交流平台 保留所有权利</span>
-                <span class="fr">copyright ? 2016 ICP备案证书号：蜀ICP备xxxxx号-1</span>
-			</div>
-		</div>
-	</footer>
+        </div>
+
+    </div>
+</footer>
 
 <section>
     <ul class="sidebar">
@@ -478,42 +335,43 @@
         <li class="totop"></li>
     </ul>
 </section>
-<script src="../js/selectUi.js" type='text/javascript'></script>
-<script src="../js/deco-common.js" type='text/javascript'></script>
-<script type="text/javascript" src="../js/plugins/laydate/laydate.js"></script>
-<script src="../js/plugins/layer/layer.js"></script>
-<script src="../js/plugins/queryCity/js/public.js" type="text/javascript"></script>
-<script src="../js/unslider.js" type="text/javascript"></script>
-<script src="../js/plugins/jquery.scrollLoading.js"  type="text/javascript"></script>
-<script src="../js/deco-common.js"  type="text/javascript"></script>
+<script src="{% static 'js/selectUi.js' %}" type='text/javascript'></script>
+<script src="{% static 'js/deco-common.js' %}" type='text/javascript'></script>
+<script type="text/javascript" src="{% static 'js/plugins/laydate/laydate.js' %}"></script>
+<script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+<script src="{% static 'js/plugins/queryCity/js/public.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/unslider.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/plugins/jquery.scrollLoading.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/deco-common.js' %}" type="text/javascript"></script>
 
 <script type="text/javascript">
     //添加评论
-    $('#js-pl-submit').on('click', function(){
-        var comments = $("#js-pl-textarea").val()
-        if(comments == ""){
-            alert("评论不能为空")
+    $('#js-pl-submit').on('click', function () {
+        var comment = $("#js-pl-textarea").val();
+        if ($.trim(comment) === "") {
+            alert("评论不能为空！");
             return
         }
         $.ajax({
             cache: false,
             type: "POST",
-            url:"/course/add_comment/",
-            data:{'course_id':10, 'comments':comments},
+            url: "{% url 'oper:course_add_comment' %}",
+            data: {'course_id': {{ course_id }}, 'comment': comment},
             async: true,
-            beforeSend:function(xhr, settings){
-                xhr.setRequestHeader("X-CSRFToken", "5I2SlleZJOMUX9QbwYLUIAOshdrdpRcy");
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
             },
-            success: function(data) {
-                if(data.status == 'fail'){
-                    if(data.msg == '用户未登录'){
-                        window.location.href="login.html";
-                    }else{
+            success: function (data) {
+                if (data.status == 'fail') {
+                    if (data.msg == '用户未登录') {
+                        alert("您还未登录，不能评论！点击右上角登录按钮进行登录。");
+                    } else {
                         alert(data.msg)
                     }
 
-                }else if(data.status == 'success'){
-                    window.location.reload();//刷新当前页面.
+                } else if (data.status == 'success') {
+                    alert(data.msg);
+                    location.reload();      //刷新当前页面.
                 }
             },
         });

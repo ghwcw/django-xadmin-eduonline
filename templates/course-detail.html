@@ -146,13 +146,20 @@
                             <span class="fr">学习人数：{{ course.students }}</span>
                         </div>
                         <ul class="parameter">
-                            <li><span class="pram word3">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</span><span>{{ course.learn_time }}</span></li>
-                            <li><span class="pram word3">章&nbsp;节&nbsp;数：</span><span>{{ course.section_set.count }}</span></li>
-                            <li><span class="pram word3">课程类别：</span><span title="">{{ course.get_category_display }}</span></li>
+                            <li><span
+                                    class="pram word3">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</span><span>{{ course.learn_time }}</span>
+                            </li>
+                            <li><span
+                                    class="pram word3">章&nbsp;节&nbsp;数：</span><span>{{ course.section_set.count }}</span>
+                            </li>
+                            <li><span class="pram word3">课程类别：</span><span
+                                    title="">{{ course.get_category_display }}</span></li>
                             <li class="piclist"><span class="pram word4">学习用户：</span>
 
                                 {% for usercourse in course.get_usercourse_set %}
-                                    <span class="pic"><img width="40" height="40" title="{{ usercourse.user.nick_name }}" src="{{ MEDIA_URL }}{{ usercourse.user.image }}"/></span>
+                                    <span class="pic"><img width="40" height="40"
+                                                           title="{{ usercourse.user.nick_name }}"
+                                                           src="{{ MEDIA_URL }}{{ usercourse.user.image }}"/></span>
                                 {% endfor %}
 
                             </li>
@@ -165,7 +172,9 @@
                                     收藏
                                 {% endif %}
                             </div>
-                            <div class="buy btn"><a style="color: white" href="{% url 'course:course_video' course_id=course.id %}">开始学习</a></div>
+                            <a id="study" style="color: white;" href="{% url 'course:course_video' course.id %}">
+                                <div class="buy btn">开始学习</div>
+                            </a>
                         </div>
                     </div>
                     <div class="group-share-box">
@@ -207,10 +216,10 @@
                     <div class="clear">
                         <ul>
                             <li>
-                                <span>课 &nbsp;程&nbsp; 数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   {{ course.courseorg.courses }}</span>
+                                <span>课 &nbsp;程&nbsp; 数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ course.courseorg.courses }}</span>
                             </li>
                             <li>
-                                <span>教 &nbsp;师&nbsp; 数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{ course.courseorg.teacher_set.count }}</span>
+                                <span>教 &nbsp;师&nbsp; 数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ course.courseorg.teacher_set.count }}</span>
                             </li>
                             <li>所在地区：&nbsp;&nbsp;{{ course.courseorg.address }}</li>
                             <li>认&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;证&nbsp;:
@@ -250,8 +259,10 @@
                         </tr>
                         <tr>
                             <td style="word-break: break-all;" width="53" valign="top">{{ course.name }}<br/></td>
-                            <td style="word-break: break-all;" width="53" valign="top">{{ course.section_set.name }}<br/></td>
-                            <td style="word-break: break-all;" width="53" valign="top">{{ course.get_degree_display }}<br/></td>
+                            <td style="word-break: break-all;" width="53"
+                                valign="top">{{ course.section_set.name }}<br/></td>
+                            <td style="word-break: break-all;" width="53"
+                                valign="top">{{ course.get_degree_display }}<br/></td>
                             <td style="word-break: break-all;" width="53" valign="top">{{ course.learn_time }}<br/></td>
                             <td style="word-break: break-all;" width="53" valign="top">{{ course.students }}<br/></td>
                             <td style="word-break: break-all;" width="53" valign="top">{{ course.click_nums }}<br/></td>
@@ -401,6 +412,36 @@
     $('#jsRightBtn').on('click', function () {
         add_fav($(this), {{ course.courseorg.id }}, 2);
     });
+
+    // 开始学习
+    $('#study').click(function () {
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '{% url "course:course_study" %}',
+            data: {'course_id': {{ course.id }},},
+            async: true,
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('X-CSRFToken', "{{ csrf_token }}");
+            },
+            success: function (data) {
+                if (data.status == 'fail') {
+                    if (data.msg == '用户未登录') {
+                        alert('您还未登录！请点击右上角登录后才能开始学习。');
+                        location.href = "{% url 'course:course_detail' course.id %}";
+                    } else {
+                        alert(data.msg);
+                        location.href = "{% url 'course:course_detail' course.id %}";
+                    }
+                }
+                else if (data.status == 'success') {
+                    alert(data.msg);
+                    location.href = '{% url "course:course_video" course.id %}';
+                }
+            }
+
+        })
+    })
 
 
 </script>
