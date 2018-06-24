@@ -5,6 +5,7 @@
     <title>视频播放</title>
 </head>
 <body>
-    <h1>☹抱歉，暂无视频资源或暂不支持播放视频。</h1>
+    <small>当前时间：{% now 'Y-m-d H:i:s' %}</small>
+    <h1>☹抱歉，暂无视频资源或暂不支持播放视频。</h1>{{ currtime|timesince }}
 </body>
 </html>

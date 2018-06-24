@@ -139,7 +139,5 @@ class CourseVideoView(View):
 def play_video(request):
     """
     视频播放页
-    :param request:
-    :return:
     """
     return render(request, 'videoplay.html')
