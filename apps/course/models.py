@@ -44,7 +44,7 @@ class Course(models.Model):
         该课程的学习用户
         :return:
         """
-        return self.usercourse_set.all()[:5]
+        return self.usercourse_set.only('user').distinct()[:5]
 
     def __str__(self):
         return self.name
