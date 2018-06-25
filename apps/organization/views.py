@@ -1,16 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.views.generic.base import View
 
 from apps.operation.models import UserFavorite
-from apps.organization.models import CityDict, CourseOrg
+from apps.organization.models import CityDict, CourseOrg, Teacher
 from pure_pagination import Paginator, PageNotAnInteger
 
 
 class OrgListView(View):
     """
-    课程机构列表
+    授课机构列表
     """
 
     def get(self, request):
@@ -36,7 +36,7 @@ class OrgListView(View):
         if category:
             all_org = all_org.filter(category=category)
 
-        # 排序筛选
+        # 排序
         sort = request.GET.get('sort', '')
         if sort == 'students':
             all_org = all_org.order_by('-students')
@@ -188,4 +188,85 @@ class OrgTeacherView(View):
             'teachers': teachers,
             'is_fav': is_fav,
         })
+
+
+class TeacherListView(View):
+    """
+    授课教师列表
+    """
+    def get(self, request):
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        all_teachers = Teacher.objects.all()
+        teacher_nums = all_teachers.count()
+
+        hot_teacher = Teacher.objects.all().order_by('-fav_nums')[:2]
+
+        # 人气排序
+        sort = request.GET.get('sort', '')
+        if sort == 'popu':
+            all_teachers = all_teachers.order_by('-click_nums')
+
+        # 分页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(all_teachers, 3, request=request)
+        page_obj = p.page(page)
+
+        return render(request, 'teachers-list.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+            'page_obj': page_obj,
+            'teacher_nums': teacher_nums,
+            'sort': sort,
+            'hot_teacher': hot_teacher,
+        })
+
+
+class TeacherDetailView(View):
+    """
+    讲师详情页
+    """
+    def get(self, request, teacher_id):
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        teacher = get_object_or_404(Teacher, pk=teacher_id)
+        courses = teacher.course_set.all()
+
+        hot_teacher = Teacher.objects.all().order_by('-fav_nums')[:2]
+
+        # 判断是否收藏
+        is_fav_teacher = False
+        is_fav_org = False
+        org_id = teacher.org.id
+        if request.user.is_authenticated():
+            if UserFavorite.objects.filter(user=request.user, fav_id=teacher_id, fav_type=3):
+                is_fav_teacher = True
+            if UserFavorite.objects.filter(user=request.user, fav_id=org_id, fav_type=2):
+                is_fav_org = True
+
+        return render(request, 'teacher-detail.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+            'teacher': teacher,
+            'courses': courses,
+            'hot_teacher': hot_teacher,
+            'is_fav_teacher': is_fav_teacher,
+            'is_fav_org': is_fav_org,
+            'org_id': str(org_id),
+        })
+
 

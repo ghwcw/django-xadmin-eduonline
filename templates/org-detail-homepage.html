@@ -225,13 +225,13 @@
             success: function (data) {
                 if (data.status == 'fail') {
                     if (data.msg == '用户未登录') {
-                        alert('您还未登录！请点击右上角登录按钮进行登录。')
+                        alert('您还未登录！请点击右上角登录按钮进行登录。');
                     } else {
-                        alert(data.msg)
+                        alert(data.msg);
                     }
 
                 } else if (data.status == 'success') {
-                    current_elem.text(data.msg)
+                    current_elem.text(data.msg);
                 }
             },
         });

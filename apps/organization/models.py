@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class CityDict(models.Model):
     '''
     城市字典表
@@ -34,7 +35,8 @@ class CourseOrg(models.Model):
     category = models.CharField(max_length=10, choices=(CATEGORY_CHOICE), default='pxjg', verbose_name='结构分类')
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     fav_nums = models.IntegerField(default=0, verbose_name='收藏数')
-    image = models.ImageField(upload_to='org/%Y/%m', verbose_name='logo', default='org.default-org.jpg', null=True, blank=True)
+    image = models.ImageField(upload_to='org/%Y/%m', verbose_name='logo', default='org.default-org.jpg', null=True,
+                              blank=True)
     city = models.ForeignKey(CityDict, on_delete=models.DO_NOTHING, verbose_name='机构所在城市')
     students = models.IntegerField(verbose_name='学生人数', default=0)
     courses = models.IntegerField(verbose_name='课程数', default=0)
@@ -58,10 +60,13 @@ class Teacher(models.Model):
     '''
     org = models.ForeignKey(CourseOrg, verbose_name='所属机构')
     name = models.CharField(max_length=20, verbose_name='名称')
+    age = models.SmallIntegerField(null=True, blank=True, verbose_name='年龄')
+    speciality = models.CharField(max_length=200, null=True, blank=True, verbose_name='特长')
     work_year = models.SmallIntegerField(default=0, verbose_name='工作年限')
     work_company = models.CharField(max_length=50, verbose_name='所在公司')
     work_position = models.CharField(max_length=20, verbose_name='工作职位')
-    image = models.ImageField(upload_to='teacher/%Y/%m', max_length=100, verbose_name='头像', default='image/default.jpg')
+    image = models.ImageField(upload_to='teacher/%Y/%m', max_length=100, verbose_name='头像', null=True, blank=True,
+                              default='image/default.jpg')
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     fav_nums = models.IntegerField(default=0, verbose_name='收藏数')
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间')
@@ -72,5 +77,3 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.name
-
-
