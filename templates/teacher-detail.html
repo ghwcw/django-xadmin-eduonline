@@ -137,7 +137,12 @@
                             </div>
                             <div class="btn">
                                 <span class="fl btn1 collectionbtn" id="jsLeftBtn">
-                                     收藏
+                                    {% if is_fav_teacher %}
+                                        取消收藏
+                                    {% else %}
+                                        收藏
+                                    {% endif %}
+
                                 </span>
                                 <span class="fr btn2 shareBtn bdsharebuttonbox"
                                       data-text="授课教师-李老师-教育网"
@@ -216,7 +221,13 @@
                     <h2 class="center">{{ teacher.org.name }}</h2>
                 </a>
                 <p class="center tell">地址：{{ teacher.org.address }}</p>
-                <a class="btn" id="jsRightBtn">收藏</a>
+                <a class="btn" id="jsRightBtn">
+                    {% if is_fav_org %}
+                        取消收藏
+                    {% else %}
+                        收藏
+                    {% endif %}
+                </a>
             </div>
             </div>
 
@@ -298,7 +309,7 @@ function add_fav(current_elem, fav_id, fav_type){
         url:"{% url 'oper:add_fav' %}",
         data:{'fav_id':fav_id, 'fav_type':fav_type},
         async: true,
-        beforeSend:function(xhr, settings){
+        beforeSend:function(xhr){
             xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
         },
         success: function(data) {

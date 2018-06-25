@@ -266,7 +266,7 @@ class TeacherDetailView(View):
             'hot_teacher': hot_teacher,
             'is_fav_teacher': is_fav_teacher,
             'is_fav_org': is_fav_org,
-            'org_id': str(org_id),
+            'org_id': org_id,
         })
 
 
