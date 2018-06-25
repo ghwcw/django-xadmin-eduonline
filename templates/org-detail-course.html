@@ -131,7 +131,7 @@
 
                 {% for course in courses %}
                     <div class="module1_5 box">
-                        <a class="comp-img-box" href="course-detail.html">
+                        <a class="comp-img-box" href="{% url 'course:course_detail' course.id %}">
 
                             <img width="214" height="195" src="{{ MEDIA_URL }}{{ course.image }}"/>
                         </a>
