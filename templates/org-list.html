@@ -264,7 +264,7 @@
                 </div>
                 <div>
                     <img src="{% static 'images/rightform2.png' %}"/>
-                    <input type="text" name="mobile" id="companyMobile" placeholder="联系电话"/>
+                    <input type="text" name="mobile" id="companyMobile" placeholder="联系电话" maxlength="11"/>
                 </div>
                 <div>
                     <img src="{% static 'images/rightform3.png' %}"/>
@@ -357,7 +357,7 @@
 
 
         $("#companyName,#companyMoblie,#companyAddress").click(function () {
-            if (document.activeElement.id === "companyName" || document.activeElement.id === "companyMobile" || document.activeElement.id === "companyAddress") {
+            if (document.activeElement.id === "companyName" || document.activeElement.id === "companyAddress" || document.activeElement.id === "companyMobile") {
                 //alert("获取焦点了");
                 $('#jsCompanyTips').hide();
             }

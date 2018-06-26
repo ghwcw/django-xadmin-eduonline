@@ -16,13 +16,13 @@ from apps.organization.models import CityDict, CourseOrg, Teacher
 class CityDictAdmin():
     list_display = ['id', 'name', 'desc', 'add_time']
     list_filter = ['id', 'name', 'desc', 'add_time']
-    search_fields = ['id', 'name', 'desc', 'add_time']
+    search_fields = ['name', 'desc']
 
 
 class CourseOrgAdmin():
     list_display = ['id', 'name', 'desc', 'click_nums', 'fav_nums', 'image', 'city', 'address', 'add_time']
     list_filter = ['id', 'name', 'desc', 'click_nums', 'fav_nums', 'image', 'city', 'address', 'add_time']
-    search_fields = ['id', 'name', 'desc', 'click_nums', 'fav_nums', 'image', 'city', 'address', 'add_time']
+    search_fields = ['name', 'desc', 'image', 'address']
 
 
 class TeacherAdmin():
@@ -30,8 +30,7 @@ class TeacherAdmin():
                     'image', 'add_time']
     list_filter = ['id', 'org', 'name', 'work_year', 'work_company', 'work_position', 'click_nums', 'fav_nums',
                    'image', 'add_time']
-    search_fields = ['id', 'org', 'name', 'work_year', 'work_company', 'work_position', 'click_nums', 'fav_nums',
-                     'image', 'add_time']
+    search_fields = ['name', 'work_company', 'work_position', 'image']
 
 
 xadmin.site.register(CityDict, CityDictAdmin)
