@@ -232,24 +232,27 @@
                         </div>
                         <div class="box mb40">
                             <h4>讲师提示</h4>
-                            <div class="teacher-info">
-                                <a href="" target="_blank">
-                                    <img data-url="{{ MEDIA_URL }}{{ teacher.image }}"
-                                         src="{{ MEDIA_URL }}{{ teacher.image }}" width='80' height='80'/>
-                                </a>
-                                <span class="tit"><a href="" target="_blank">{{ teacher.name }}</a></span>
-                                <span class="job">{{ teacher.work_position }}</span>
-                            </div>
-                            <div class="course-info-tip">
-                                <dl class="first">
-                                    <dt>课程须知</dt>
-                                    <dd class="autowrap">python基础你需要有</dd>
-                                </dl>
-                                <dl>
-                                    <dt>老师告诉你能学到什么？</dt>
-                                    <dd class="autowrap">django的进阶开发</dd>
-                                </dl>
-                            </div>
+                            {% if teacher %}
+                                <div class="teacher-info">
+                                    <a href="{% url 'org:teacherdetail' teacher_id=teacher.id %}" target="_blank">
+                                        <img data-url="{{ MEDIA_URL }}{{ teacher.image }}"
+                                             src="{{ MEDIA_URL }}{{ teacher.image }}" width='80' height='80'/>
+                                    </a>
+                                    <span class="tit"><a href="{% url 'org:teacherdetail' teacher_id=teacher.id %}"
+                                                         target="_blank">{{ teacher.name }}</a></span>
+                                    <span class="job">{{ teacher.work_position }}</span>
+                                </div>
+                                <div class="course-info-tip">
+                                    <dl class="first">
+                                        <dt>课程须知</dt>
+                                        <dd class="autowrap">python基础你需要有</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>老师告诉你能学到什么？</dt>
+                                        <dd class="autowrap">django的进阶开发</dd>
+                                    </dl>
+                                </div>
+                            {% endif %}
                         </div>
 
 

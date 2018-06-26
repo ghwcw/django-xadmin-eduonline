@@ -80,7 +80,7 @@
                                 <li data-value="teacher">授课老师</li>
                             </ul>
                         </div>
-                        <input id="search_keywords" class="fl" type="text" value="" placeholder="请输入搜索内容"/>
+                        <input id="search_keywords" class="fl" type="text" value="{{ keywords }}" placeholder="请输入搜索内容"/>
                         <img class="search_btn fr" id="jsSearchBtn" src="{% static 'images/search_btn.png' %}"/>
                     </div>
                 </div>
@@ -126,11 +126,12 @@
         <div class="list" style="margin-top:0;">
             <div class="left layout">
                 <div class="head">
-                    <ul class="tab_header">
+                    <ul class="fl tab_header">
                         <li class="{% if sort == '' %}active{% endif %}"><a href="?sort=">最新 </a></li>
                         <li class="{% if sort == 'hot' %}active{% endif %}"><a href="?sort=hot">最热门</a></li>
                         <li class="{% if sort == 'students' %}active{% endif %}"><a href="?sort=students">参与人数</a></li>
                     </ul>
+                    <div class="fr butler-num">共<span class="key">{{ course_nums }}</span>门&nbsp;&nbsp;&nbsp;</div>
                 </div>
                 <div id="inWindow">
                     <div class="tab_cont " id="content">

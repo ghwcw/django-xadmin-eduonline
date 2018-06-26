@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
@@ -10,7 +11,7 @@ from pure_pagination import Paginator, PageNotAnInteger
 
 class OrgListView(View):
     """
-    授课机构列表
+    授课机构导航列表
     """
 
     def get(self, request):
@@ -25,6 +26,11 @@ class OrgListView(View):
         all_org = CourseOrg.objects.all()
 
         hot_org = CourseOrg.objects.order_by('-click_nums')[:3]  # 用于机构排行
+
+        # 搜索机构
+        keywords = request.GET.get('keywords', '')
+        if keywords:
+            all_org = all_org.filter(Q(name__icontains=keywords) | Q(desc__icontains=keywords))
 
         # 城市筛选
         city_id = request.GET.get('city', '')
@@ -65,6 +71,7 @@ class OrgListView(View):
             'category': category,
             'hot_org': hot_org,
             'sort': sort,
+            'keywords': keywords,
         })
 
 
@@ -192,7 +199,7 @@ class OrgTeacherView(View):
 
 class TeacherListView(View):
     """
-    授课教师列表
+    授课教师导航列表
     """
     def get(self, request):
         try:
@@ -206,6 +213,11 @@ class TeacherListView(View):
         teacher_nums = all_teachers.count()
 
         hot_teacher = Teacher.objects.all().order_by('-fav_nums')[:2]
+
+        # 搜索教师
+        keywords = request.GET.get('keywords', '')
+        if keywords:
+            all_teachers = all_teachers.filter(name__icontains=keywords)
 
         # 人气排序
         sort = request.GET.get('sort', '')
@@ -228,6 +240,7 @@ class TeacherListView(View):
             'teacher_nums': teacher_nums,
             'sort': sort,
             'hot_teacher': hot_teacher,
+            'keywords': keywords,
         })
 
 

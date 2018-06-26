@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 
@@ -12,7 +13,7 @@ from apps.organization.models import CourseOrg
 
 class CourseListView(View):
     """
-    课程列表页
+    公开课导航列表页
     """
 
     def get(self, request):
@@ -27,6 +28,11 @@ class CourseListView(View):
 
         hot_courses = Course.objects.all().order_by('-click_nums')[:3]
 
+        # 搜索公开课
+        keywords = request.GET.get('keywords', '')
+        if keywords:
+            all_courses = all_courses.filter(Q(name__icontains=keywords) | Q(detail__icontains=keywords))
+
         # 筛选排序
         sort = request.GET.get('sort', '')
         if sort:
@@ -34,6 +40,8 @@ class CourseListView(View):
                 all_courses = all_courses.order_by('-students')
             elif sort == 'hot':
                 all_courses = all_courses.order_by('-click_nums')
+
+        course_nums = all_courses.count()
 
         # 分页
         try:
@@ -51,6 +59,8 @@ class CourseListView(View):
             'page_obj': page_obj,
             'sort': sort,
             'hot_courses': hot_courses,
+            'course_nums': course_nums,
+            'keywords': keywords,
         })
 
 
