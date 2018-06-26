@@ -280,7 +280,7 @@
                 <dl class="des">
                     <dt class="num fl">{{ forloop.counter }}</dt>
                     <dd>
-                        <a href=""><h1>{{ org.name }}</h1></a>
+                        <a href="{% url 'org:orghome' org.id %}"><h1>{{ org.name }}</h1></a>
                         <p>{{ org.address }}</p>
                     </dd>
                 </dl>
@@ -331,34 +331,32 @@
 
 <script>
 
-    $(function () {
+$(function () {
 
-        $('#jsStayBtn').click(function () {
-            $.ajax({
-                cache: false,
-                type: "POST",
-                url: "{% url 'oper:user_ask' %}",
-                data: $('#jsStayForm').serialize(),
-                async: true,
-                success: function (data) {
-                    if (data.status == 'success') {
-                        $('#jsStayForm')[0].reset();
-                        alert("提交成功")
-                    } else if (data.status == 'fail') {
-                        $('#jsCompanyTips').addClass('company-tips');
-                        $('#jsCompanyTips').html(data.errmsg)
-                    }
-                },
-            });
+    $('#jsStayBtn').click(function () {
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "{% url 'oper:user_ask' %}",
+            data: $('#jsStayForm').serialize(),
+            async: true,
+            success: function (data) {
+                if (data.status == 'success') {
+                    $('#jsStayForm')[0].reset();
+                    alert("提交成功")
+                } else if (data.status == 'fail') {
+                    $('#jsCompanyTips').addClass('company-tips');
+                    $('#jsCompanyTips').html(data.errmsg)
+                }
+            },
         });
-
-        /*
-        if($('#jsStayForm:focus').length>0){
-            $('#jsCompanyTips').removeClass('company-tips');
-        }
-        */
-
     });
+
+
+
+
+
+});
 
 </script>
 

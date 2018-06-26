@@ -63,9 +63,9 @@ function search_click(){
     var type = $('#jsSelectOption').attr('data-value');
     var keywords = $('#search_keywords').val();
     var request_url = '';
-    if(keywords === ""){
-        return;
-    }
+    // if(keywords === ""){
+    //     return;
+    // }
     if(type === "course"){
         request_url = "/course/course-list?keywords="+keywords;
     }else if(type === "teacher"){
@@ -418,9 +418,9 @@ $(function() {
         search_click()
     });
 
-    //搜索表单键盘事件
+    //搜索键盘事件
     $("#search_keywords").keydown(function(event){
-        if(event.keyCode == 13){
+        if(event.keyCode === 13){
              $('#jsSearchBtn').trigger('click');
         }
     });

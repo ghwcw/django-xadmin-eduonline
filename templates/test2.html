@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../static/js/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+<input id="myinp" type="text" placeholder="输入内容">
+
+<script>
+$(function () {
+
+    /*if($('#myinp').hasFocus()){
+        alert('获得焦点');
+    }
+
+    if($('#myinp :focus').length >0){
+        alert('获得焦点');
+    }*/
+
+    $("#myinp").click(function(){
+      var act = document.activeElement.id;
+      if(act==="myinp" ){
+        alert("获取焦点了");
+      }
+      else{
+        alert("没有获取焦点");
+      }
+    });
+
+
+
+
+});
+
+</script>
+
+</body>
+
+
+
+</html>
