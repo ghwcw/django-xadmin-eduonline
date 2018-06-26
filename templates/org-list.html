@@ -31,7 +31,8 @@
                         <div class="personal">
 
                             <dl class="user fr">
-                                <dd>{{ request.user.nick_name }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
+                                <dd>{{ request.user.nick_name }}<img class="down fr"
+                                                                     src="{% static 'images/top_down.png' %}"/></dd>
                                 <dt><img width="20" height="20" src="{{ MEDIA_URL }}{{ request.user.image }}"/>
                                 </dt>
                             </dl>
@@ -82,7 +83,8 @@
                                 <li data-value="teacher">授课老师</li>
                             </ul>
                         </div>
-                        <input id="search_keywords" class="fl" type="text" value="{{ keywords }}" placeholder="请输入搜索内容"/>
+                        <input id="search_keywords" class="fl" type="text" value="{{ keywords }}"
+                               placeholder="请输入搜索内容"/>
                         <img class="search_btn fr" id="jsSearchBtn" src="{% static 'images/search_btn.png' %}"/>
                     </div>
                 </div>
@@ -294,7 +296,7 @@
     <div class="footer">
         <div class="wp">
             <ul class="cont">
-                <li class="logo"><a href="{% url 'index' %}"><img src="{% static 'images/footlogo.png' %}"/></a></li>
+                <li class="logo"><a href=""><img src="{% static 'images/footlogo.png' %}"/></a></li>
                 <li class="code"><img src="{% static 'images/code.jpg' %}"/>
                     <p class="center">扫描关注微信</p></li>
                 <li class="third"><img class="fl" src="{% static 'images/tell.png' %}"/>
@@ -331,32 +333,38 @@
 
 <script>
 
-$(function () {
+    $(function () {
 
-    $('#jsStayBtn').click(function () {
-        $.ajax({
-            cache: false,
-            type: "POST",
-            url: "{% url 'oper:user_ask' %}",
-            data: $('#jsStayForm').serialize(),
-            async: true,
-            success: function (data) {
-                if (data.status == 'success') {
-                    $('#jsStayForm')[0].reset();
-                    alert("提交成功")
-                } else if (data.status == 'fail') {
-                    $('#jsCompanyTips').addClass('company-tips');
-                    $('#jsCompanyTips').html(data.errmsg)
-                }
-            },
+        $('#jsStayBtn').click(function () {
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "{% url 'oper:user_ask' %}",
+                data: $('#jsStayForm').serialize(),
+                async: true,
+                success: function (data) {
+                    if (data.status == 'success') {
+                        $('#jsStayForm')[0].reset();
+                        alert("提交成功")
+                    } else if (data.status == 'fail') {
+                        $('#jsCompanyTips').show();
+                        $('#jsCompanyTips').addClass('company-tips');
+                        $('#jsCompanyTips').html(data.errmsg);
+                    }
+                },
+            });
         });
+
+
+        $("#companyName,#companyMoblie,#companyAddress").click(function () {
+            if (document.activeElement.id === "companyName" || document.activeElement.id === "companyMobile" || document.activeElement.id === "companyAddress") {
+                //alert("获取焦点了");
+                $('#jsCompanyTips').hide();
+            }
+        });
+
+
     });
-
-
-
-
-
-});
 
 </script>
 

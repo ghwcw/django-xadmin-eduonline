@@ -20,15 +20,20 @@ $(function () {
         alert('获得焦点');
     }*/
 
+
     $("#myinp").click(function(){
-      var act = document.activeElement.id;
-      if(act==="myinp" ){
+      if(document.activeElement.id==="myinp" ){
         alert("获取焦点了");
       }
       else{
         alert("没有获取焦点");
       }
     });
+
+    if($('#myinp').hasFocus()){
+        alert('get focus！')
+    }
+
 
 
 
