@@ -11,7 +11,7 @@ Description :
 """
 from django.conf.urls import url
 from apps.myuser.views import LoginView, LogoutView, RegisterView, ForgetPwdView, ResetPwdView, \
-    UserCenInfoView, UserCenUploadHeadimgView
+    UserCenInfoView, UserCenUploadHeadimgView, UserCenResetPwdView
 
 # app_name = 'myuser'
 
@@ -26,5 +26,6 @@ urlpatterns = [
     # 个人信息中心
     url(r'^usercen-info/$', UserCenInfoView.as_view(), name='usercen_info'),
     url(r'^usercen-upload-headimg/$', UserCenUploadHeadimgView.as_view(), name='usercen_upload_headimg'),
+    url(r'^usercen-reset-pwd/$', UserCenResetPwdView.as_view(), name='usercen_reset_pwd'),
 
 ]

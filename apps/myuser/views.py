@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages, auth
 from django.contrib.auth import authenticate, hashers
 from django.contrib.auth.backends import ModelBackend
@@ -7,7 +9,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 
-from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserCenUploadHeadimgForm
+from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserCenUploadHeadimgForm, \
+    UpdatePwdForm
 from apps.myuser.models import UserProfile, EmailValiRecord
 from custmethods.send_email import SendEmail
 
@@ -288,4 +291,28 @@ class UserCenUploadHeadimgView(View):
             'username': username,
             'succ_msg': succ_msg,
         })
+
+
+class UserCenResetPwdView(View):
+    """
+    个人中心-修改密码
+    """
+    def post(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        update_pwd_form = UpdatePwdForm(request.POST)
+        if update_pwd_form.is_valid():
+            password1 = update_pwd_form.cleaned_data.get('password1', '')
+            password2 = update_pwd_form.cleaned_data.get('password2', '')
+            if password1 != password2:
+                return JsonResponse({'status': 'fail', 'msg': '两次输入的密码不一致！'})
+            user = request.user
+            user.password = hashers.make_password(password1)
+            user.save()
+            return JsonResponse({'status': 'success', 'msg': '密码修改成功！'})
+        else:
+            json_str = json.dumps(update_pwd_form.errors)
+            return HttpResponse(json_str, content_type='application/json')
 

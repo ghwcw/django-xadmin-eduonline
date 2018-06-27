@@ -58,3 +58,10 @@ class UserCenUploadHeadimgForm(forms.ModelForm):
         fields = ['image']
 
 
+class UpdatePwdForm(forms.Form):
+    """
+    个人中心-重置密码表单
+    """
+    password1 = forms.CharField(min_length=6, max_length=20, required=True)
+    password2 = forms.CharField(min_length=6, max_length=20, required=True)
+
