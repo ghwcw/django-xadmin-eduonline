@@ -12,6 +12,8 @@ Description :
 from captcha.fields import CaptchaField
 from django import forms
 
+from apps.myuser.models import UserProfile
+
 
 class LoginForm(forms.Form):
     """
@@ -45,3 +47,14 @@ class ResetPwdForm(forms.Form):
     email = forms.EmailField(required=True)
     password1 = forms.CharField(min_length=6, max_length=20, required=True)
     password2 = forms.CharField(min_length=6, max_length=20, required=True)
+
+
+class UserCenUploadHeadimgForm(forms.ModelForm):
+    """
+    用户头像修改表单
+    """
+    class Meta:
+        model = UserProfile
+        fields = ['image']
+
+

@@ -32,6 +32,7 @@ urlpatterns = [
     # 用户相关
     url(r'^user/', include('apps.myuser.myuserurl', namespace='myuser')),
     url(r'^captcha/', include('captcha.urls')),
+    # 邮箱验证
     url(r'^activate/reg/(?P<activate_reg_code>.*)/$', ActivateRegView.as_view(), name='activate_reg'),
     url(r'^activate/forget/(?P<activate_forget_code>.*)/$', ActivateForgetView.as_view(), name='activate_forget'),
 

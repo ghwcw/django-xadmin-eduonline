@@ -10,7 +10,8 @@ Description :
 -------------------------------------------------------------
 """
 from django.conf.urls import url
-from apps.myuser.views import LoginView, LogoutView, RegisterView, ForgetPwdView, ResetPwdView
+from apps.myuser.views import LoginView, LogoutView, RegisterView, ForgetPwdView, ResetPwdView, \
+    UserCenInfoView, UserCenUploadHeadimgView
 
 # app_name = 'myuser'
 
@@ -21,5 +22,9 @@ urlpatterns = [
     url(r'^forget-pwd/$', ForgetPwdView.as_view(), name='forget_pwd'),
     url(r'^reset-pwd/(?P<email_code>.*)/$', ResetPwdView.as_view(), name='reset_pwd'),
     url(r'^reset-pwd-post/$', ResetPwdView.as_view(), name='reset_pwd_post'),
+
+    # 个人信息中心
+    url(r'^usercen-info/$', UserCenInfoView.as_view(), name='usercen_info'),
+    url(r'^usercen-upload-headimg/$', UserCenUploadHeadimgView.as_view(), name='usercen_upload_headimg'),
 
 ]

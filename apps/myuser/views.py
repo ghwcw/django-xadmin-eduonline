@@ -2,12 +2,12 @@ from django.contrib import messages, auth
 from django.contrib.auth import authenticate, hashers
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 
-from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm
+from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserCenUploadHeadimgForm
 from apps.myuser.models import UserProfile, EmailValiRecord
 from custmethods.send_email import SendEmail
 
@@ -239,3 +239,53 @@ class ResetPwdView(View):
                 user.save()
                 return HttpResponse('<h1>密码修改成功！<<<a href="http://127.0.0.1:8000/user/login">请返回登录页面</a></h1>')
         return render(request, 'password_reset.html', context={'reset_pwd_form': reset_pwd_form})
+
+
+class UserCenInfoView(View):
+    """
+    个人信息中心-个人资料
+    """
+    def get(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        return render(request, 'usercenter-info.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+        })
+
+
+class UserCenUploadHeadimgView(View):
+    """
+    用户头像修改
+    """
+    def post(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        # 修改头像，使用ModelForm快捷保存，需要传入实例参数instance=request.user
+        headimg_form = UserCenUploadHeadimgForm(data=request.POST, files=request.FILES, instance=request.user)
+        if headimg_form.is_valid():
+            headimg_form.save()
+
+        return render(request, 'usercenter-info.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+        })
+
