@@ -11,7 +11,9 @@ Description :
 """
 from django.conf.urls import url
 from apps.myuser.views import LoginView, LogoutView, RegisterView, ForgetPwdView, ResetPwdView, \
-    UserCenInfoView, UserCenUploadHeadimgView, UserCenUpdatePwdView, UserCenSendEmailcodeView, UserCenUpdateEmailDoneView
+    UserCenInfoView, UserCenUploadHeadimgView, UserCenUpdatePwdView, UserCenSendEmailcodeView, \
+    UserCenUpdateEmailDoneView, UserCenCoursesView, UserCenFavOrgView, UserCenFavCourseView, UserCenFavTeacherView, \
+    UserCenMsgView
 
 # app_name = 'myuser'
 
@@ -29,5 +31,10 @@ urlpatterns = [
     url(r'^usercen-update-pwd/$', UserCenUpdatePwdView.as_view(), name='usercen_update_pwd'),
     url(r'^usercen-send-emailcode/$', UserCenSendEmailcodeView.as_view(), name='usercen_send_emailcode'),
     url(r'^usercen-update-email-done/$', UserCenUpdateEmailDoneView.as_view(), name='usercen_update_email_done'),
+    url(r'^usercen-mycourses/$', UserCenCoursesView.as_view(), name='usercen_mycourses'),
+    url(r'^usercen-myfav-orgs/$', UserCenFavOrgView.as_view(), name='usercen_myfav_orgs'),
+    url(r'^usercen-myfav-courses/$', UserCenFavCourseView.as_view(), name='usercen_myfav_courses'),
+    url(r'^usercen-myfav-teachers/$', UserCenFavTeacherView.as_view(), name='usercen_myfav_teachers'),
+    url(r'^usercen-mymsg/$', UserCenMsgView.as_view(), name='usercen_mymsg'),
 
 ]

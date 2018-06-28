@@ -126,7 +126,7 @@ $(function(){
                     Dml.fun.showValidateError($("#pwd"), data.password1);
                 }else if(data.password2){
                     Dml.fun.showValidateError($("#repwd"), data.password2);
-                }else if(data.status == "success"){
+                }else if(data.status === "success"){
                     Dml.fun.showTipsDialog({
                         title:'提交成功',
                         h2:'修改密码成功，请重新登录!',
@@ -178,14 +178,13 @@ $(function(){
     );
 
     //保存个人资料
-    $('#jsEditUserBtn').on('click', function(){
+    $('#jsSaveInfoBtn').on('click', function(){
         var _self = $(this);
-        var $jsEditUserForm = $('#jsEditUserForm');
+        var $jsUserInfoForm = $('#jsUserInfoForm');
 
         verify = verifySubmit(
         [
             {id: '#nick_name', tips: Dml.Msg.epNickName, require: true},
-            {id: '#mobile', tips: Dml.Msg.erPhone, require: true},
         ]
         );
 
@@ -198,7 +197,7 @@ $(function(){
             type: "post",
             dataType: "json",
             url: "/user/usercen-info/",
-            data: $jsEditUserForm.serialize(),
+            data: $jsUserInfoForm.serialize(),
             async: true,
             beforeSend: function(xhr){
                 _self.val("保存中...");
@@ -215,7 +214,7 @@ $(function(){
                    _showValidateError($('#address'), data.address);
                 }
                 else if(data.mobile){
-                   _showValidateError($('#info-mobile'), data.mobile);
+                   _showValidateError($("#mobile"), data.mobile);
                 }
                 else if(data.status === "fail"){
                      Dml.fun.showTipsDialog({
@@ -226,9 +225,9 @@ $(function(){
                 else if(data.status === "success"){
                     Dml.fun.showTipsDialog({
                         title: '保存成功',
-                        h2: '个人信息修改成功！'
+                        h2: '✔个人信息修改成功！'
                     });
-                    setTimeout(function(){location.reload();}, 1500);
+                    setTimeout(function(){location.reload();}, 2000);
                 }
             },
             complete: function(XMLHttpRequest){

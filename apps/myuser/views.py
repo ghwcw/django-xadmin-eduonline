@@ -10,9 +10,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 
+from apps.course.models import Course
 from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserCenUploadHeadimgForm, \
     UpdatePwdForm, UserCenInfoForm
 from apps.myuser.models import UserProfile, EmailValiRecord
+from apps.operation.models import UserCourse
 from custmethods.send_email import SendEmail
 
 
@@ -247,7 +249,7 @@ class ResetPwdView(View):
 
 class UserCenInfoView(View):
     """
-    个人信息中心-个人资料
+    个人中心-个人资料
     """
     def get(self, request):
         # 若未登录
@@ -267,6 +269,11 @@ class UserCenInfoView(View):
         })
 
     def post(self, request):
+        """
+        保存个人资料
+        :param request:
+        :return:
+        """
         # 若未登录
         if not request.user.is_authenticated():
             return redirect(reverse('myuser:login'))
@@ -276,13 +283,14 @@ class UserCenInfoView(View):
             info_form.save()
             return JsonResponse(data={'status': 'success'})
         else:
-            json_str = json.dumps(info_form.errors)
-            return HttpResponse(json_str, content_type='application/json')
+            # json_str = json.dumps(info_form.errors)
+            # return HttpResponse(json_str, content_type='application/json')
+            return JsonResponse(data={'status': 'fail', 'msg': '✘出错：请检查填写内容是否合法☹'})
 
 
 class UserCenUploadHeadimgView(View):
     """
-    用户头像修改
+    个人中心-用户头像修改
     """
     def post(self, request):
         # 若未登录
@@ -356,7 +364,7 @@ class UserCenSendEmailcodeView(View):
 
 class UserCenUpdateEmailDoneView(View):
     """
-    修改邮箱完成
+    个人中心-修改邮箱完成
     """
     def post(self, request):
         # 若未登录
@@ -383,4 +391,117 @@ class UserCenUpdateEmailDoneView(View):
             return JsonResponse({'status': 'fail', 'msg': '验证码出错，请重新验证'})
 
 
+class UserCenCoursesView(View):
+    """
+    个人中心-我的课程
+    """
+    def get(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        # 查询用户课程
+        user_objs = UserCourse.objects.select_related('course').filter(user=request.user)
+        courses = (user_obj.course for user_obj in user_objs)       # 使用了生成器
+
+        return render(request, 'usercenter-mycourse.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+            'courses': courses,
+        })
+
+
+class UserCenFavOrgView(View):
+    """
+    个人中心-我的收藏机构
+    """
+    def get(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        return render(request, 'usercenter-fav-org.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+        })
+
+
+class UserCenFavCourseView(View):
+    """
+    个人中心-我的收藏课程
+    """
+    def get(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        return render(request, 'usercenter-fav-course.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+        })
+
+
+class UserCenFavTeacherView(View):
+    """
+    个人中心-我的收藏教师
+    """
+    def get(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        return render(request, 'usercenter-fav-teacher.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+        })
+
+
+class UserCenMsgView(View):
+    """
+    个人中心-我的消息
+    """
+    def get(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        return render(request, 'usercenter-message.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+        })
 

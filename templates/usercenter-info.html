@@ -5,8 +5,14 @@
     <li>个人信息</li>
 {% endblock %}
 
-{% block active2 %}
-    active2
+{% block active_ul %}
+    <ul>
+        {# 添加左侧菜单活动class块 #}
+        <li class="active2"><a href="{% url 'myuser:usercen_info' %}">个人资料</a></li>
+        <li><a href="{% url 'myuser:usercen_mycourses' %}">我的课程</a></li>
+        <li><a href="{% url 'myuser:usercen_myfav_orgs' %}">我的收藏</a></li>
+        <li><a href="{% url 'myuser:usercen_mymsg' %}" style="position: relative;">我的消息</a></li>
+    </ul>
 {% endblock %}
 
 {% block middle_content %}
@@ -39,7 +45,7 @@
                     </div>
                 </div>
 
-                <form class="perinform" id="jsEditUserForm" autocomplete="off">
+                <form class="perinform" id="jsUserInfoForm" autocomplete="off">
                     <ul class="right">
                         <li>昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：
                             <input type="text" name="nick_name" id="nick_name" value="{{ request.user.nick_name|default_if_none:'' }}"
@@ -53,10 +59,10 @@
                         </li>
                         <li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
                             <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender"
-                                                                        value="{{ request.user.gender }}"
+                                                                        value="male"
                                                                         {% if request.user.gender == 'male' %}checked="checked"{% endif %}>男</label>
                             <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender"
-                                                                              value="{{ request.user.gender }}"
+                                                                              value="female"
                                                                               {% if request.user.gender == 'female' %}checked="checked"{% endif %}>女</label>
                         </li>
                         <li class="p_infor_city">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：
@@ -65,7 +71,7 @@
                             <i class="error-tips"></i>
                         </li>
                         <li>手&nbsp;&nbsp;机&nbsp;&nbsp;号：
-                            <input type="text" name="mobile" id="info-mobile" placeholder="请输入你的手机号码" value="{{ request.user.mobile|default_if_none:'----' }}"
+                            <input type="text" name="mobile" id="mobile" placeholder="请输入你的手机号码" value="{{ request.user.mobile|default_if_none:'----' }}"
                                    maxlength="11">
                         </li>
                         <li>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
@@ -74,7 +80,7 @@
                             <span class="changeemai_btn" style="color: blue; cursor: pointer">[修改]</span>
                         </li>
                         <li class="heibtn" style="cursor: default">
-                            <input class="button btn-green btn-w100" type="button" id="jsEditUserBtn" value="保存">
+                            <input class="button btn-green btn-w100" type="button" id="jsSaveInfoBtn" value="保存">
                         </li>
                     </ul>
                     {% csrf_token %}
