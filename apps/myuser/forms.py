@@ -9,6 +9,8 @@
 Description : 
 -------------------------------------------------------------
 """
+import re
+
 from captcha.fields import CaptchaField
 from django import forms
 
@@ -65,3 +67,24 @@ class UpdatePwdForm(forms.Form):
     password1 = forms.CharField(min_length=6, max_length=20, required=True)
     password2 = forms.CharField(min_length=6, max_length=20, required=True)
 
+
+class UserCenInfoForm(forms.ModelForm):
+    """
+    用户个人信息修改表单
+    """
+    class Meta:
+        model = UserProfile
+        fields = ['nick_name', 'birthday', 'gender', 'address', 'mobile']
+
+    def clean_mobile(self):
+        """
+        手机号验证
+        :return:
+        """
+        mobile = self.cleaned_data['mobile']
+        mobile_partt = '^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$'
+        reobj = re.compile(mobile_partt)
+        if reobj.match(mobile):
+            return mobile
+        else:
+            raise forms.ValidationError('手机号非法')

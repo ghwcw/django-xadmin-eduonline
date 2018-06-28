@@ -30,7 +30,7 @@
 //     });
 /****************** END ******************/
 
-//修改个人中心邮箱验证码
+//修改个人中心 邮箱验证码
 function sendCodeChangeEmail($btn){
     var verify = verifyDialogSubmit(
         [
@@ -44,7 +44,7 @@ function sendCodeChangeEmail($btn){
         cache: false,
         type: "get",
         dataType:'json',
-        url:"/users/sendemail_code/",
+        url:"/user/usercen-send-emailcode/",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -54,11 +54,10 @@ function sendCodeChangeEmail($btn){
         success: function(data){
             if(data.email){
                 Dml.fun.showValidateError($('#jsChangeEmail'), data.email);
-            }else if(data.status == 'success'){
-                Dml.fun.showErrorTips($('#jsChangeEmailTips'), "邮箱验证码已发送");
-            }else if(data.status == 'failure'){
+            }else if(data.status === 'success'){
+                Dml.fun.showErrorTips($('#jsCheckEmailTips'), "邮箱验证码已发送");
+            }else if(data.status === 'fail'){
                  Dml.fun.showValidateError($('#jsChangeEmail'), "邮箱验证码发送失败");
-            }else if(data.status == 'success'){
             }
         },
         complete: function(XMLHttpRequest){
@@ -68,7 +67,7 @@ function sendCodeChangeEmail($btn){
     });
 
 }
-//个人资料邮箱修改
+//个人资料 邮箱修改
 function changeEmailSubmit($btn){
 var verify = verifyDialogSubmit(
         [
@@ -82,7 +81,7 @@ var verify = verifyDialogSubmit(
         cache: false,
         type: 'post',
         dataType:'json',
-        url:"/users/update_email/ ",
+        url:"/user/usercen-update-email-done/ ",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -93,11 +92,11 @@ var verify = verifyDialogSubmit(
         success: function(data) {
             if(data.email){
                 Dml.fun.showValidateError($('#jsChangeEmail'), data.email);
-            }else if(data.status == "success"){
-                Dml.fun.showErrorTips($('#jsChangePhoneTips'), "邮箱信息更新成功");
-                setTimeout(function(){location.reload();},1000);
-            }else{
-                 Dml.fun.showValidateError($('#jsChangeEmail'), "邮箱信息更新失败");
+            }else if(data.status === "success"){
+                Dml.fun.showErrorTips($('#jsCheckEmailTips'), "邮箱信息更新成功");
+                setTimeout(function(){location.reload();},2000);
+            }else if(data.status === "fail"){
+                 Dml.fun.showValidateError($('#jsChangeEmail'), data.msg);
             }
         },
         complete: function(XMLHttpRequest){
@@ -109,7 +108,7 @@ var verify = verifyDialogSubmit(
 
 $(function(){
 
-    //个人资料修改密码
+    //个人资料 修改密码
     $('#jsUserResetPwd').on('click', function(){
         Dml.fun.showDialog('#jsResetDialog', '#jsResetPwdTips');
     });
@@ -119,7 +118,7 @@ $(function(){
             cache: false,
             type: "POST",
             dataType:'json',
-            url:"/user/usercen-reset-pwd/",
+            url:"/user/usercen-update-pwd/",
             data:$('#jsResetPwdForm').serialize(),
             async: true,
             success: function(data) {
@@ -148,7 +147,7 @@ $(function(){
 
 
     $('.changeemai_btn').click(function(){
-        Dml.fun.showDialog('#jsChangeEmailDialog', '#jsChangePhoneTips' ,'jsChangeEmailTips');
+        Dml.fun.showDialog('#jsChangeEmailDialog', '#jsChangePhoneTips', 'jsChangeEmailTips');
     });
     $('#jsChangeEmailCodeBtn').on('click', function(){
         sendCodeChangeEmail($(this));
@@ -167,7 +166,7 @@ $(function(){
     });
 
     laydate({
-        elem: '#birth_day',
+        elem: '#birthday',
         format: 'YYYY-MM-DD',
         max: laydate.now()
     });
@@ -177,47 +176,59 @@ $(function(){
             {id: '#nick_name', tips: Dml.Msg.epNickName, require: true}
         ]
     );
+
     //保存个人资料
     $('#jsEditUserBtn').on('click', function(){
-        var _self = $(this),
-            $jsEditUserForm = $('#jsEditUserForm')
-            verify = verifySubmit(
-            [
-                {id: '#nick_name', tips: Dml.Msg.epNickName, require: true}
-            ]
+        var _self = $(this);
+        var $jsEditUserForm = $('#jsEditUserForm');
+
+        verify = verifySubmit(
+        [
+            {id: '#nick_name', tips: Dml.Msg.epNickName, require: true},
+            {id: '#mobile', tips: Dml.Msg.erPhone, require: true},
+        ]
         );
+
         if(!verify){
            return;
         }
+
         $.ajax({
             cache: false,
-            type: 'post',
-            dataType:'json',
-            url:"/users/info/",
-            data:$jsEditUserForm.serialize(),
+            type: "post",
+            dataType: "json",
+            url: "/user/usercen-info/",
+            data: $jsEditUserForm.serialize(),
             async: true,
-            beforeSend:function(XMLHttpRequest){
+            beforeSend: function(xhr){
                 _self.val("保存中...");
                 _self.attr('disabled',true);
             },
             success: function(data) {
                 if(data.nick_name){
                     _showValidateError($('#nick_name'), data.nick_name);
-                }else if(data.birday){
-                   _showValidateError($('#birth_day'), data.birday);
-                }else if(data.address){
+                }
+                else if(data.birthday){
+                   _showValidateError($('#birthday'), data.birthday);
+                }
+                else if(data.address){
                    _showValidateError($('#address'), data.address);
-                }else if(data.status == "failure"){
+                }
+                else if(data.mobile){
+                   _showValidateError($('#info-mobile'), data.mobile);
+                }
+                else if(data.status === "fail"){
                      Dml.fun.showTipsDialog({
                         title: '保存失败',
                         h2: data.msg
                     });
-                }else if(data.status == "success"){
+                }
+                else if(data.status === "success"){
                     Dml.fun.showTipsDialog({
                         title: '保存成功',
                         h2: '个人信息修改成功！'
                     });
-                    setTimeout(function(){window.location.href = window.location.href;},1500);
+                    setTimeout(function(){location.reload();}, 1500);
                 }
             },
             complete: function(XMLHttpRequest){

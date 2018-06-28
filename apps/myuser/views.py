@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from django.contrib import messages, auth
@@ -10,7 +11,7 @@ from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 
 from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserCenUploadHeadimgForm, \
-    UpdatePwdForm
+    UpdatePwdForm, UserCenInfoForm
 from apps.myuser.models import UserProfile, EmailValiRecord
 from custmethods.send_email import SendEmail
 
@@ -265,6 +266,19 @@ class UserCenInfoView(View):
             'succ_msg': succ_msg,
         })
 
+    def post(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        info_form = UserCenInfoForm(request.POST, instance=request.user)
+        if info_form.is_valid():
+            info_form.save()
+            return JsonResponse(data={'status': 'success'})
+        else:
+            json_str = json.dumps(info_form.errors)
+            return HttpResponse(json_str, content_type='application/json')
+
 
 class UserCenUploadHeadimgView(View):
     """
@@ -293,7 +307,7 @@ class UserCenUploadHeadimgView(View):
         })
 
 
-class UserCenResetPwdView(View):
+class UserCenUpdatePwdView(View):
     """
     个人中心-修改密码
     """
@@ -315,4 +329,58 @@ class UserCenResetPwdView(View):
         else:
             json_str = json.dumps(update_pwd_form.errors)
             return HttpResponse(json_str, content_type='application/json')
+
+
+class UserCenSendEmailcodeView(View):
+    """
+    个人中心-发送邮箱验证码
+    """
+    def get(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        email = request.GET.get('email', '')
+
+        # 判断email是否已绑定
+        if UserProfile.objects.filter(email=email):
+            return JsonResponse(data={'email': '该邮箱已被绑定！'})
+        # 发送邮件验证码
+        sm = SendEmail(email, 'update_email')
+        is_ok = sm.send_vali_emailcode()
+        if is_ok:
+            return JsonResponse(data={'status': 'success'})
+        else:
+            return JsonResponse(data={'status': 'fail'})
+
+
+class UserCenUpdateEmailDoneView(View):
+    """
+    修改邮箱完成
+    """
+    def post(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        email = request.POST.get('email', '')
+        code = request.POST.get('code', '')
+        record = EmailValiRecord.objects.filter(email=email, code=code, send_type='update_email').last()
+        if record:
+            # 有效期2分钟
+            now_time = datetime.datetime.now()
+            send_time_delta = record.send_time + datetime.timedelta(minutes=2)
+            if now_time > send_time_delta:
+                return JsonResponse({'status': 'fail', 'msg': '验证码已过期，请重新验证'})
+
+            # 开始更改邮箱
+            user = request.user
+            user.email = email
+            user.save()
+            return JsonResponse({'status': 'success'})
+
+        else:
+            return JsonResponse({'status': 'fail', 'msg': '验证码出错，请重新验证'})
+
+
 

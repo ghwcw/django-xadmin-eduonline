@@ -22,7 +22,7 @@ from apps.myuser.models import EmailValiRecord
 from eduonline import settings
 
 
-class SendEmail():
+class SendEmail(object):
     def __init__(self, email, send_type='register'):
         self.email = email
         self.send_type = send_type
@@ -41,6 +41,17 @@ class SendEmail():
 
         md5_obj = md5(res_str.encode())
         return md5_obj.hexdigest()
+
+    @staticmethod
+    def create_random_nums(n=4):
+        """
+        随机取出n个数字字符
+        """
+        string = '0123456789'
+        res_str = ''
+        for _ in range(n):
+            res_str += string[random.randint(0, len(string) - 1)]
+        return res_str
 
     def send_acti_email(self):
         """
@@ -77,6 +88,35 @@ class SendEmail():
             text_content = '请确认邮件后，点击该链接进行重置密码：http://127.0.0.1:8000/activate/resetpwd/{0}'.format(code)
             html_content = '<h2>请确认邮件后，点击下方链接进行重置密码：</h2><a href="http://127.0.0.1:8000/activate/forget/{0}">http://127.0.0.1:8000/activate/forget/{0}</a>'.format(
                 code)
+            # mail_status = mail.send_mail(subject=subject, message=text_content,
+            #                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER),
+            #                              recipient_list=[self.email])
+            msg = mail.EmailMultiAlternatives(subject=subject, body=text_content,
+                                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER), to=[self.email])
+            msg.attach_alternative(content=html_content, mimetype='text/html')
+            mail_status = msg.send()
+
+            if mail_status:
+                return True
+            else:
+                return False
+
+    def send_vali_emailcode(self):
+        """
+        产生4位数字验证码
+        :return:
+        """
+        email_valid = EmailValiRecord()
+        code = SendEmail.create_random_nums()
+        email_valid.code = code
+        email_valid.email = self.email
+        email_valid.send_type = self.send_type
+        email_valid.save()
+
+        if self.send_type == 'update_email':
+            subject = '网络教育在线修改邮箱'
+            text_content = '您的邮箱验证码为(请不要告诉他人)：{0}'.format(code)
+            html_content = '<h2>您的邮箱验证码为(请不要告诉他人)：</h2> {0}'.format(code)
             # mail_status = mail.send_mail(subject=subject, message=text_content,
             #                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER),
             #                              recipient_list=[self.email])

@@ -15,7 +15,7 @@ class UserProfile(AbstractUser):
     birthday = models.DateField(null=True, blank=True, verbose_name='生日')
     gender = models.CharField(max_length=10, choices=GENDER_CHOICE, default=GENDER_CHOICE[0][0], verbose_name='性别')
     address = models.CharField(max_length=150, null=True, blank=True, verbose_name='地址')
-    mobile = models.CharField(max_length=11, null=True, blank=True, verbose_name='手机号')
+    mobile = models.CharField(max_length=11, verbose_name='手机号')
     image = models.ImageField(max_length=100, upload_to='image/%Y/%m', default='image/default.jpg',
                               null=True, blank=True, verbose_name='上传的图片')
 
@@ -34,11 +34,12 @@ class EmailValiRecord(models.Model):
     SEND_TYPE_CHOICE = (
         ('register', '注册'),
         ('forget', '忘记密码'),
+        ('update_email', '修改邮箱'),
     )
 
     code = models.CharField(max_length=20, verbose_name='验证码')
     email = models.CharField(max_length=50, verbose_name='验证邮箱')
-    send_type = models.CharField(max_length=10, choices=SEND_TYPE_CHOICE, verbose_name='验证类型')
+    send_type = models.CharField(max_length=50, choices=SEND_TYPE_CHOICE, verbose_name='验证类型')
     send_time = models.DateTimeField(auto_now_add=True, verbose_name='验证码生成时间')
 
     class Meta:
