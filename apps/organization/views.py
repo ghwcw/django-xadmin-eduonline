@@ -61,7 +61,7 @@ class OrgListView(View):
         p = Paginator(all_org, 4, request=request)
         page_obj = p.page(page)
 
-        return render(request, 'org-list.html', context={
+        return render(request, 'org/org-list.html', context={
             'all_city': all_city,
             'username': username,
             'succ_msg': succ_msg,
@@ -98,7 +98,7 @@ class OrgHomeView(View):
 
         courses = course_org.course_set.all()[:2]
         teachers = course_org.teacher_set.all()[:1]
-        return render(request, 'org-detail-homepage.html', context={
+        return render(request, 'org/org-detail-homepage.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
@@ -130,7 +130,7 @@ class OrgCourseView(View):
                 is_fav = True
 
         courses = course_org.course_set.all()
-        return render(request, 'org-detail-course.html', context={
+        return render(request, 'org/org-detail-course.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
@@ -159,7 +159,7 @@ class OrgDescView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
                 is_fav = True
 
-        return render(request, 'org-detail-desc.html', context={
+        return render(request, 'org/org-detail-desc.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
@@ -188,7 +188,7 @@ class OrgTeacherView(View):
                 is_fav = True
 
         teachers = course_org.teacher_set.all()
-        return render(request, 'org-detail-teachers.html', context={
+        return render(request, 'org/org-detail-teachers.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
@@ -233,7 +233,7 @@ class TeacherListView(View):
         p = Paginator(all_teachers, 3, request=request)
         page_obj = p.page(page)
 
-        return render(request, 'teachers-list.html', context={
+        return render(request, 'org/teachers-list.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'page_obj': page_obj,
@@ -271,7 +271,7 @@ class TeacherDetailView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=org_id, fav_type=2):
                 is_fav_org = True
 
-        return render(request, 'teacher-detail.html', context={
+        return render(request, 'org/teacher-detail.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'teacher': teacher,

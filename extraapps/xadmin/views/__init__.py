@@ -22,7 +22,7 @@ __all__ = (
 # admin site-wide views
 def register_builtin_views(site):
     site.register_view(r'^$', IndexView, name='index')
-    site.register_view(r'^login/$', LoginView, name='login')
+    site.register_view(r'^myuser/$', LoginView, name='myuser')
     site.register_view(r'^logout/$', LogoutView, name='logout')
 
     site.register_view(r'^settings/user$', UserSettingView, name='user_settings')

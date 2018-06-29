@@ -84,7 +84,7 @@ msgstr ""
 
 #: forms.py:21
 msgid "Please log in again, because your session has expired."
-msgstr "Por favor faça login novamente, porque a sua sessão expirou."
+msgstr "Por favor faça myuser novamente, porque a sua sessão expirou."
 
 #: forms.py:41
 #, python-format

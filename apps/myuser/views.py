@@ -37,7 +37,7 @@ class HomePageView(TemplateView):
     """
     基于通用类视图的首页(未登陆)
     """
-    template_name = "index.html"
+    template_name = "myuser/index.html"
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
@@ -70,7 +70,7 @@ class IndexView(View):
         except KeyError:
             username = ''
             succ_msg = ''
-        return render(request, 'index.html', context={
+        return render(request, 'myuser/index.html', context={
             'username': username,
             'succ_msg': succ_msg,
         })
@@ -82,7 +82,7 @@ class LoginView(View):
     """
 
     def get(self, request):
-        return render(request, 'login.html')
+        return render(request, 'myuser/login.html')
 
     def post(self, request):
         global username, succ_msg
@@ -102,12 +102,12 @@ class LoginView(View):
                     return redirect(reverse('index'), username=username, succ_msg=succ_msg)
                 else:
                     messages.error(request, '用户名未激活！')
-                    return render(request, 'login.html', locals())
+                    return render(request, 'myuser/login.html', locals())
             else:
                 messages.error(request, '用户名或密码不正确！')
-                return render(request, 'login.html', locals())
+                return render(request, 'myuser/login.html', locals())
         else:
-            return render(request, 'login.html', context={'form_data': form_data})
+            return render(request, 'myuser/login.html', context={'form_data': form_data})
 
 
 class LogoutView(View):
@@ -127,7 +127,7 @@ class RegisterView(View):
 
     def get(self, request):
         reg_form = RegisterForm()
-        return render(request, template_name='register.html', context={'reg_form': reg_form})
+        return render(request, template_name='myuser/register.html', context={'reg_form': reg_form})
 
     def post(self, request):
         reg_form = RegisterForm(request.POST)
@@ -135,7 +135,7 @@ class RegisterView(View):
             email = reg_form.cleaned_data.get('email', '')
             if UserProfile.objects.filter(email=email):
                 messages.error(request, '用户名已存在！')
-                return render(request, 'register.html', {'reg_form': reg_form})
+                return render(request, 'myuser/register.html', {'reg_form': reg_form})
             password = reg_form.cleaned_data.get('password', '')
             user_profile = UserProfile()
             user_profile.username = email
@@ -149,11 +149,11 @@ class RegisterView(View):
             if send_status:
                 user_profile.save()
                 reg_msg = 'OK！邮件已发送，请登录您的邮箱按提示激活。。'
-                return render(request, 'register.html', {'send_status': send_status, 'reg_msg': reg_msg})
+                return render(request, 'myuser/register.html', {'send_status': send_status, 'reg_msg': reg_msg})
             else:
-                return render(request, 'register.html', {'reg_form': reg_form})
+                return render(request, 'myuser/register.html', {'reg_form': reg_form})
         else:
-            return render(request, 'register.html', {'reg_form': reg_form})
+            return render(request, 'myuser/register.html', {'reg_form': reg_form})
 
 
 class ActivateRegView(View):
@@ -169,7 +169,7 @@ class ActivateRegView(View):
             user.is_active = 1
             user.save()
 
-            return HttpResponse('<h1>✔激活成功☞<a href="http://127.0.0.1:8000/user/login" %}">返回登录页面</a></h1>')
+            return HttpResponse('<h1>✔激活成功☞<a href="http://127.0.0.1:8000/user/myuser" %}">返回登录页面</a></h1>')
         else:
             return HttpResponse('<h1>✘激活失败</h1>')
 
@@ -181,7 +181,7 @@ class ForgetPwdView(View):
 
     def get(self, request):
         forget_pwd_form = ForgetPwdForm()
-        return render(request, 'forgetpwd.html', context={'forget_pwd_form': forget_pwd_form})
+        return render(request, 'myuser/forgetpwd.html', context={'forget_pwd_form': forget_pwd_form})
 
     def post(self, request):
         forget_pwd_form = ForgetPwdForm(request.POST)
@@ -190,18 +190,18 @@ class ForgetPwdView(View):
             user = UserProfile.objects.filter(email=email)
             if not user:
                 messages.error(request, '用户名不存在！')
-                return render(request, 'forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
+                return render(request, 'myuser/forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
 
             # 发送重置密码邮件
             send_email = SendEmail(email, send_type='forget')
             send_status = send_email.send_acti_email()
             if send_status:
                 forget_msg = 'OK！邮件已发送，请登录您的邮箱按提示重置密码。。'
-                return render(request, 'forgetpwd.html', {'send_status': send_status, 'forget_msg': forget_msg})
+                return render(request, 'myuser/forgetpwd.html', {'send_status': send_status, 'forget_msg': forget_msg})
             else:
-                return render(request, 'forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
+                return render(request, 'myuser/forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
         else:
-            return render(request, 'forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
+            return render(request, 'myuser/forgetpwd.html', {'forget_pwd_form': forget_pwd_form})
 
 
 class ActivateForgetView(View):
@@ -228,7 +228,7 @@ class ResetPwdView(View):
         email_vali = EmailValiRecord.objects.filter(code=email_code).last()
         if email_vali:
             reset_email = email_vali.email
-            return render(request, 'password_reset.html', context={'reset_email': reset_email})
+            return render(request, 'myuser/password_reset.html', context={'reset_email': reset_email})
         else:
             return HttpResponse('<h1>未进行邮箱验证，不能修改密码！</h1>')
 
@@ -239,13 +239,13 @@ class ResetPwdView(View):
             pwd1 = reset_pwd_form.cleaned_data.get('password1', '')
             pwd2 = reset_pwd_form.cleaned_data.get('password2', '')
             if pwd1 != pwd2:
-                return render(request, 'password_reset.html', context={'msg': '错误：两次输入的密码不一致，请重新输入。'})
+                return render(request, 'myuser/password_reset.html', context={'msg': '错误：两次输入的密码不一致，请重新输入。'})
             else:
                 user = UserProfile.objects.get(email=email)
                 user.password = hashers.make_password(password=pwd1)
                 user.save()
-                return HttpResponse('<h1>密码修改成功！<<<a href="http://127.0.0.1:8000/user/login">请返回登录页面</a></h1>')
-        return render(request, 'password_reset.html', context={'reset_pwd_form': reset_pwd_form})
+                return HttpResponse('<h1>密码修改成功！<<<a href="http://127.0.0.1:8000/user/myuser">请返回登录页面</a></h1>')
+        return render(request, 'myuser/password_reset.html', context={'reset_pwd_form': reset_pwd_form})
 
 
 class UserCenInfoView(View):
@@ -265,7 +265,7 @@ class UserCenInfoView(View):
             username = ''
             succ_msg = ''
 
-        return render(request, 'usercenter-info.html', context={
+        return render(request, 'usercenter/usercenter-info.html', context={
             'username': username,
             'succ_msg': succ_msg,
         })
@@ -312,7 +312,7 @@ class UserCenUploadHeadimgView(View):
         if headimg_form.is_valid():
             headimg_form.save()
 
-        return render(request, 'usercenter-info.html', context={
+        return render(request, 'usercenter/usercenter-info.html', context={
             'username': username,
             'succ_msg': succ_msg,
         })
@@ -418,7 +418,7 @@ class UserCenCoursesView(View):
         user_objs = UserCourse.objects.select_related('course').filter(user=request.user)
         courses = (user_obj.course for user_obj in user_objs)  # 使用了生成器
 
-        return render(request, 'usercenter-mycourse.html', context={
+        return render(request, 'usercenter/usercenter-mycourse.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'courses': courses,
@@ -452,7 +452,7 @@ class UserCenFavOrgView(View):
 
         orgs = CourseOrg.objects.filter(id__in=org_id_list)
 
-        return render(request, 'usercenter-fav-org.html', context={
+        return render(request, 'usercenter/usercenter-fav-org.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'orgs': orgs,
@@ -486,7 +486,7 @@ class UserCenFavTeacherView(View):
 
         teachers = Teacher.objects.filter(id__in=teacher_id_list)
 
-        return render(request, 'usercenter-fav-teacher.html', context={
+        return render(request, 'usercenter/usercenter-fav-teacher.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'teachers': teachers,
@@ -514,7 +514,7 @@ class UserCenFavCourseView(View):
         user_objs = UserCourse.objects.select_related('course').filter(user=request.user)
         courses = (user_obj.course for user_obj in user_objs)  # 使用了生成器
 
-        return render(request, 'usercenter-fav-course.html', context={
+        return render(request, 'usercenter/usercenter-fav-course.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'courses': courses,
@@ -538,7 +538,7 @@ class UserCenMsgView(View):
             username = ''
             succ_msg = ''
 
-        return render(request, 'usercenter-message.html', context={
+        return render(request, 'usercenter/usercenter-message.html', context={
             'username': username,
             'succ_msg': succ_msg,
         })

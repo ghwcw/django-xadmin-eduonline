@@ -53,7 +53,7 @@
                             </div>
                         </div>
 
-                        <a href="usercenter-message.html">
+                        <a href="../usercenter/usercenter-message.html">
                             <div class="msg-num"><span id="MsgNum">0</span></div>
                         </a>
 
@@ -133,7 +133,7 @@
                     <div class="module1_5 box">
                         <a href="{% url 'course:course_detail' course_id=course.pk %}"><img width="214" src="{{ MEDIA_URL }}{{ course.image }}"/></a>
                         <div class="des">
-                            <a href="course-detail.html"><h2>{{ course.name }}</h2></a>
+                            <a href="../course/course-detail.html"><h2>{{ course.name }}</h2></a>
                             <span class="fl">课时：<i class="key">{{ course.learn_time }}</i></span>
                             <span class="fr">参加人数：{{ course.students }}</span>
                         </div>

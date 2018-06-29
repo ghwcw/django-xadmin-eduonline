@@ -25,9 +25,9 @@ urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
 
     # 首页相关
-    url(r'^$', HomePageView.as_view(template_name='index.html'), name='home'),
+    url(r'^$', HomePageView.as_view(template_name='myuser/index.html'), name='home'),
     url(r'^index/$', IndexView.as_view(), name='index'),
-    url(r'^test/$', TemplateView.as_view(template_name='test.html')),
+    url(r'^test/$', TemplateView.as_view(template_name='test/test.html')),
 
     # 用户相关
     url(r'^user/', include('apps.myuser.myuserurl', namespace='myuser')),

@@ -53,7 +53,7 @@ class CourseListView(View):
         p = Paginator(all_courses, 6, request=request)
         page_obj = p.page(page)
 
-        return render(request, 'course-list.html', context={
+        return render(request, 'course/course-list.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'page_obj': page_obj,
@@ -97,7 +97,7 @@ class CourseDetailView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course.courseorg.pk, fav_type=2):
                 is_fav_org = True
 
-        return render(request, 'course-detail.html', context={
+        return render(request, 'course/course-detail.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course': course,
@@ -153,7 +153,7 @@ class CourseVideoView(View):
         else:
             usercourse_list = []
 
-        return render(request, 'course-video.html', context={
+        return render(request, 'course/course-video.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_id': course_id,
@@ -168,7 +168,7 @@ def play_video(request):
     """
     “我要学习”--视频播放页
     """
-    return render(request, 'videoplay.html')
+    return render(request, 'course/videoplay.html')
 
 
 class CourseCommentView(View):
@@ -204,7 +204,7 @@ class CourseCommentView(View):
         # 查询出课程评论
         comments = CourseComment.objects.filter(course=course_id).order_by('-id')
 
-        return render(request, 'course-comment.html', context={
+        return render(request, 'course/course-comment.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_id': course_id,
