@@ -145,6 +145,8 @@
                         </span>
                         </div>
                     </div>
+                {% empty %}
+                    <br><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;暂无数据</p><br>
                 {% endfor %}
 
             </div>
@@ -173,7 +175,8 @@
                         </div>
                     </div>
                 </div>
-
+            {% empty %}
+                <br><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;暂无数据</p><br>
             {% endfor %}
 
         </div>
@@ -183,7 +186,7 @@
                 <a class="green fr more" href="{% url 'org:orgdesc' org_id=course_org.id %}">查看更多 > </a>
             </div>
             <div class="cont">&nbsp; &nbsp;
-                {{ course_org.desc }}
+                {{ course_org.desc|default_if_none:'暂无数据' }}
                 <a href=""><span class="green">&nbsp;&nbsp;[展开]</span></a>
             </div>
         </div>
