@@ -14,7 +14,8 @@ from apps.course.models import Course
 from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserCenUploadHeadimgForm, \
     UpdatePwdForm, UserCenInfoForm
 from apps.myuser.models import UserProfile, EmailValiRecord
-from apps.operation.models import UserCourse
+from apps.operation.models import UserCourse, UserFavorite
+from apps.organization.models import CourseOrg
 from custmethods.send_email import SendEmail
 
 
@@ -434,9 +435,18 @@ class UserCenFavOrgView(View):
             username = ''
             succ_msg = ''
 
+        # 查询收藏机构
+        user_favs = UserFavorite.objects.select_related('user').filter(user=request.user, fav_type=2)
+        org_ids = (user_fav.fav_id for user_fav in user_favs)
+
+        org_list = []
+        for org_id in org_ids:
+            org_list.append(CourseOrg.objects.get(id=org_id))
+
         return render(request, 'usercenter-fav-org.html', context={
             'username': username,
             'succ_msg': succ_msg,
+            'org_list': org_list,
         })
 
 
