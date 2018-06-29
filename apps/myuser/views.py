@@ -15,7 +15,7 @@ from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdFo
     UpdatePwdForm, UserCenInfoForm
 from apps.myuser.models import UserProfile, EmailValiRecord
 from apps.operation.models import UserCourse, UserFavorite
-from apps.organization.models import CourseOrg
+from apps.organization.models import CourseOrg, Teacher
 from custmethods.send_email import SendEmail
 
 
@@ -252,6 +252,7 @@ class UserCenInfoView(View):
     """
     个人中心-个人资料
     """
+
     def get(self, request):
         # 若未登录
         if not request.user.is_authenticated():
@@ -293,6 +294,7 @@ class UserCenUploadHeadimgView(View):
     """
     个人中心-用户头像修改
     """
+
     def post(self, request):
         # 若未登录
         if not request.user.is_authenticated():
@@ -320,6 +322,7 @@ class UserCenUpdatePwdView(View):
     """
     个人中心-修改密码
     """
+
     def post(self, request):
         # 若未登录
         if not request.user.is_authenticated():
@@ -344,6 +347,7 @@ class UserCenSendEmailcodeView(View):
     """
     个人中心-发送邮箱验证码
     """
+
     def get(self, request):
         # 若未登录
         if not request.user.is_authenticated():
@@ -367,6 +371,7 @@ class UserCenUpdateEmailDoneView(View):
     """
     个人中心-修改邮箱完成
     """
+
     def post(self, request):
         # 若未登录
         if not request.user.is_authenticated():
@@ -396,6 +401,7 @@ class UserCenCoursesView(View):
     """
     个人中心-我的课程
     """
+
     def get(self, request):
         # 若未登录
         if not request.user.is_authenticated():
@@ -410,7 +416,7 @@ class UserCenCoursesView(View):
 
         # 查询用户课程
         user_objs = UserCourse.objects.select_related('course').filter(user=request.user)
-        courses = (user_obj.course for user_obj in user_objs)       # 使用了生成器
+        courses = (user_obj.course for user_obj in user_objs)  # 使用了生成器
 
         return render(request, 'usercenter-mycourse.html', context={
             'username': username,
@@ -423,6 +429,7 @@ class UserCenFavOrgView(View):
     """
     个人中心-我的收藏机构
     """
+
     def get(self, request):
         # 若未登录
         if not request.user.is_authenticated():
@@ -439,36 +446,16 @@ class UserCenFavOrgView(View):
         user_favs = UserFavorite.objects.select_related('user').filter(user=request.user, fav_type=2)
         org_ids = (user_fav.fav_id for user_fav in user_favs)
 
-        org_list = []
+        org_id_list = []
         for org_id in org_ids:
-            org_list.append(CourseOrg.objects.get(id=org_id))
+            org_id_list.append(org_id)
+
+        orgs = CourseOrg.objects.filter(id__in=org_id_list)
 
         return render(request, 'usercenter-fav-org.html', context={
             'username': username,
             'succ_msg': succ_msg,
-            'org_list': org_list,
-        })
-
-
-class UserCenFavCourseView(View):
-    """
-    个人中心-我的收藏课程
-    """
-    def get(self, request):
-        # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
-
-        try:
-            username = request.session['username']
-            succ_msg = request.session['succ_msg']
-        except KeyError:
-            username = ''
-            succ_msg = ''
-
-        return render(request, 'usercenter-fav-course.html', context={
-            'username': username,
-            'succ_msg': succ_msg,
+            'orgs': orgs,
         })
 
 
@@ -476,6 +463,7 @@ class UserCenFavTeacherView(View):
     """
     个人中心-我的收藏教师
     """
+
     def get(self, request):
         # 若未登录
         if not request.user.is_authenticated():
@@ -488,9 +476,48 @@ class UserCenFavTeacherView(View):
             username = ''
             succ_msg = ''
 
+        # 查询收藏教师
+        user_favs = UserFavorite.objects.select_related('user').filter(user=request.user, fav_type=3)
+        teacher_ids = (user_fav.fav_id for user_fav in user_favs)
+
+        teacher_id_list = []
+        for teacher_id in teacher_ids:
+            teacher_id_list.append(teacher_id)
+
+        teachers = Teacher.objects.filter(id__in=teacher_id_list)
+
         return render(request, 'usercenter-fav-teacher.html', context={
             'username': username,
             'succ_msg': succ_msg,
+            'teachers': teachers,
+        })
+
+
+class UserCenFavCourseView(View):
+    """
+    个人中心-我的收藏课程
+    """
+
+    def get(self, request):
+        # 若未登录
+        if not request.user.is_authenticated():
+            return redirect(reverse('myuser:login'))
+
+        try:
+            username = request.session['username']
+            succ_msg = request.session['succ_msg']
+        except KeyError:
+            username = ''
+            succ_msg = ''
+
+        # 查询用户课程
+        user_objs = UserCourse.objects.select_related('course').filter(user=request.user)
+        courses = (user_obj.course for user_obj in user_objs)  # 使用了生成器
+
+        return render(request, 'usercenter-fav-course.html', context={
+            'username': username,
+            'succ_msg': succ_msg,
+            'courses': courses,
         })
 
 
@@ -498,6 +525,7 @@ class UserCenMsgView(View):
     """
     个人中心-我的消息
     """
+
     def get(self, request):
         # 若未登录
         if not request.user.is_authenticated():
@@ -514,4 +542,3 @@ class UserCenMsgView(View):
             'username': username,
             'succ_msg': succ_msg,
         })
-

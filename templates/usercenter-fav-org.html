@@ -25,14 +25,14 @@
         <div class="personal_des permessage">
             <div class="head">
                 <ul class="tab_header messagehead">
-                    <li class="active"><a href="usercenter-fav-course.html">课程机构</a></li>
-                    <li><a href="usercenter-fav-teacher.html">授课教师 </a></li>
-                    <li><a href="usercenter-fav-course.html">公开课程</a></li>
+                    <li class="active"><a href="{% url 'myuser:usercen_myfav_orgs' %}">课程机构</a></li>
+                    <li><a href="{% url 'myuser:usercen_myfav_teachers' %}">授课教师 </a></li>
+                    <li><a href="{% url 'myuser:usercen_myfav_courses' %}">公开课程</a></li>
                 </ul>
             </div>
             <div class="messagelist">
 
-                {% for org in org_list %}
+                {% for org in orgs %}
                     <div class="messages butler_list company company-fav-box">
                         <dl class="des fr">
                             <dt>
