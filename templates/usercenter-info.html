@@ -28,7 +28,7 @@
                           method="post" action="{% url 'myuser:usercen_upload_headimg' %}" target='frameFile'>
                         <label class="changearea" for="avatarUp">
                             <span id="avatardiv" class="pic">
-                                <img width="100" height="100" class="js-img-show" id="avatarShow"
+                                <img width="100" height="100" class="js-img-show" id="avatarShow" title="点击可修改头像"
                                      src="{{ MEDIA_URL }}{{ request.user.image }}"/>
                             </span>
                             <span class="fl upload-inp-box btn-green" style="margin-left:70px;">
