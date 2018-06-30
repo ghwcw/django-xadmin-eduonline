@@ -18,7 +18,7 @@ from apps.myuser.views import LoginView, LogoutView, RegisterView, ForgetPwdView
 # app_name = 'myuser'
 
 urlpatterns = [
-    url(r'^myuser/$', LoginView.as_view(), name='myuser'),
+    url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
     url(r'^forget-pwd/$', ForgetPwdView.as_view(), name='forget_pwd'),

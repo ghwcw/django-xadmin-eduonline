@@ -10,18 +10,18 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 
-from apps.course.models import Course
 from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserCenUploadHeadimgForm, \
     UpdatePwdForm, UserCenInfoForm
 from apps.myuser.models import UserProfile, EmailValiRecord
 from apps.operation.models import UserCourse, UserFavorite
 from apps.organization.models import CourseOrg, Teacher
-from custmethods.send_email import SendEmail
+from custbase.login_required import LoginRequiredMixin
+from custbase.send_email import SendEmail
 
 
-class CustomBackend(ModelBackend):
+class CustomBackend(ModelBackend):      # 继承ModelBackend类
     """
-    自定义用户登录验证：支持用户名或邮箱登录。
+    自定义用户验证后端：支持用户名或邮箱登录。
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
@@ -248,15 +248,14 @@ class ResetPwdView(View):
         return render(request, 'myuser/password_reset.html', context={'reset_pwd_form': reset_pwd_form})
 
 
-class UserCenInfoView(View):
+class UserCenInfoView(LoginRequiredMixin, View):
     """
     个人中心-个人资料
     """
-
     def get(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         try:
             username = request.session['username']
@@ -277,28 +276,26 @@ class UserCenInfoView(View):
         :return:
         """
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         info_form = UserCenInfoForm(request.POST, instance=request.user)
         if info_form.is_valid():
             info_form.save()
             return JsonResponse(data={'status': 'success'})
         else:
-            # json_str = json.dumps(info_form.errors)
-            # return HttpResponse(json_str, content_type='application/json')
             return JsonResponse(data={'status': 'fail', 'msg': '✘出错：请检查填写内容是否合法☹'})
 
 
-class UserCenUploadHeadimgView(View):
+class UserCenUploadHeadimgView(LoginRequiredMixin, View):
     """
     个人中心-用户头像修改
     """
 
     def post(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         try:
             username = request.session['username']
@@ -318,15 +315,15 @@ class UserCenUploadHeadimgView(View):
         })
 
 
-class UserCenUpdatePwdView(View):
+class UserCenUpdatePwdView(LoginRequiredMixin, View):
     """
     个人中心-修改密码
     """
 
     def post(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         update_pwd_form = UpdatePwdForm(request.POST)
         if update_pwd_form.is_valid():
@@ -343,15 +340,15 @@ class UserCenUpdatePwdView(View):
             return HttpResponse(json_str, content_type='application/json')
 
 
-class UserCenSendEmailcodeView(View):
+class UserCenSendEmailcodeView(LoginRequiredMixin, View):
     """
     个人中心-发送邮箱验证码
     """
 
     def get(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         email = request.GET.get('email', '')
 
@@ -367,15 +364,15 @@ class UserCenSendEmailcodeView(View):
             return JsonResponse(data={'status': 'fail'})
 
 
-class UserCenUpdateEmailDoneView(View):
+class UserCenUpdateEmailDoneView(LoginRequiredMixin, View):
     """
     个人中心-修改邮箱完成
     """
 
     def post(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         email = request.POST.get('email', '')
         code = request.POST.get('code', '')
@@ -397,15 +394,15 @@ class UserCenUpdateEmailDoneView(View):
             return JsonResponse({'status': 'fail', 'msg': '验证码出错，请重新验证'})
 
 
-class UserCenCoursesView(View):
+class UserCenCoursesView(LoginRequiredMixin, View):
     """
     个人中心-我的课程
     """
 
     def get(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         try:
             username = request.session['username']
@@ -425,15 +422,15 @@ class UserCenCoursesView(View):
         })
 
 
-class UserCenFavOrgView(View):
+class UserCenFavOrgView(LoginRequiredMixin, View):
     """
     个人中心-我的收藏机构
     """
 
     def get(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         try:
             username = request.session['username']
@@ -459,15 +456,15 @@ class UserCenFavOrgView(View):
         })
 
 
-class UserCenFavTeacherView(View):
+class UserCenFavTeacherView(LoginRequiredMixin, View):
     """
     个人中心-我的收藏教师
     """
 
     def get(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         try:
             username = request.session['username']
@@ -493,15 +490,15 @@ class UserCenFavTeacherView(View):
         })
 
 
-class UserCenFavCourseView(View):
+class UserCenFavCourseView(LoginRequiredMixin, View):
     """
     个人中心-我的收藏课程
     """
 
     def get(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         try:
             username = request.session['username']
@@ -521,15 +518,15 @@ class UserCenFavCourseView(View):
         })
 
 
-class UserCenMsgView(View):
+class UserCenMsgView(LoginRequiredMixin, View):
     """
     个人中心-我的消息
     """
 
     def get(self, request):
         # 若未登录
-        if not request.user.is_authenticated():
-            return redirect(reverse('myuser:login'))
+        # if not request.user.is_authenticated():
+        #     return redirect(reverse('myuser:login'))
 
         try:
             username = request.session['username']

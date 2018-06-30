@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^test/$', TemplateView.as_view(template_name='test/test.html')),
 
     # 用户相关
-    url(r'^user/', include('apps.myuser.myuserurl', namespace='myuser')),
+    url(r'^myuser/', include('apps.myuser.myuserurl', namespace='myuser')),
     url(r'^captcha/', include('captcha.urls')),
     # 邮箱验证
     url(r'^activate/reg/(?P<activate_reg_code>.*)/$', ActivateRegView.as_view(), name='activate_reg'),
