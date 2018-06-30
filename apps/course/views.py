@@ -7,7 +7,7 @@ from django.views.generic.base import View
 from pure_pagination import Paginator, PageNotAnInteger
 
 from apps.course.models import Course, CourseResource
-from apps.operation.models import UserFavorite, UserCourse, CourseComment
+from apps.operation.models import UserFavorite, UserCourse, CourseComment, UserMessage
 from apps.organization.models import CourseOrg
 
 
@@ -117,8 +117,14 @@ class CourseStudyView(View):
 
         course_id = request.POST.get('course_id', 0)
         if request.user and int(course_id) > 0:
+            # 记录到用户课程
             if not UserCourse.objects.filter(user=request.user, course_id=course_id):
                 UserCourse.objects.create(user=request.user, course_id=int(course_id))
+            # 记录到用户消息
+            course_name = Course.objects.get(id=int(course_id))
+            # 记录消息
+            UserMessage.objects.create(user=request.user.id, message='您在这时学习了《%s》课程。' % course_name, has_read=False)
+
             return JsonResponse({"status": "success", "msg": "开启学习之旅..."})
         else:
             return JsonResponse({"status": "fail", "msg": "出错了"})

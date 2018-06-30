@@ -4,16 +4,18 @@ import json
 from django.contrib import messages, auth
 from django.contrib.auth import authenticate, hashers
 from django.contrib.auth.backends import ModelBackend
+from django.core.paginator import PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
+from pure_pagination import Paginator
 
 from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserCenUploadHeadimgForm, \
     UpdatePwdForm, UserCenInfoForm
 from apps.myuser.models import UserProfile, EmailValiRecord
-from apps.operation.models import UserCourse, UserFavorite
+from apps.operation.models import UserCourse, UserFavorite, UserMessage
 from apps.organization.models import CourseOrg, Teacher
 from custbase.login_required import LoginRequiredMixin
 from custbase.send_email import SendEmail
@@ -99,6 +101,10 @@ class LoginView(View):
                     succ_msg = '欢迎，登录成功！'
                     request.session['username'] = username
                     request.session['succ_msg'] = succ_msg
+
+                    # 记录消息
+                    UserMessage.objects.create(user=request.user.id, message='您在这时候登录过。', has_read=False)
+
                     return redirect(reverse('index'), username=username, succ_msg=succ_msg)
                 else:
                     messages.error(request, '用户名未激活！')
@@ -168,6 +174,9 @@ class ActivateRegView(View):
             user = UserProfile.objects.get(email=email)
             user.is_active = 1
             user.save()
+
+            # 记录消息
+            UserMessage.objects.create(user=request.user.id, message='欢迎注册。', has_read=False)
 
             return HttpResponse('<h1>✔激活成功☞<a href="http://127.0.0.1:8000/myuser/login" %}">返回登录页面</a></h1>')
         else:
@@ -244,6 +253,10 @@ class ResetPwdView(View):
                 user = UserProfile.objects.get(email=email)
                 user.password = hashers.make_password(password=pwd1)
                 user.save()
+
+                # 记录消息
+                UserMessage.objects.create(user=request.user.id, message='修改密码成功。', has_read=False)
+
                 return HttpResponse('<h1>密码修改成功！<<<a href="http://127.0.0.1:8000/myuser/login">请返回登录页面</a></h1>')
         return render(request, 'myuser/password_reset.html', context={'reset_pwd_form': reset_pwd_form})
 
@@ -309,6 +322,9 @@ class UserCenUploadHeadimgView(LoginRequiredMixin, View):
         if headimg_form.is_valid():
             headimg_form.save()
 
+            # 记录消息
+            UserMessage.objects.create(user=request.user.id, message='修改头像成功。', has_read=False)
+
         return render(request, 'usercenter/usercenter-info.html', context={
             'username': username,
             'succ_msg': succ_msg,
@@ -334,6 +350,10 @@ class UserCenUpdatePwdView(LoginRequiredMixin, View):
             user = request.user
             user.password = hashers.make_password(password1)
             user.save()
+
+            # 记录消息
+            UserMessage.objects.create(user=request.user.id, message='修改密码成功。', has_read=False)
+
             return JsonResponse({'status': 'success', 'msg': '密码修改成功！'})
         else:
             json_str = json.dumps(update_pwd_form.errors)
@@ -388,6 +408,10 @@ class UserCenUpdateEmailDoneView(LoginRequiredMixin, View):
             user = request.user
             user.email = email
             user.save()
+
+            # 记录消息
+            UserMessage.objects.create(user=request.user.id, message='修改邮箱成功。', has_read=False)
+
             return JsonResponse({'status': 'success'})
 
         else:
@@ -535,7 +559,21 @@ class UserCenMsgView(LoginRequiredMixin, View):
             username = ''
             succ_msg = ''
 
+        # 查询我的消息
+        messages = UserMessage.objects.filter(user=request.user.id).order_by('-add_time')
+
+        # 分页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        # Provide Paginator with the request object for complete querystring generation
+        p = Paginator(messages, 5, request=request)
+        page_obj = p.page(page)
+
         return render(request, 'usercenter/usercenter-message.html', context={
             'username': username,
             'succ_msg': succ_msg,
+            'page_obj': page_obj,
         })

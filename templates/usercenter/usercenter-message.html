@@ -31,19 +31,44 @@
 
             </div>
             <div class="messagelist">
-
-                <div class="messages">
-                    <div class="fr">
-                        <div class="top"><span class="fl time">2016年11月6日 23:49</span><span class="fr btn foldbtn"></span></div>
-                        <p>欢迎注册</p>
+{#           消息列表 #}
+                {% for msg in page_obj.object_list %}
+                    <div class="messages">
+                        <div class="fr">
+                            <div class="top"><span class="fl time">{{ msg.add_time|date:'Y-m-d H:i:s' }}</span><span
+                                    class="fr btn foldbtn"></span></div>
+                            <p>{{ msg.message|default_if_none:'没有消息' }}</p>
+                        </div>
                     </div>
-                </div>
+                {% empty %}
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没有消息列表<br><br>
+                {% endfor %}
 
             </div>
 
-            <div class="pageturn pagerright">
+            {#        分页按钮#}
+            <div class="pageturn">
                 <ul class="pagelist">
-                    <li class="active"><a href="?page=1">1</a></li>
+
+                    {% if page_obj.has_previous %}
+                        <li class="long"><a href="?{{ page_obj.previous_page_number.querystring }}">上一页</a></li>
+                    {% endif %}
+
+                    {% for page in page_obj.pages %}
+                        {% if page %}
+                            {% ifequal page page_obj.number %}
+                                <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                            {% else %}
+                                <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                            {% endifequal %}
+                        {% else %}
+                            <li><a href="" class="none">...</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="long"><a href="?{{ page_obj.next_page_number.querystring }}">下一页</a></li>
+                    {% endif %}
+
                 </ul>
             </div>
         </div>
