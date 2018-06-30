@@ -342,6 +342,9 @@
                 url: "{% url 'oper:user_ask' %}",
                 data: $('#jsStayForm').serialize(),
                 async: true,
+                beforeSend: function(xhr){
+                    $('#jsCompanyTips').hide();
+                },
                 success: function (data) {
                     if (data.status == 'success') {
                         $('#jsStayForm')[0].reset();
@@ -352,6 +355,7 @@
                         $('#jsCompanyTips').html(data.errmsg);
                     }
                 },
+
             });
         });
 
@@ -370,3 +374,5 @@
 
 </body>
 </html>
+
+

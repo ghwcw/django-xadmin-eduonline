@@ -44,7 +44,7 @@ function sendCodeChangeEmail($btn){
         cache: false,
         type: "get",
         dataType:'json',
-        url:"/user/usercen-send-emailcode/",
+        url:"/myuser/usercen-send-emailcode/",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -81,7 +81,7 @@ var verify = verifyDialogSubmit(
         cache: false,
         type: 'post',
         dataType:'json',
-        url:"/user/usercen-update-email-done/ ",
+        url:"/myuser/usercen-update-email-done/ ",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -118,7 +118,7 @@ $(function(){
             cache: false,
             type: "POST",
             dataType:'json',
-            url:"/user/usercen-update-pwd/",
+            url:"/myuser/usercen-update-pwd/",
             data:$('#jsResetPwdForm').serialize(),
             async: true,
             success: function(data) {
@@ -196,7 +196,7 @@ $(function(){
             cache: false,
             type: "post",
             dataType: "json",
-            url: "/user/usercen-info/",
+            url: "/myuser/usercen-info/",
             data: $jsUserInfoForm.serialize(),
             async: true,
             beforeSend: function(xhr){

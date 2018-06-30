@@ -169,7 +169,7 @@ class ActivateRegView(View):
             user.is_active = 1
             user.save()
 
-            return HttpResponse('<h1>✔激活成功☞<a href="http://127.0.0.1:8000/user/myuser" %}">返回登录页面</a></h1>')
+            return HttpResponse('<h1>✔激活成功☞<a href="http://127.0.0.1:8000/myuser/login" %}">返回登录页面</a></h1>')
         else:
             return HttpResponse('<h1>✘激活失败</h1>')
 
@@ -213,7 +213,7 @@ class ActivateForgetView(View):
         email_vali = EmailValiRecord.objects.filter(code=activate_forget_code).last()
         if email_vali:
             return HttpResponse(
-                '<h1>✔验证成功☞<a href="http://127.0.0.1:8000/user/resetpwd/{0}">立即重置密码</a></h1>'.format(
+                '<h1>✔验证成功☞<a href="http://127.0.0.1:8000/myuser/reset-pwd/{0}">立即重置密码</a></h1>'.format(
                     activate_forget_code))
         else:
             return HttpResponse('<h1>✘验证失败</h1>')
@@ -244,7 +244,7 @@ class ResetPwdView(View):
                 user = UserProfile.objects.get(email=email)
                 user.password = hashers.make_password(password=pwd1)
                 user.save()
-                return HttpResponse('<h1>密码修改成功！<<<a href="http://127.0.0.1:8000/user/myuser">请返回登录页面</a></h1>')
+                return HttpResponse('<h1>密码修改成功！<<<a href="http://127.0.0.1:8000/myuser/login">请返回登录页面</a></h1>')
         return render(request, 'myuser/password_reset.html', context={'reset_pwd_form': reset_pwd_form})
 
 
