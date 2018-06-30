@@ -295,6 +295,10 @@ class UserCenInfoView(LoginRequiredMixin, View):
         info_form = UserCenInfoForm(request.POST, instance=request.user)
         if info_form.is_valid():
             info_form.save()
+
+            # 记录消息
+            UserMessage.objects.create(user=request.user.id, message='个人资料保存成功。', has_read=False)
+
             return JsonResponse(data={'status': 'success'})
         else:
             return JsonResponse(data={'status': 'fail', 'msg': '✘出错：请检查填写内容是否合法☹'})
