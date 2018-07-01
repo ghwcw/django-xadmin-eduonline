@@ -25,8 +25,8 @@ class CourseListView(View):
             succ_msg = ''
 
         all_courses = Course.objects.all().order_by('-add_time')
-
-        hot_courses = Course.objects.all().order_by('-click_nums')[:3]
+        # 热门课推荐
+        hot_courses = Course.objects.all().order_by('-fav_nums')[:3]
 
         # 搜索公开课
         keywords = request.GET.get('keywords', '')
