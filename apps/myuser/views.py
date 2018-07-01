@@ -72,9 +72,14 @@ class IndexView(View):
         except KeyError:
             username = ''
             succ_msg = ''
+
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'myuser/index.html', context={
             'username': username,
             'succ_msg': succ_msg,
+            'msg_counts': msg_counts,
         })
 
 
@@ -278,9 +283,13 @@ class UserCenInfoView(LoginRequiredMixin, View):
             username = ''
             succ_msg = ''
 
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'usercenter/usercenter-info.html', context={
             'username': username,
             'succ_msg': succ_msg,
+            'msg_counts': msg_counts,
         })
 
     def post(self, request):
@@ -443,11 +452,14 @@ class UserCenCoursesView(LoginRequiredMixin, View):
         # 查询用户课程
         user_objs = UserCourse.objects.select_related('course').filter(user=request.user)
         courses = (user_obj.course for user_obj in user_objs)  # 使用了生成器
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
         return render(request, 'usercenter/usercenter-mycourse.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'courses': courses,
+            'msg_counts': msg_counts,
         })
 
 
@@ -477,11 +489,14 @@ class UserCenFavOrgView(LoginRequiredMixin, View):
             org_id_list.append(org_id)
 
         orgs = CourseOrg.objects.filter(id__in=org_id_list)
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
         return render(request, 'usercenter/usercenter-fav-org.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'orgs': orgs,
+            'msg_counts': msg_counts,
         })
 
 
@@ -511,11 +526,14 @@ class UserCenFavTeacherView(LoginRequiredMixin, View):
             teacher_id_list.append(teacher_id)
 
         teachers = Teacher.objects.filter(id__in=teacher_id_list)
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
         return render(request, 'usercenter/usercenter-fav-teacher.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'teachers': teachers,
+            'msg_counts': msg_counts,
         })
 
 
@@ -539,11 +557,14 @@ class UserCenFavCourseView(LoginRequiredMixin, View):
         # 查询用户课程
         user_objs = UserCourse.objects.select_related('course').filter(user=request.user)
         courses = (user_obj.course for user_obj in user_objs)  # 使用了生成器
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
         return render(request, 'usercenter/usercenter-fav-course.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'courses': courses,
+            'msg_counts': msg_counts,
         })
 
 
@@ -566,7 +587,8 @@ class UserCenMsgView(LoginRequiredMixin, View):
 
         # 查询我的消息
         messages = UserMessage.objects.filter(user=request.user.id).order_by('-add_time')
-        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read='False').count()
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
         # 分页
         try:
@@ -586,6 +608,11 @@ class UserCenMsgView(LoginRequiredMixin, View):
         })
 
     def post(self, request):
+        """
+        将消息标记为已读
+        :param request:
+        :return:
+        """
         msg_id = int(request.POST.get('msg_id', ''))
         has_read = request.POST.get('has_read', 'False')
         msg = get_object_or_404(UserMessage, id=msg_id)
@@ -596,6 +623,3 @@ class UserCenMsgView(LoginRequiredMixin, View):
             return JsonResponse({'status': 'success'})
         else:
             return JsonResponse({'status': ''})
-
-
-

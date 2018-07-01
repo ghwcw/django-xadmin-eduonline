@@ -1,6 +1,12 @@
 <!DOCTYPE html>
-<a href="{% url 'myuser:usercen_mymsg' %}">
-    <div class="msg-num">{% if msg_counts %}您有消息：{% else %}没有消息：{% endif %}<span id="MsgNum">{{ msg_counts }}</span></div>
-</a>
+<html>
+<head></head>
+<body>
+    <a href="{% url 'myuser:usercen_mymsg' %}">
+        <div class="msg-num">{% if msg_counts %}您有消息：{% else %}没有消息：{% endif %}<span id="MsgNum">{{ msg_counts }}</span></div>
+    </a>
+</body>
+</html>
+
 
 

@@ -1,11 +1,13 @@
 from django.http import HttpResponse
 
 # Create your views here.
+from django.shortcuts import get_object_or_404
 from django.views.generic.base import View
 
 from apps.course.models import Course
 from apps.operation.forms import UserAskForm
-from apps.operation.models import UserFavorite, UserCourse
+from apps.operation.models import UserFavorite, UserCourse, UserMessage
+from apps.organization.models import CourseOrg, Teacher
 
 
 class UserAskView(View):
@@ -51,6 +53,21 @@ class AddFavView(View):
                     user_fav.fav_id = fav_id
                     user_fav.fav_type = fav_type
                     user_fav.save()
+
+                    # 收藏后记录消息
+                    if fav_type == 1:
+                        course = get_object_or_404(Course, id=fav_id)
+                        UserMessage.objects.create(user=request.user.id, message='您收藏了课程《%s》' % course.name,
+                                                   has_read=False)
+                    elif fav_type == 2:
+                        org = get_object_or_404(CourseOrg, id=fav_id)
+                        UserMessage.objects.create(user=request.user.id, message='您收藏了机构“%s”' % org.name,
+                                                   has_read=False)
+                    elif fav_type == 3:
+                        teacher = get_object_or_404(Teacher, id=fav_id)
+                        UserMessage.objects.create(user=request.user.id, message='您收藏了“%s”老师' % teacher.name,
+                                                   has_read=False)
+
                     # 收藏课程时，保存用户课程记录（用户ID和课程ID）
                     if fav_type == 1:
                         UserCourse.objects.create(user=request.user, course=Course.objects.get(id=fav_id))

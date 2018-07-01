@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 # Create your views here.
 from django.views.generic.base import View
 
-from apps.operation.models import UserFavorite
+from apps.operation.models import UserFavorite, UserMessage
 from apps.organization.models import CityDict, CourseOrg, Teacher
 from pure_pagination import Paginator, PageNotAnInteger
 
@@ -51,6 +51,9 @@ class OrgListView(View):
 
         org_nums = all_org.count()
 
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         # 分页
         try:
             page = request.GET.get('page', 1)
@@ -72,6 +75,7 @@ class OrgListView(View):
             'hot_org': hot_org,
             'sort': sort,
             'keywords': keywords,
+            'msg_counts': msg_counts,
         })
 
 
@@ -98,6 +102,10 @@ class OrgHomeView(View):
 
         courses = course_org.course_set.all()[:2]
         teachers = course_org.teacher_set.all()[:1]
+
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'org/org-detail-homepage.html', context={
             'username': username,
             'succ_msg': succ_msg,
@@ -105,6 +113,7 @@ class OrgHomeView(View):
             'courses': courses,
             'teachers': teachers,
             'is_fav': is_fav,
+            'msg_counts': msg_counts,
         })
 
 
@@ -130,12 +139,17 @@ class OrgCourseView(View):
                 is_fav = True
 
         courses = course_org.course_set.all()
+
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'org/org-detail-course.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
             'courses': courses,
             'is_fav': is_fav,
+            'msg_counts': msg_counts,
         })
 
 
@@ -159,11 +173,15 @@ class OrgDescView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course_org.id, fav_type=2):
                 is_fav = True
 
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'org/org-detail-desc.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
             'is_fav': is_fav,
+            'msg_counts': msg_counts,
         })
 
 
@@ -188,12 +206,17 @@ class OrgTeacherView(View):
                 is_fav = True
 
         teachers = course_org.teacher_set.all()
+
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'org/org-detail-teachers.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'course_org': course_org,
             'teachers': teachers,
             'is_fav': is_fav,
+            'msg_counts': msg_counts,
         })
 
 
@@ -224,6 +247,9 @@ class TeacherListView(View):
         if sort == 'popu':
             all_teachers = all_teachers.order_by('-click_nums')
 
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         # 分页
         try:
             page = request.GET.get('page', 1)
@@ -241,6 +267,7 @@ class TeacherListView(View):
             'sort': sort,
             'hot_teacher': hot_teacher,
             'keywords': keywords,
+            'msg_counts': msg_counts,
         })
 
 
@@ -271,6 +298,9 @@ class TeacherDetailView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=org_id, fav_type=2):
                 is_fav_org = True
 
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'org/teacher-detail.html', context={
             'username': username,
             'succ_msg': succ_msg,
@@ -280,6 +310,7 @@ class TeacherDetailView(View):
             'is_fav_teacher': is_fav_teacher,
             'is_fav_org': is_fav_org,
             'org_id': org_id,
+            'msg_counts': msg_counts,
         })
 
 

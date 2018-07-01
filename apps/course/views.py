@@ -43,6 +43,9 @@ class CourseListView(View):
 
         course_nums = all_courses.count()
 
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         # 分页
         try:
             page = request.GET.get('page', 1)
@@ -61,6 +64,7 @@ class CourseListView(View):
             'hot_courses': hot_courses,
             'course_nums': course_nums,
             'keywords': keywords,
+            'msg_counts': msg_counts,
         })
 
 
@@ -97,6 +101,9 @@ class CourseDetailView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course.courseorg.pk, fav_type=2):
                 is_fav_org = True
 
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'course/course-detail.html', context={
             'username': username,
             'succ_msg': succ_msg,
@@ -104,6 +111,7 @@ class CourseDetailView(View):
             'relate_course': relate_course,
             'is_fav_course': is_fav_course,
             'is_fav_org': is_fav_org,
+            'msg_counts': msg_counts,
         })
 
 
@@ -159,6 +167,9 @@ class CourseVideoView(View):
         else:
             usercourse_list = []
 
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'course/course-video.html', context={
             'username': username,
             'succ_msg': succ_msg,
@@ -167,6 +178,7 @@ class CourseVideoView(View):
             'download_res': download_res,
             'teacher': teacher,
             'usercourse_list': usercourse_list,
+            'msg_counts': msg_counts,
         })
 
 
@@ -210,6 +222,9 @@ class CourseCommentView(View):
         # 查询出课程评论
         comments = CourseComment.objects.filter(course=course_id).order_by('-id')
 
+        # 消息数
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
+
         return render(request, 'course/course-comment.html', context={
             'username': username,
             'succ_msg': succ_msg,
@@ -219,6 +234,7 @@ class CourseCommentView(View):
             'teacher': teacher,
             'usercourse_list': usercourse_list,
             'comments': comments,
+            'msg_counts': msg_counts,
         })
 
 
