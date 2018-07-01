@@ -45,6 +45,24 @@ class AddFavView(View):
             if exist_fav_rec or exist_usercourse_rec:
                 exist_fav_rec.delete()
                 exist_usercourse_rec.delete()
+
+                # 收藏数减1
+                if fav_type == 1:
+                    course = get_object_or_404(Course, id=fav_id)
+                    course.fav_nums -= 1
+                    if course.fav_nums < 0: course.fav_nums = 0
+                    course.save()
+                elif fav_type == 2:
+                    org = get_object_or_404(CourseOrg, id=fav_id)
+                    org.fav_nums -= 1
+                    if org.fav_nums < 0: org.fav_nums = 0
+                    org.save()
+                elif fav_type == 3:
+                    teacher = get_object_or_404(Teacher, id=fav_id)
+                    teacher.fav_nums -= 1
+                    if teacher.fav_nums < 0: teacher.fav_nums = 0
+                    teacher.save()
+
                 return HttpResponse('{"status":"success", "msg":"收藏"}', content_type='application/json')
             else:
                 if fav_id > 0 and fav_type > 0:
@@ -59,14 +77,20 @@ class AddFavView(View):
                         course = get_object_or_404(Course, id=fav_id)
                         UserMessage.objects.create(user=request.user.id, message='您收藏了课程《%s》' % course.name,
                                                    has_read=False)
+                        course.fav_nums += 1    # 收藏数加1
+                        course.save()
                     elif fav_type == 2:
                         org = get_object_or_404(CourseOrg, id=fav_id)
                         UserMessage.objects.create(user=request.user.id, message='您收藏了机构“%s”' % org.name,
                                                    has_read=False)
+                        org.fav_nums += 1    # 收藏数加1
+                        org.save()
                     elif fav_type == 3:
                         teacher = get_object_or_404(Teacher, id=fav_id)
                         UserMessage.objects.create(user=request.user.id, message='您收藏了“%s”老师' % teacher.name,
                                                    has_read=False)
+                        teacher.fav_nums += 1    # 收藏数加1
+                        teacher.save()
 
                     # 收藏课程时，保存用户课程记录（用户ID和课程ID）
                     if fav_type == 1:

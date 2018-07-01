@@ -39,7 +39,7 @@
                                 <span class="fl time">{{ msg.add_time|date:'Y-m-d H:i:s' }}</span>
                                 <button data-msgid="{{ msg.id }}" data-hasread="{{ msg.has_read }}"
                                         style="margin-left: 20px; background-color: {% if msg.has_read == 0 %}lightpink{% else %}lightgrey{% endif %}; ">
-                                    {% if msg.has_read == 0 %}标为已读{% elif msg.has_read == 1 %}已读{% endif %}</button>
+                                    {% if msg.has_read == False %}标为已读{% elif msg.has_read == True %}已读{% endif %}</button>
                                 <span class="fr btn foldbtn"></span>
                             </div>
                             <p>{{ msg.message|default_if_none:'没有消息' }}</p>
@@ -87,6 +87,10 @@
                     //alert($);
                     msg_id = $(this).attr("data-msgid");
                     has_read = $(this).attr("data-hasread");
+                    if (has_read === 'True'){
+                        return;
+                    }
+                    
                     $.ajax({
                         type: "POST",
                         dataType: "json",

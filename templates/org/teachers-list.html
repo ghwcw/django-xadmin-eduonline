@@ -79,7 +79,8 @@
                                 <li data-value="teacher">授课老师</li>
                             </ul>
                         </div>
-                        <input id="search_keywords" class="fl" type="text" value="{{ keywords }}" placeholder="请输入搜索内容"/>
+                        <input id="search_keywords" class="fl" type="text" value="{{ keywords }}"
+                               placeholder="请输入搜索内容"/>
                         <img class="search_btn fr" id="jsSearchBtn" src="{% static 'images/search_btn.png' %}"/>
                     </div>
                 </div>
@@ -132,8 +133,8 @@
                     <div class="fr butler-num">共<span class="key">{{ teacher_nums }}</span>人&nbsp;&nbsp;&nbsp;</div>
                 </div>
 
-{#              讲师列表#}
-                    {% for teacher in page_obj.object_list %}
+                {#              讲师列表#}
+                {% for teacher in page_obj.object_list %}
                     <dl class="des">
                         <dt>
                             <a href="{% url 'org:teacherdetail' teacher.pk %}">
@@ -143,11 +144,7 @@
                                 </div>
                             </a>
                             <div class="btn">
-                                <div class="fr btn2 bdsharebuttonbox"
-                                     data-text="授课教师-xxx-教育在线"
-                                     data-desc="我在#教育在线#发现了教师“xxx”，对学习中的小伙伴很有帮助，一起来看看吧。"
-                                     data-comment="xxx金牌讲师，从业年限：5年"
-                                >
+                                <div class="fr btn2 bdsharebuttonbox" data-text="" data-desc="" data-comment="">
                                     <span class="fl">分享</span>
                                     <a href="#" class="bds_more" data-cmd="more"></a>
                                 </div>
@@ -163,12 +160,13 @@
                                 <li>就职公司：<span>{{ teacher.work_company }}&nbsp;</span></li>
                                 <li>年龄：<span>{{ teacher.age }}岁</span></li>
                                 <li>教学特点：<span>{{ teacher.speciality }}</span></li>
+                                <li>关注：<span>{{ teacher.fav_nums }}</span></li>
                             </ul>
                         </dd>
 
                         <a class="buy buyservice" href="{% url 'org:teacherdetail' teacher.pk %}"><br/>查看<br/>详情</a>
                     </dl>
-                    {% endfor %}
+                {% endfor %}
 
             </div>
             {#        分页按钮#}

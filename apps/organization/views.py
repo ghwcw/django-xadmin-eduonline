@@ -64,6 +64,12 @@ class OrgListView(View):
         p = Paginator(all_org, 4, request=request)
         page_obj = p.page(page)
 
+        # 更新课程数。缺点：影响加载速度，可用触发器替代
+        for org in all_org:
+            counts = org.course_set.count()
+            org.courses = counts
+            org.save()
+
         return render(request, 'org/org-list.html', context={
             'all_city': all_city,
             'username': username,
@@ -93,6 +99,10 @@ class OrgHomeView(View):
             succ_msg = ''
 
         course_org = CourseOrg.objects.get(id=int(org_id))
+
+        # 点击量加1
+        course_org.click_nums += 1
+        course_org.save()
 
         # 判断是否收藏
         is_fav = False
@@ -245,7 +255,7 @@ class TeacherListView(View):
         # 人气排序
         sort = request.GET.get('sort', '')
         if sort == 'popu':
-            all_teachers = all_teachers.order_by('-click_nums')
+            all_teachers = all_teachers.order_by('-fav_nums')
 
         # 消息数
         msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
@@ -284,8 +294,11 @@ class TeacherDetailView(View):
             succ_msg = ''
 
         teacher = get_object_or_404(Teacher, pk=teacher_id)
-        courses = teacher.course_set.all()
+        # 点击量加1
+        teacher.click_nums += 1
+        teacher.save()
 
+        courses = teacher.course_set.all()
         hot_teacher = Teacher.objects.all().order_by('-fav_nums')[:2]
 
         # 判断是否收藏

@@ -83,6 +83,10 @@ class CourseDetailView(View):
 
         course = get_object_or_404(Course, pk=course_id)
 
+        # 点击量加1
+        course.click_nums += 1
+        course.save()
+
         # 相关课程
         tag = course.tag
         if tag:
@@ -128,10 +132,16 @@ class CourseStudyView(View):
             # 记录到用户课程
             if not UserCourse.objects.filter(user=request.user, course_id=course_id):
                 UserCourse.objects.create(user=request.user, course_id=int(course_id))
-            # 记录到用户消息
-            course_name = Course.objects.get(id=int(course_id))
+
+            course = Course.objects.get(id=int(course_id))
+            # 课程及其机构学习人数加1
+            course.students += 1
+            course.courseorg.students += 1
+            course.save()
+            course.courseorg.save()
+
             # 记录消息
-            UserMessage.objects.create(user=request.user.id, message='您在这时学习了《%s》课程。' % course_name, has_read=False)
+            UserMessage.objects.create(user=request.user.id, message='您在这时学习了《%s》课程。' % course.name, has_read=False)
 
             return JsonResponse({"status": "success", "msg": "开启学习之旅..."})
         else:

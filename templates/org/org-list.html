@@ -200,8 +200,11 @@
                                     </a>
                                 </div>
                                 <ul class="cont">
-                                    <li class="first"><p class="pic9">课程数：<span>{{ org.courses }}</span></p>
-                                        <p class="c7">学习人数：<span>{{ org.students }}</span></p></li>
+                                    <li class="first">
+                                        <p class="pic9">课程数：<span>{{ org.courses }}</span></p>
+                                        <p class="c7">学习人数：<span>{{ org.students }}</span></p>
+                                        <p style="background: url({% static 'images/star.png' %}) no-repeat left center;">收藏数：<span>{{ org.fav_nums }}</span></p>
+                                    </li>
                                     <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
                                     <li class="pic10" style="padding-left:18px;">经典课程：
 
@@ -340,7 +343,7 @@
                 url: "{% url 'oper:user_ask' %}",
                 data: $('#jsStayForm').serialize(),
                 async: true,
-                beforeSend: function(xhr){
+                beforeSend: function (xhr) {
                     $('#jsCompanyTips').hide();
                 },
                 success: function (data) {
