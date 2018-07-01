@@ -7,7 +7,7 @@ from django.contrib.auth.backends import ModelBackend
 from django.core.paginator import PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 from pure_pagination import Paginator
@@ -21,7 +21,7 @@ from custbase.login_required import LoginRequiredMixin
 from custbase.send_email import SendEmail
 
 
-class CustomBackend(ModelBackend):      # 继承ModelBackend类
+class CustomBackend(ModelBackend):  # 继承ModelBackend类
     """
     自定义用户验证后端：支持用户名或邮箱登录。
     """
@@ -265,6 +265,7 @@ class UserCenInfoView(LoginRequiredMixin, View):
     """
     个人中心-个人资料
     """
+
     def get(self, request):
         # 若未登录
         # if not request.user.is_authenticated():
@@ -565,6 +566,7 @@ class UserCenMsgView(LoginRequiredMixin, View):
 
         # 查询我的消息
         messages = UserMessage.objects.filter(user=request.user.id).order_by('-add_time')
+        msg_counts = UserMessage.objects.filter(user=request.user.id, has_read='False').count()
 
         # 分页
         try:
@@ -580,4 +582,20 @@ class UserCenMsgView(LoginRequiredMixin, View):
             'username': username,
             'succ_msg': succ_msg,
             'page_obj': page_obj,
+            'msg_counts': msg_counts,
         })
+
+    def post(self, request):
+        msg_id = int(request.POST.get('msg_id', ''))
+        has_read = request.POST.get('has_read', 'False')
+        msg = get_object_or_404(UserMessage, id=msg_id)
+
+        if has_read == 'False':
+            msg.has_read = 'True'
+            msg.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': ''})
+
+
+

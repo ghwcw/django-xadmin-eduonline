@@ -31,8 +31,8 @@ class UserFavoriteAdmin():
 
 
 class UserMessageAdmin():
-    list_display = ['id', 'user', 'message', 'is_read', 'add_time']
-    list_filter = ['id', 'user', 'message', 'is_read', 'add_time']
+    list_display = ['id', 'user', 'message', 'has_read', 'add_time']
+    list_filter = ['id', 'user', 'message', 'has_read', 'add_time']
     search_fields = ['message']
 
 

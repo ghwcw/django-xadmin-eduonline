@@ -25,7 +25,7 @@ class UserAskView(View):
 
 class AddFavView(View):
     """
-    收藏
+    收藏或删除收藏
     """
 
     def post(self, request):
@@ -37,6 +37,7 @@ class AddFavView(View):
         if not request.user.is_authenticated():
             return HttpResponse('{"status":"fail", "msg":"用户未登录"}', content_type='application/json')
         else:
+            # 查询收藏表和用户课程表是否存在记录
             exist_fav_rec = UserFavorite.objects.filter(user=request.user, fav_id=fav_id, fav_type=fav_type)
             exist_usercourse_rec = UserCourse.objects.filter(user=request.user, course_id=fav_id)
             if exist_fav_rec or exist_usercourse_rec:

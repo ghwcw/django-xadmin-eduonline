@@ -369,6 +369,7 @@ $(function() {
     },function(){
         $('.header .userdetail').stop(true).hide();
     });
+
     var msg_show = true,
         msg = +$('#MsgNum').text();
     function msgFlash(){

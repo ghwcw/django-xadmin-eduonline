@@ -53,9 +53,7 @@
                             </div>
                         </div>
 
-                        <a href="../usercenter/usercenter-message.html">
-                            <div class="msg-num"><span id="MsgNum">0</span></div>
-                        </a>
+                        {% include 'usercenter/message-counts.html' %}
 
                     {% elif not flag %}
                         <!--未登录-->

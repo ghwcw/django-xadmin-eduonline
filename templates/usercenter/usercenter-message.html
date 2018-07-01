@@ -31,12 +31,17 @@
 
             </div>
             <div class="messagelist">
-{#           消息列表 #}
+                {#           消息列表 #}
                 {% for msg in page_obj.object_list %}
-                    <div class="messages">
+                    <div class="messages" style="border-bottom: lightgrey solid 0.5px; padding-bottom: 20px">
                         <div class="fr">
-                            <div class="top"><span class="fl time">{{ msg.add_time|date:'Y-m-d H:i:s' }}</span><span
-                                    class="fr btn foldbtn"></span></div>
+                            <div id="read-msg" class="top">
+                                <span class="fl time">{{ msg.add_time|date:'Y-m-d H:i:s' }}</span>
+                                <button data-msgid="{{ msg.id }}" data-hasread="{{ msg.has_read }}"
+                                        style="margin-left: 20px; background-color: {% if msg.has_read == 0 %}lightpink{% else %}lightgrey{% endif %}; ">
+                                    {% if msg.has_read == 0 %}标为已读{% elif msg.has_read == 1 %}已读{% endif %}</button>
+                                <span class="fr btn foldbtn"></span>
+                            </div>
                             <p>{{ msg.message|default_if_none:'没有消息' }}</p>
                         </div>
                     </div>
@@ -74,6 +79,46 @@
         </div>
 
     </div>
+
+    {% block cust_script %}
+        <script>
+            $(function () {
+                $("#read-msg > button").click(function () {
+                    //alert($);
+                    msg_id = $(this).attr("data-msgid");
+                    has_read = $(this).attr("data-hasread");
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        cache: false,
+                        url: "/myuser/usercen-mymsg/",
+                        data: {
+                            msg_id: msg_id,
+                            has_read: has_read,
+                        },
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                        },
+                        success: function (data) {
+                            if (data.status === "success") {
+                                $(this).html("已读");
+                                location.reload();
+                            }
+                            else {
+                                $(this).html("标为已读");
+                                location.reload();
+                            }
+                        },
+
+                    })
+                })
+            })
+        </script>
+    {% endblock %}
+
 {% endblock %}
+
+
+
 
 

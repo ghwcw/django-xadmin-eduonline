@@ -52,9 +52,7 @@
                             </div>
                         </div>
 
-                        <a href="usercenter-message.html">
-                            <div class="msg-num"><span id="MsgNum">0</span></div>
-                        </a>
+                        {% include 'usercenter/message-counts.html' %}
 
                     {% elif not flag %}
                         <!--未登录-->
@@ -138,64 +136,99 @@
 <script src="{% static 'js/validate.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/deco-user.js' %}"></script>
 
+{% block cust_script %}
+{% endblock %}
+
 <script type="text/javascript">
+    // 删除收藏课程
     $('.jsDeleteFav_course').on('click', function () {
-        var _this = $(this),
+        conf = confirm('确定删除吗？');
+        if (conf){
+            var _this = $(this),
             favid = _this.attr('data-favid');
-        alert(favid)
-        $.ajax({
-            cache: false,
-            type: "POST",
-            url: "/org/add_fav/",
-            data: {
-                fav_type: 1,
-                fav_id: favid,
-                csrfmiddlewaretoken: '799Y6iPeEDNSGvrTu3noBrO4MBLv6enY'
-            },
-            async: true,
-            success: function (data) {
-                Dml.fun.winReload();
-            }
-        });
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "/oper/add-fav/",
+                data: {
+                    fav_type: 1,
+                    fav_id: favid,
+                },
+                async: true,
+                beforeSend: function(xhr){
+                  xhr.setRequestHeader('X-CSRFToken','{{ csrf_token }}');
+                },
+                success: function (data) {
+                    Dml.fun.winReload();
+                    alert('删除成功！');
+                }
+            });
+        }
+        else {
+            return;
+        }
+
     });
 
+    // 删除收藏教师
     $('.jsDeleteFav_teacher').on('click', function () {
-        var _this = $(this),
+        conf = confirm('确定删除吗？');
+        if (conf){
+            var _this = $(this),
             favid = _this.attr('data-favid');
-        $.ajax({
-            cache: false,
-            type: "POST",
-            url: "/org/add_fav/",
-            data: {
-                fav_type: 3,
-                fav_id: favid,
-                csrfmiddlewaretoken: '799Y6iPeEDNSGvrTu3noBrO4MBLv6enY'
-            },
-            async: true,
-            success: function (data) {
-                Dml.fun.winReload();
-            }
-        });
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "/oper/add-fav/",
+                data: {
+                    fav_type: 3,
+                    fav_id: favid,
+                },
+                async: true,
+                beforeSend: function(xhr){
+                  xhr.setRequestHeader('X-CSRFToken','{{ csrf_token }}');
+                },
+                success: function (data) {
+                    Dml.fun.winReload();
+                    alert('删除成功！');
+                }
+            });
+
+        }
+        else {
+            return;
+        }
+
     });
 
-
+    // 删除收藏机构
     $('.jsDeleteFav_org').on('click', function () {
-        var _this = $(this),
+        conf = confirm('确定删除吗？');
+        if (conf){
+            var _this = $(this),
             favid = _this.attr('data-favid');
-        $.ajax({
-            cache: false,
-            type: "POST",
-            url: "/org/add_fav/",
-            data: {
-                fav_type: 2,
-                fav_id: favid,
-                csrfmiddlewaretoken: '799Y6iPeEDNSGvrTu3noBrO4MBLv6enY'
-            },
-            async: true,
-            success: function (data) {
-                Dml.fun.winReload();
-            }
-        });
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "/oper/add-fav/",
+                data: {
+                    fav_type: 2,
+                    fav_id: favid,
+                },
+                async: true,
+                beforeSend: function(xhr){
+                  xhr.setRequestHeader('X-CSRFToken','{{ csrf_token }}');
+                },
+                success: function (data) {
+                    Dml.fun.winReload();
+                    alert('删除成功！');
+                }
+            });
+        }
+        else {
+            return;
+        }
+
     });
 </script>
 
