@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic.base import View, TemplateView
+from django.views.generic.base import View
 from pure_pagination import Paginator
 
 from apps.course.models import Course
