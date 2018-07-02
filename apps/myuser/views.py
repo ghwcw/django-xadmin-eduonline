@@ -70,7 +70,7 @@ class IndexView(View):
         courseall = Course.objects.order_by('-add_time')[2:8]
 
         # 查询机构
-        orgs = CourseOrg.objects.order_by('-add_time')[:15]
+        orgs = CourseOrg.objects.all()[:15]
 
         return render(request, 'myuser/index.html', context={
             'username': username,
