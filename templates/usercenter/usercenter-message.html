@@ -38,9 +38,12 @@
                         <div class="fr">
                             <div id="read-msg" class="top">
                                 <span class="fl time">{{ msg.add_time|date:'Y-m-d H:i:s' }}</span>
-                                <button data-msgid="{{ msg.id }}" data-hasread="{{ msg.has_read }}"
-                                        style="margin-left: 20px; background-color: {% if msg.has_read == 0 %}lightpink{% else %}lightgrey{% endif %}; ">
-                                    {% if msg.has_read == False %}标为已读{% elif msg.has_read == True %}已读{% endif %}</button>
+                                <code data-msgid="{{ msg.id }}" data-hasread="{{ msg.has_read }}"
+                                      style="margin-left: 20px; color: gray;
+                                      cursor: {% if msg.has_read == 0 %}pointer{% else %}text{% endif %};
+                                      background-color: {% if msg.has_read == 0 %}lightpink{% else %}lightgrey{% endif %}; ">
+                                    {% if msg.has_read == False %}标为已读{% elif msg.has_read == True %}已读{% endif %}
+                                </code>
                                 <span class="fr btn foldbtn"></span>
                             </div>
                             <p>{{ msg.message|default_if_none:'没有消息' }}</p>
@@ -84,14 +87,14 @@
     {% block cust_script %}
         <script>
             $(function () {
-                $("#read-msg > button").click(function () {
+                $("#read-msg > code").click(function () {
                     //alert($);
                     msg_id = $(this).attr("data-msgid");
                     has_read = $(this).attr("data-hasread");
-                    if (has_read === 'True'){
+                    if (has_read === 'True') {
                         return;
                     }
-                    
+
                     $.ajax({
                         type: "POST",
                         dataType: "json",
@@ -135,7 +138,7 @@
                         },
                         success: function (data) {
                             if (data.status === "success") {
-                                $("#read-msg > button").html("已读");
+                                $("#read-msg > code").html("已读");
                                 location.reload();
                             }
                         }
