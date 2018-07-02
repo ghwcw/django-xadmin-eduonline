@@ -39,7 +39,7 @@ class CustomBackend(ModelBackend):  # 继承ModelBackend类
 
 class HomePageView(View):
     """
-    基于通用类视图的首页(未登陆)
+    基于通用类视图的首页(127.0.0.1:8000)
     """
     def get(self, request):
         return redirect(reverse('index'))
@@ -47,7 +47,7 @@ class HomePageView(View):
 
 class IndexView(View):
     """
-    基于通用类视图的首页(登陆后)
+    基于通用类视图的首页(127.0.0.1:8000/index)
     """
 
     def get(self, request):
