@@ -2616,9 +2616,9 @@ footer .footer .line {
 }
 
 .listoptions .more:hover {
-    background: #717171;
+    background: #3D9328;
     color: #fff;
-    border-color: #717171;
+    border-color: #3D9328;
 }
 
 .listoptions span {
@@ -2636,6 +2636,9 @@ footer .footer .line {
     margin-left: 140px;
     height: 50px;
     overflow: hidden;
+    font-family: 微软雅黑;
+    font-weight: bold;
+
 }
 
 .list {
@@ -2742,6 +2745,11 @@ footer .footer .line {
     display: table-cell;
     vertical-align: middle;
     overflow: hidden;
+}
+
+.pageturn .pagelist li a:hover {
+    background: #3D9328;
+    color: #fff;
 }
 
 .pageturn li {
@@ -3481,7 +3489,7 @@ footer .footer .line {
 }
 
 .butler_list .buy:hover, .buyservice:hover {
-    background: #717171;
+    background: #3D9328;
     color: #fff;
 }
 
@@ -5021,7 +5029,7 @@ footer .footer .line {
 .companyright .head {
     text-align: center;
     color: #fff;
-    background: #4fb137;
+    background: #3D9328;
     padding: 0;
     margin: 0;
     font-size: 24px;
@@ -5069,13 +5077,14 @@ footer .footer .line {
 
 .companyright .rightform .btn {
     width: 100%;
-    height: 30px;
+    height: 40px;
     line-height: 30px;
-    background: #ff9d33;
+    background: #3D9328;
     margin: 10px 0;
     text-align: center;
     color: #fff;
     cursor: pointer;
+    font-size: medium;
 }
 
 .companyrank .num {
