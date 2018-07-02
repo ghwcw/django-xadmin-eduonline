@@ -163,3 +163,7 @@ CACHES = {
     }
 }
 
+# 会话生存期设置，浏览器关闭，则会话失效（可能对Chrome浏览器无效）
+# 在登录视图get请求中添加语句"request.session.set_expiry(0)"，对Chrome会有效
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+

@@ -126,41 +126,14 @@
             <div class="imgslide">
                 <ul class="imgs">
 
-                    <li>
-                        <a href="{% url 'index' %}">
-                            <img width="1200" height="478"
-                                 src="{% static 'media/banner/2016/11/57a801860001c34b12000460.jpg' %}"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'index' %}">
-                            <img width="1200" height="478"
-                                 src="{% static 'media/banner/2016/11/57aa86a0000145c512000460.jpg' %}"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'index' %}">
-                            <img width="1200" height="478"
-                                 src="{% static 'media/banner/2016/11/57a801860001c34b12000460_z4Vb8zl.jpg' %}"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'index' %}">
-                            <img width="1200" height="478"
-                                 src="{% static 'media/banner/2016/11/57aa86a0000145c512000460_nMwvoQD.jpg' %}"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'index' %}">
-                            <img width="1200" height="478"
-                                 src="{% static 'media/banner/2016/11/57aa86a0000145c512000460_GXIBATC.jpg' %}"/>
-                        </a>
-                    </li>
-
+                    {% for banner in banners %}
+                        <li>
+                            <a href="{{ banner.imgurl }}">
+                                <img width="1200" height="478"
+                                     src="{{ MEDIA_URL }}{{ banner.image }}"/>
+                            </a>
+                        </li>
+                    {% endfor %}
 
                 </ul>
             </div>
@@ -204,7 +177,7 @@
             <h1>公开课程</h1>
             <div class="module1 eachmod">
                 <div class="module1_1 left">
-                    <img width="228" height="614" src="{% static 'images/module1_1.jpg' %}"/>
+                    <img width="228" height="614" src="{% static '/images/kcleft.png' %}"/>
                     <p class="fisrt_word">名师授课<br/>专业权威</p>
                     <a class="more" href="{% url 'course:course_list' %}">查看更多课程 ></a>
                 </div>
@@ -213,19 +186,14 @@
                         <div class="imgslide2">
                             <ul class="imgs">
 
-                                <li>
-                                    <a href="">
-                                        <img width="470" height="300"
-                                             src="{% static 'media/courses/2016/12/python文件处理.jpg' %}"/>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="">
-                                        <img width="470" height="300"
-                                             src="{% static 'media/courses/2016/12/python面向对象.jpg' %}"/>
-                                    </a>
-                                </li>
+                                {% for course in courses2 %}
+                                    <li>
+                                        <a href="{% url 'course:course_detail' course_id=course.id %}">
+                                            <img width="470" height="300"
+                                                 src="{{ MEDIA_URL }}{{ course.image }}"/>
+                                        </a>
+                                    </li>
+                                {% endfor %}
 
                             </ul>
                         </div>
@@ -233,112 +201,24 @@
                         <div class="unslider-arrow2 next"></div>
                     </div>
 
-                    <div class="module1_3 box">
-                        <a href="{% url 'course:course_detail' course_id=13 %}">
-                            <img width="233" height="190" src="{% static 'media/courses/2016/11/mysql.jpg' %}"/>
-                        </a>
-                        <div class="des">
-                            <a href="{% url 'course:course_detail' course_id=13 %}">
-                                <h2>MySQL数据库</h2>
+                    {% for course in courseall %}
+                        <div class="module1_{{ forloop.counter|add:2 }} box">
+                            <a href="{% url 'course:course_detail' course_id=course.id %}">
+                                <img width="233" height="190" src="{{ MEDIA_URL }}{{ course.image }}"/>
                             </a>
-                            <span class="fl">难度：<i class="key">初级</i></span>
-                            <span class="fr">学习人数：3</span>
+                            <div class="des">
+                                <a href="{% url 'course:course_detail' course_id=course.id %}">
+                                    <h2>{{ course.name }}</h2>
+                                </a>
+                                <span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>
+                                <span class="fr">学习人数：{{ course.students }}</span>
+                            </div>
+                            <div class="bottom">
+                                <span class="fl" title="{{ course.courseorg }}">{{ course.courseorg }}</span>
+                                <span class="star fr">{{ course.fav_nums }}</span>
+                            </div>
                         </div>
-                        <div class="bottom">
-                            <span class="fl" title="上海交通大学">上海交通大学</span>
-                            <span class="star fr">0</span>
-                        </div>
-                    </div>
-
-                    <div class="module1_4 box">
-                        <a href="{% url 'course:course_detail' course_id=9 %}">
-                            <img width="233" height="190"
-                                 src="{% static 'media/courses/2016/11/java.jpg' %}"/>
-                        </a>
-                        <div class="des">
-                            <a href="{% url 'course:course_detail' course_id=9 %}">
-                                <h2>java程序设计</h2>
-                            </a>
-                            <span class="fl">难度：<i class="key">中级</i></span>
-                            <span class="fr">学习人数：0</span>
-                        </div>
-                        <div class="bottom">
-                            <span class="fl" title="北京大学">北京大学</span>
-                            <span class="star fr">0</span>
-                        </div>
-                    </div>
-
-                    <div class="module1_5 box">
-                        <a href="{% url 'course:course_detail' course_id=2 %}">
-                            <img width="233" height="190"
-                                 src="{% static 'media/courses/2016/11/python.jpg' %}"/>
-                        </a>
-                        <div class="des">
-                            <a href="{% url 'course:course_detail' course_id=2 %}">
-                                <h2>python开发</h2>
-                            </a>
-                            <span class="fl">难度：<i class="key">中级</i></span>
-                            <span class="fr">学习人数：0</span>
-                        </div>
-                        <div class="bottom">
-                            <span class="fl" title="北京大学">北京大学</span>
-                            <span class="star fr">0</span>
-                        </div>
-                    </div>
-
-                    <div class="module1_6 box">
-                        <a href="{% url 'course:course_detail' course_id=3 %}">
-                            <img width="233" height="190"
-                                 src="{% static 'media/courses/2016/11/django.jpg' %}"/>
-                        </a>
-                        <div class="des">
-                            <a href="{% url 'course:course_detail' course_id=3 %}">
-                                <h2>Django web开发</h2>
-                            </a>
-                            <span class="fl">难度：<i class="key">高级</i></span>
-                            <span class="fr">学习人数：0</span>
-                        </div>
-                        <div class="bottom">
-                            <span class="fl" title="清华大学">清华大学</span>
-                            <span class="star fr">0</span>
-                        </div>
-                    </div>
-
-                    <div class="module1_7 box">
-                        <a href="{% url 'course:course_detail' course_id=5 %}">
-                            <img width="233" height="190"
-                                 src="{% static 'media/courses/2016/11/php.jpg' %}"/>
-                        </a>
-                        <div class="des">
-                            <a href="{% url 'course:course_detail' course_id=5 %}">
-                                <h2>PHP开发</h2>
-                            </a>
-                            <span class="fl">难度：<i class="key">初级</i></span>
-                            <span class="fr">学习人数：1</span>
-                        </div>
-                        <div class="bottom">
-                            <span class="fl" title="上海交通大学">上海交通大学</span>
-                            <span class="star fr">0</span>
-                        </div>
-                    </div>
-
-                    <div class="module1_8 box">
-                        <a href="{% url 'course:course_detail' course_id=1 %}">
-                            <img width="233" height="190"
-                                 src="{% static 'media/courses/2016/11/cyuyan.jpg' %}"/>
-                        </a>
-                        <div class="des">
-                            <a href="{% url 'course:course_detail' course_id=1 %}">
-                                <h2>C语言程序设计</h2>
-                            </a>
-                            <span class="fl">难度：<i class="key">中级</i></span>
-                            <span class="fr">学习人数：0</span>
-                        </div>
-                        <div class="bottom">
-                            <span class="fl" title="山西农业大学">山西农业大学</span>
-                            <span class="star fr">0</span>
-                        </div>
-                    </div>
+                    {% endfor %}
 
                 </div>
             </div>
@@ -351,222 +231,27 @@
             <h1>课程机构</h1>
             <div class="module3 eachmod">
                 <div class="module3_1 left">
-                    <img width="228" height="463" src="{% static 'images/module3_1.jpg' %}"/>
+                    <img width="228" height="463" src="{% static 'images/jgleft.png' %}"/>
                     <p class="fisrt_word">名校来袭<br/>权威认证</p>
                     <a class="more" href="{% url 'org:orglist' %}">查看更多机构 ></a>
                 </div>
                 <div class="right">
                     <ul>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/sxnd.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
+                        {% for org in orgs %}
+                             <li class="{% if forloop.counter == 5 or forloop.counter == 10 or forloop.counter == 15 %}five{% endif %}">
+                                <a href="{% url 'org:orghome' org_id=org.id %}">
+                                    <div class="company">
+                                        <img width="184" height="100" src="{{ MEDIA_URL }}{{ org.image }}"/>
+                                        <div class="score">
+                                            <div class="circle">
+                                                <h2>全国知名</h2>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <p><span class="key" title="山西农业大学">山西农业大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/qhdx-logo.png' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="清华大学">清华大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/shjd.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="上海交通大学">上海交通大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/bjdx.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="北京大学">北京大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="five">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/fddx.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="复旦大学">复旦大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/zjdx.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="浙江大学">浙江大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/bjsd.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="北京师大">北京师大</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/ncdx.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="南昌大学">南昌大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/sddx.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="山东大学">山东大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="five">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/zjdx.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="浙江大学">浙江大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/zgkd.JPEG' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="中国科大">中国科大</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/scdx.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="四川大学">四川大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/whdx.png' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="武汉大学">武汉大学</span></p>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/zgkd.JPEG' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="中国科大">中国科大</span></p>
-                            </a>
-                        </li>
-
-                        <li class="five">
-                            <a href="{% url 'org:orglist' %}">
-                                <div class="company">
-                                    <img width="184" height="100" src="{% static 'media/org/2016/11/sxnd.jpg' %}"/>
-                                    <div class="score">
-                                        <div class="circle">
-                                            <h2>全国知名</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><span class="key" title="山西农大">山西农大</span></p>
-                            </a>
-                        </li>
+                                    <p><span class="key" title="{{ org.name }}">{{ org.name }}</span></p>
+                                </a>
+                            </li>
+                        {% endfor %}
 
                     </ul>
                 </div>

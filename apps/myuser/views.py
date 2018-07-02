@@ -12,9 +12,10 @@ from django.urls import reverse
 from django.views.generic.base import View, TemplateView
 from pure_pagination import Paginator
 
+from apps.course.models import Course
 from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdForm, UserCenUploadHeadimgForm, \
     UpdatePwdForm, UserCenInfoForm
-from apps.myuser.models import UserProfile, EmailValiRecord
+from apps.myuser.models import UserProfile, EmailValiRecord, Banner
 from apps.operation.models import UserCourse, UserFavorite, UserMessage
 from apps.organization.models import CourseOrg, Teacher
 from custbase.login_required import LoginRequiredMixin
@@ -30,21 +31,18 @@ class CustomBackend(ModelBackend):  # 继承ModelBackend类
         try:
             user = UserProfile.objects.get(Q(username=username) | Q(email=username))
             if user.check_password(password):
+
                 return user
         except Exception as e:
             return None
 
 
-class HomePageView(TemplateView):
+class HomePageView(View):
     """
     基于通用类视图的首页(未登陆)
     """
-    template_name = "myuser/index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(HomePageView, self).get_context_data(**kwargs)
-        context['flag'] = None
-        return context
+    def get(self, request):
+        return redirect(reverse('index'))
 
 
 class IndexView(View):
@@ -52,20 +50,8 @@ class IndexView(View):
     基于通用类视图的首页(登陆后)
     """
 
-    # template_name = 'index.html'
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super(IndexView, self).get_context_data(**kwargs)
-    #     try:
-    #         context['username'] = username  # 使用了全局变量
-    #         context['succ_msg'] = succ_msg
-    #     except NameError as e:
-    #         context['username'] = ''
-    #         context['succ_msg'] = ''
-    #     finally:
-    #         return context
-
     def get(self, request):
+
         try:
             username = request.session['username']
             succ_msg = request.session['succ_msg']
@@ -76,10 +62,24 @@ class IndexView(View):
         # 消息数
         msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
+        # 查询轮播图
+        banners = Banner.objects.all()[:5]
+
+        # 查询课程
+        courses2 = Course.objects.order_by('-add_time')[:2]
+        courseall = Course.objects.order_by('-add_time')[2:8]
+
+        # 查询机构
+        orgs = CourseOrg.objects.order_by('-add_time')[:15]
+
         return render(request, 'myuser/index.html', context={
             'username': username,
             'succ_msg': succ_msg,
             'msg_counts': msg_counts,
+            'banners': banners,
+            'courses2': courses2,
+            'courseall': courseall,
+            'orgs': orgs,
         })
 
 
@@ -89,6 +89,8 @@ class LoginView(View):
     """
 
     def get(self, request):
+        # 设置会话有效期，浏览器关闭失效
+        request.session.set_expiry(0)
         return render(request, 'myuser/login.html')
 
     def post(self, request):
