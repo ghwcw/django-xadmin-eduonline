@@ -27,6 +27,7 @@
             <div class="head">
                 <ul class="tab_header messagehead">
                     <li class="active"><a href="{% url 'myuser:usercen_mymsg' %}">个人消息</a></li>
+                    <button id="one-key">一键标为已读</button>
                 </ul>
 
             </div>
@@ -99,6 +100,7 @@
                         data: {
                             msg_id: msg_id,
                             has_read: has_read,
+                            one_key: "",
                         },
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
@@ -115,7 +117,33 @@
                         },
 
                     })
-                })
+                });
+
+                $("#one-key").click(function () {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "/myuser/usercen-mymsg/",
+                        data: {
+                            one_key: "one_key",
+                            msg_id: "0",
+                            has_read: "",
+                        },
+                        cache: false,
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                        },
+                        success: function (data) {
+                            if (data.status === "success") {
+                                $("#read-msg > button").html("已读");
+                                location.reload();
+                            }
+                        }
+
+                    })
+                });
+
+
             })
         </script>
     {% endblock %}

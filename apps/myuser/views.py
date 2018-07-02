@@ -615,13 +615,19 @@ class UserCenMsgView(LoginRequiredMixin, View):
         :param request:
         :return:
         """
-        msg_id = int(request.POST.get('msg_id', ''))
+        msg_id = int(request.POST.get('msg_id', '0'))
         has_read = request.POST.get('has_read', 'False')
-        msg = get_object_or_404(UserMessage, id=msg_id)
+        one_key = request.POST.get('one_key', '')
 
-        if has_read == 'False':
-            msg.has_read = 'True'
-            msg.save()
+        if one_key:
+            UserMessage.objects.filter(user=request.user.id).update(has_read=True)
             return JsonResponse({'status': 'success'})
+
+        if msg_id:
+            msg = get_object_or_404(UserMessage, id=msg_id)
+            if has_read == 'False':
+                msg.has_read = 'True'
+                msg.save()
+                return JsonResponse({'status': 'success'})
         else:
             return JsonResponse({'status': ''})
