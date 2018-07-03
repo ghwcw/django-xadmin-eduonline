@@ -32,7 +32,7 @@ class CourseOrg(models.Model):
 
     name = models.CharField(max_length=50, verbose_name='机构名称')
     desc = models.TextField(verbose_name='机构描述')
-    category = models.CharField(max_length=10, choices=(CATEGORY_CHOICE), default='pxjg', verbose_name='结构分类')
+    category = models.CharField(max_length=10, choices=(CATEGORY_CHOICE), default='pxjg', verbose_name='机构分类')
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     fav_nums = models.IntegerField(default=0, verbose_name='收藏数')
     image = models.ImageField(upload_to='org/%Y/%m', verbose_name='logo', default='org.default-org.jpg', null=True,

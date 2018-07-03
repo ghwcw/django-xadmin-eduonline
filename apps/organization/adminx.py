@@ -22,9 +22,12 @@ class CityDictAdmin():
 
 class CourseOrgAdmin():
     list_display = ['id', 'name', 'desc', 'click_nums', 'fav_nums', 'image', 'city', 'address', 'add_time']
-    list_filter = ['id', 'name', 'desc', 'click_nums', 'fav_nums', 'image', 'city', 'address', 'add_time']
+    list_filter = ['id', 'name', 'desc', 'category', 'click_nums', 'fav_nums', 'image', 'city', 'address', 'add_time']
     search_fields = ['name', 'desc', 'image', 'address']
     model_icon = 'fa fa-graduation-cap'
+    readonly_fields = ['name']
+    exclude = ['click_nums']
+    relfield_sytle = 'fk_ajax'
 
 
 class TeacherAdmin():
