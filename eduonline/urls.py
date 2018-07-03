@@ -38,6 +38,8 @@ urlpatterns = [
 
     # 用户上传文件显示
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # 生产静态文件显示
+    # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 
     # 机构相关
     url(r'^org/', include('apps.organization.orgurl', namespace='org')),
@@ -49,3 +51,7 @@ urlpatterns = [
     url(r'^course/', include('apps.course.courseurl', namespace='course')),
 
 ]
+
+# 处理全局404，500页面
+handler404 = 'apps.operation.views.http404_error'
+handler500 = 'apps.operation.views.http500_error'

@@ -143,14 +143,15 @@ STATIC_URL = '/static/'
 
 # 静态文件的生产环境根目录，当运行"python manage.py collectstatic"的时候，会将STATICFILES_DIRS以及各app中static的所有的文件复制收集到STATIC_ROOT
 # 把这些文件放到一起是为了用Apache等上线部署的时候更方便
-# STATIC_ROOT=os.path.join(BASE_DIR, 'collected_statics').replace('\\', '/')
+# 需要配置URL，如"url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})"
+# STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic').replace('\\', '/')
 
 # 静态文件的公用目录，但不能与STATIC_ROOT冲突！
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # 媒体文件(用户上传的文件)配置
 # 不能像静态文件那样调用，而是先配置"TEMPLATES"中的"context_processors"添加'django.template.context_processors.media'；
-# 然后配置URL，如'url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})'；
+# 然后配置URL，如"url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})"；
 # 调用示例：{{ MEDIA_URL }}{{ modelobj.fieldname }}
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
