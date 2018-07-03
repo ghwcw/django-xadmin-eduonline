@@ -34,12 +34,14 @@ class EmailValiRecordAdmin():
     list_display = ['id', 'code', 'email', 'send_type', 'send_time']
     list_filter = ['id', 'code', 'email', 'send_type', 'send_time']
     search_fields = ['email']
+    model_icon = 'fa fa-envelope-open'
 
 
 class BannerAdmin():
     list_display = ['id', 'title', 'image', 'imgurl', 'index', 'add_time']
     list_filter = ['id', 'title', 'image', 'imgurl', 'index', 'add_time']
     search_fields = ['title', 'image']
+    model_icon = 'fa fa-window-maximize'
 
 
 xadmin.site.register(EmailValiRecord, EmailValiRecordAdmin)

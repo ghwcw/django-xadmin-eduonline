@@ -17,12 +17,14 @@ class CityDictAdmin():
     list_display = ['id', 'name', 'desc', 'add_time']
     list_filter = ['id', 'name', 'desc', 'add_time']
     search_fields = ['name', 'desc']
+    model_icon = 'fa fa-telegram'
 
 
 class CourseOrgAdmin():
     list_display = ['id', 'name', 'desc', 'click_nums', 'fav_nums', 'image', 'city', 'address', 'add_time']
     list_filter = ['id', 'name', 'desc', 'click_nums', 'fav_nums', 'image', 'city', 'address', 'add_time']
     search_fields = ['name', 'desc', 'image', 'address']
+    model_icon = 'fa fa-graduation-cap'
 
 
 class TeacherAdmin():
@@ -31,6 +33,7 @@ class TeacherAdmin():
     list_filter = ['id', 'org', 'name', 'work_year', 'work_company', 'work_position', 'click_nums', 'fav_nums',
                    'image', 'add_time']
     search_fields = ['name', 'work_company', 'work_position', 'image']
+    model_icon = 'fa fa-handshake-o'
 
 
 xadmin.site.register(CityDict, CityDictAdmin)

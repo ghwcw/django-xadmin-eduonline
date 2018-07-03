@@ -20,24 +20,28 @@ class CourseAdmin():
     list_filter = ['id', 'name', 'desc', 'detail', 'courseorg', 'degree', 'learn_time', 'students', 'fav_nums', 'image',
                    'click_nums', 'add_time']
     search_fields = ['name', 'desc', 'detail']
+    model_icon = 'fa fa-heart'
 
 
 class SectionAdmin():
     list_display = ['id', 'course', 'name', 'add_time']
     list_filter = ['id', 'course', 'name', 'add_time']
     search_fields = ['name']
+    model_icon = 'fa fa-navicon'
 
 
 class VideoAdmin():
     list_display = ['id', 'section', 'name', 'add_time']
     search_fields = ['id', 'section', 'name', 'add_time']
     list_filter = ['name']
+    model_icon = 'fa fa-film'
 
 
 class CourseResourceAdmin():
     list_display = ['id', 'course', 'name', 'add_time', 'download']
     search_fields = ['id', 'course', 'name', 'add_time', 'download']
     list_filter = ['id', 'course', 'name', 'add_time', 'download']
+    model_icon = 'fa fa-download'
 
 
 xadmin.site.register(Course, CourseAdmin)

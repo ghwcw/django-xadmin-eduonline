@@ -17,28 +17,33 @@ class UserAskAdmin():
     list_display = ['id', 'name', 'mobile', 'course_name', 'add_time']
     list_filter = ['id', 'name', 'mobile', 'course_name', 'add_time']
     search_fields = ['name', 'mobile', 'course_name']
+    model_icon = 'fa fa-question'
 
 
 class CourseCommentAdmin():
     list_display = ['id', 'user', 'course', 'comment', 'add_time']
     list_filter = ['id', 'user', 'course', 'comment', 'add_time']
     search_fields = ['comment']
+    model_icon = 'fa fa-paint-brush'
 
 
 class UserFavoriteAdmin():
     list_display = ['id', 'user', 'fav_type', 'fav_id', 'add_time']
     list_filter = ['id', 'user', 'fav_type', 'fav_id', 'add_time']
+    model_icon = 'fa fa-star'
 
 
 class UserMessageAdmin():
     list_display = ['id', 'user', 'message', 'has_read', 'add_time']
     list_filter = ['id', 'user', 'message', 'has_read', 'add_time']
     search_fields = ['message']
+    model_icon = 'fa fa-commenting'
 
 
 class UserCourseAdmin():
     list_display = ['id', 'user', 'course', 'add_time']
     list_filter = ['id', 'user', 'course', 'add_time']
+    model_icon = 'fa fa-folder'
 
 
 xadmin.site.register(UserAsk, UserAskAdmin)
