@@ -29,7 +29,7 @@ class Course(models.Model):
     learn_time = models.IntegerField(default=0, verbose_name='学习时长(分)')
     students = models.IntegerField(default=0, verbose_name='学生人数')
     fav_nums = models.IntegerField(default=0, verbose_name='收藏人数')
-    image = models.ImageField(upload_to='courses/%Y/%m', max_length=100, verbose_name='封面')
+    image = models.ImageField(upload_to='courses/%Y/%m', max_length=100, null=True, blank=True, verbose_name='封面')
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     category = models.SmallIntegerField(choices=CATEGORY_CHOICE, default=0)
     tag = models.CharField(max_length=50, null=True, blank=True, verbose_name='课程标签')   # 可用于相关课程推荐

@@ -65,11 +65,11 @@ class OrgListView(View):
         page_obj = p.page(page)
 
         # 更新课程数。缺点：影响加载速度，可用触发器替代.
-        org_courses = (org for org in all_org)
-        for org in org_courses:
-            counts = org.course_set.count()
-            org.courses = counts
-            org.save()
+        # org_courses = (org for org in all_org)
+        # for org in org_courses:
+        #     counts = org.course_set.count()
+        #     org.courses = counts
+        #     org.save()
 
         return render(request, 'org/org-list.html', context={
             'all_city': all_city,

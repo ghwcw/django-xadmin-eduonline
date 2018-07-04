@@ -22,6 +22,14 @@ class CourseAdmin():
     search_fields = ['name', 'desc', 'detail']
     model_icon = 'fa fa-heart'
 
+    def save_models(self):
+        """保存课程时，统计课程机构的课程数"""
+        obj = self.new_obj
+        obj.save()
+        if obj.courseorg:
+            obj.courseorg.courses = Course.objects.filter(courseorg=obj.courseorg).count()
+            obj.courseorg.save()
+
 
 class SectionAdmin():
     list_display = ['id', 'course', 'name', 'add_time']
