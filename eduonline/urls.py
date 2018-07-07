@@ -39,7 +39,7 @@ urlpatterns = [
     # 用户上传文件显示
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     # 生产静态文件显示
-    # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 
     # 机构相关
     url(r'^org/', include('apps.organization.orgurl', namespace='org')),

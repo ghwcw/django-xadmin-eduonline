@@ -363,26 +363,27 @@ $(function() {
 		return false;
 	});
 
-    //顶部个人中心下拉框
+    // 顶部个人中心下拉框
     $('.header .personal').hover(function(){
         $('.header .userdetail').stop(true).show();
     },function(){
         $('.header .userdetail').stop(true).hide();
     });
 
-    var msg_show = true,
-        msg = +$('#MsgNum').text();
+    // 消息数闪烁
+    var flag = true;
+    var msg = $('#MsgNum').text();
     function msgFlash(){
-        var $elem = $('#MsgNum');
-        if(!msg){
+        var elem = $('#MsgNum');
+        if(msg === "0"){
             clearInterval(m);
         }
-        if(msg_show){
-            $elem.text(msg);
-            msg_show = false;
+        if(flag){
+            elem.show();
+            flag = false;
         }else{
-            $elem.text('');
-            msg_show = true;
+            elem.hide();
+            flag = true;
         }
     }
     var m = setInterval(msgFlash,500);

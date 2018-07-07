@@ -375,7 +375,7 @@ $(function() {
     var msg = $('#MsgNum').text();
     function msgFlash(){
         var elem = $('#MsgNum');
-        if(!msg){
+        if(msg === "0"){
             clearInterval(m);
         }
         if(flag){

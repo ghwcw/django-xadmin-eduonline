@@ -145,14 +145,16 @@
                     <li>
                         <h2>所在地区</h2>
                         <div class="more">更多</div>
-                        <div class="cont">
-                            <a href="?category=&city="><span
-                                    class="{% if city_id == '' %} active2 {% endif %}">全部</span></a>
+                        <div class="cont" data-flag="0">
+                            <a href="?category=&city=">
+                                <span class="{% if city_id == '' %} active2 {% endif %}">全部</span>
+                            </a>
 
-                            {#                      城市列表 #}
+                            {#  城市列表 #}
                             {% for city in all_city %}
-                                <a href="?category={{ category }}&city={{ city.id }}"><span
-                                        class="{% if city_id == city.id|stringformat:'i' %} active2 {% endif %}">{{ city.name }}</span></a>
+                                <a href="?category={{ category }}&city={{ city.id }}">
+                                    <span class="{% if city_id == city.id|stringformat:'i' %} active2 {% endif %}">{{ city.name }}</span>
+                                </a>
                             {% endfor %}
 
                         </div>
@@ -203,7 +205,8 @@
                                     <li class="first">
                                         <p class="pic9">课程数：<span>{{ org.courses }}</span></p>
                                         <p class="c7">学习人数：<span>{{ org.students }}</span></p>
-                                        <p style="background: url({% static 'images/star.png' %}) no-repeat left center;">收藏数：<span>{{ org.fav_nums }}</span></p>
+                                        <p style="background: url({% static 'images/star.png' %}) no-repeat left center;">
+                                            收藏数：<span>{{ org.fav_nums }}</span></p>
                                     </li>
                                     <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
                                     <li class="pic10" style="padding-left:18px;">经典课程：
@@ -334,45 +337,58 @@
 
 <script>
 
-    $(function () {
+$(function () {
 
-        $('#jsStayBtn').click(function () {
-            $.ajax({
-                cache: false,
-                type: "POST",
-                url: "{% url 'oper:user_ask' %}",
-                data: $('#jsStayForm').serialize(),
-                async: true,
-                beforeSend: function (xhr) {
-                    $('#jsCompanyTips').hide();
-                },
-                success: function (data) {
-                    if (data.status == 'success') {
-                        $('#jsStayForm')[0].reset();
-                        alert("提交成功")
-                    } else if (data.status == 'fail') {
-                        $('#jsCompanyTips').show();
-                        $('#jsCompanyTips').addClass('company-tips');
-                        $('#jsCompanyTips').html(data.errmsg);
-                    }
-                },
-
-            });
-        });
-
-
-        $("#companyName,#companyMoblie,#companyAddress").click(function () {
-            if (document.activeElement.id === "companyName" || document.activeElement.id === "companyAddress" || document.activeElement.id === "companyMobile") {
-                //alert("获取焦点了");
+    $('#jsStayBtn').click(function () {
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "{% url 'oper:user_ask' %}",
+            data: $('#jsStayForm').serialize(),
+            async: true,
+            beforeSend: function (xhr) {
                 $('#jsCompanyTips').hide();
-            }
-        });
+            },
+            success: function (data) {
+                if (data.status == 'success') {
+                    $('#jsStayForm')[0].reset();
+                    alert("提交成功")
+                } else if (data.status == 'fail') {
+                    $('#jsCompanyTips').show();
+                    $('#jsCompanyTips').addClass('company-tips');
+                    $('#jsCompanyTips').html(data.errmsg);
+                }
+            },
 
+        });
+    });
+
+
+    $("#companyName,#companyMoblie,#companyAddress").click(function () {
+        if (document.activeElement.id === "companyName" || document.activeElement.id === "companyAddress" || document.activeElement.id === "companyMobile") {
+            //alert("获取焦点了");
+            $('#jsCompanyTips').hide();
+        }
+    });
+
+    var more_cont = $('.listoptions .more ~ .cont');
+    $('.listoptions .more').click(function () {
+        if (more_cont.attr("data-flag") === "0") {
+            more_cont.attr("data-flag","1");
+            more_cont.animate({height: "+=50px"});
+            return
+        }
+        if (more_cont.attr("data-flag") === "1") {
+            more_cont.attr("data-flag","0");
+            more_cont.animate({height: "-=0px"});
+            return
+        }
 
     });
 
-</script>
 
+});
+</script>
 </body>
 </html>
 
