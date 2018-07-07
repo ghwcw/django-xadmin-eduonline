@@ -390,14 +390,14 @@
             //    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");    //{# 重点是这里！注意{{ csrf_token }}必须加上引号！ #}
             //},
             success: function (data) {          // 请求成功后，视图传回的数据
-                if (data.status == 'fail') {
-                    if (data.msg == '用户未登录') {
+                if (data.status === 'fail') {
+                    if (data.msg === '用户未登录') {
                         alert("您还未登录，不能评论！点击右上角登录按钮进行登录。");
                     } else {
                         alert(data.msg)
                     }
 
-                } else if (data.status == 'success') {
+                } else if (data.status === 'success') {
                     alert(data.msg);
                     $("#js-pl-textarea").val("");
                     location.reload();         // 刷新当前页面
