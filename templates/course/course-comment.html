@@ -399,6 +399,7 @@
 
                 } else if (data.status == 'success') {
                     alert(data.msg);
+                    $("#js-pl-textarea").val("");
                     location.reload();         // 刷新当前页面
                 }
             },

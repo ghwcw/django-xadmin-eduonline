@@ -121,7 +121,7 @@ class CourseDetailView(View):
 
 class CourseStudyView(View):
     """
-    处理“我要学习”请求，并将数据记录到UserCourse表
+    处理 “开始学习” 请求，并将数据记录到UserCourse表
     """
     def post(self, request):
         if not request.user.is_authenticated:
@@ -150,7 +150,7 @@ class CourseStudyView(View):
 
 class CourseVideoView(View):
     """
-    “我要学习”--课程章节（视频）
+    “开始学习”--课程章节
     """
 
     def get(self, request, course_id):
@@ -194,14 +194,14 @@ class CourseVideoView(View):
 
 def play_video(request):
     """
-    “我要学习”--视频播放页
+    “开始学习”--视频播放页
     """
     return render(request, 'course/videoplay.html')
 
 
 class CourseCommentView(View):
     """
-    “我要学习”--课程评论
+    “开始学习”--课程评论
     """
 
     def get(self, request, course_id):

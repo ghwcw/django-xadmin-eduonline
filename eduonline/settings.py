@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extraapps'))
 SECRET_KEY = '81$k-x)bqrs4!!kjyifja)g=^zi*j@62$&n_c%4&ic*ni5q%dd'
 
 # 上线时必须将DEBUG设为False
-DEBUG = False
+DEBUG = True
 
 # 可指定主机，若元素为'*'，表示所有同一局域网内的网络均可访问
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -144,7 +144,7 @@ STATIC_URL = '/static/'
 # 静态文件的生产环境根目录，当运行"python manage.py collectstatic"的时候，会将STATICFILES_DIRS以及各app中static的所有的文件复制收集到STATIC_ROOT
 # 把这些文件放到一起是为了用Apache等上线部署的时候更方便
 # 需要配置URL，如"url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})"
-STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic').replace('\\', '/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic').replace('\\', '/')
 
 # 静态文件的公用目录，但不能与STATIC_ROOT冲突！
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

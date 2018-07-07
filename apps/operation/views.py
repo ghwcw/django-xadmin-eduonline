@@ -12,7 +12,8 @@ from apps.organization.models import CourseOrg, Teacher
 
 class UserAskView(View):
     """
-    用户咨询交给JS进行异步处理，然后给视图处理，最后视图返回给JS某些数据（JS接受json数据）
+    用户咨询
+    交给JS进行异步处理，然后给视图处理，最后视图返回给JS某些数据（JS接受json数据）
     """
 
     def post(self, request):
