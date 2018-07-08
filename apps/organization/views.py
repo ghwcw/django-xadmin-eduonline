@@ -64,7 +64,7 @@ class OrgListView(View):
         p = Paginator(all_org, 4, request=request)
         page_obj = p.page(page)
 
-        # 更新课程数。缺点：影响加载速度，可用触发器替代.
+        # 更新课程数。缺点：影响加载速度，已在adminx文件中用方法替代.
         # org_courses = (org for org in all_org)
         # for org in org_courses:
         #     counts = org.course_set.count()
