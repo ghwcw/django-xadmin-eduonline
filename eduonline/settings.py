@@ -33,7 +33,7 @@ SECRET_KEY = '81$k-x)bqrs4!!kjyifja)g=^zi*j@62$&n_c%4&ic*ni5q%dd'
 DEBUG = False
 
 # 可指定主机，若元素为'*'，表示所有同一局域网内的网络均可访问
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # App加载
 INSTALLED_APPS = [
