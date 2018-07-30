@@ -261,8 +261,10 @@ class ResetPwdView(View):
                 user.password = hashers.make_password(password=pwd1)
                 user.save()
 
-                # 记录消息
-                UserMessage.objects.create(user=request.user.id, message='修改密码成功。', has_read=False)
+                # 记录消息，这里波许判断是否登陆
+                user_id = UserProfile.objects.get(email=email).id
+                if user_id:
+                    UserMessage.objects.create(user=user_id, message='修改密码成功。', has_read=False)
 
                 return HttpResponse('<h1>密码修改成功！<<<a href="http://127.0.0.1:8000/myuser/login">请返回登录页面</a></h1>')
         return render(request, 'myuser/password_reset.html', context={'reset_pwd_form': reset_pwd_form})
