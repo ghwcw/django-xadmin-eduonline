@@ -380,11 +380,12 @@
     // 开始学习
     $('#study').click(function () {
         $.ajax({
-            cache: false,
             type: 'POST',
             url: '{% url "course:course_study" %}',
             data: {'course_id': {{ course.id }},},
+            dataType: 'json',
             async: true,
+            cache: false,
             beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader('X-CSRFToken', "{{ csrf_token }}");
             },
@@ -392,15 +393,21 @@
                 if (data.status === 'fail') {
                     if (data.msg === '用户未登录') {
                         alert('您还未登录！请点击右上角登录后才能开始学习。');
-                        location.href = "{% url 'course:course_detail' course.id %}";
+                        location.reload();
                     } else {
                         alert(data.msg);
-                        location.href = "{% url 'course:course_detail' course.id %}";
+                        location.reload();
                     }
                 }
                 else if (data.status === 'success') {
-                    alert(data.msg);
-                    location.href = '{% url "course:course_video" course.id %}';
+                    //alert(data.msg);
+                    var boo = confirm(data.msg);
+                    if (boo){
+                        location.assign('{% url "course:course_video" course.id %}');
+                    }else {
+                        location.reload();
+                    }
+
                 }
             }
 
