@@ -69,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'custbase.http.SetRemoteAddrFromForwardedFor',
 ]
 
 ROOT_URLCONF = 'eduonline.urls'  # 这里需要据实修改

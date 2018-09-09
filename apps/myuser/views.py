@@ -91,7 +91,8 @@ class LoginView(View):
     def get(self, request):
         # 设置会话有效期，浏览器关闭失效
         request.session.set_expiry(0)
-        return render(request, 'myuser/login.html')
+        remote_ip = request.META.get('REMOTE_ADDR', '获取IP失败')
+        return render(request, 'myuser/login.html', context={'remote_ip': remote_ip})
 
     def post(self, request):
         global username, succ_msg
