@@ -1,4 +1,4 @@
-# eduonline ©2018 v1.0（Release Date：2018-06-28）
+# eduonline ©2018（Release v1.0）
 基于Django-1.11 web框架开发的一套网络课程系统，后台管理系统是基于强大的Xadmin插件。
 
 # 欢迎访客下载使用
