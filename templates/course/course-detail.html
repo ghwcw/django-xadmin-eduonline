@@ -383,6 +383,7 @@
             type: 'POST',
             url: '{% url "course:course_study" %}',
             data: {'course_id': {{ course.id }},},
+            contentType: 'application/json',
             dataType: 'json',
             async: true,
             cache: false,
