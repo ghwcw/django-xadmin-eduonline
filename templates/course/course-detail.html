@@ -169,7 +169,7 @@
                                     收藏
                                 {% endif %}
                             </div>
-                            <a id="study" style="color: white;" href="{% url 'course:course_video' course.id %}">
+                            <a id="study" style="color: white;" href="#">
                                 <div class="buy btn">开始学习</div>
                             </a>
                         </div>
@@ -383,7 +383,7 @@
             type: 'POST',
             url: '{% url "course:course_study" %}',
             data: {'course_id': {{ course.id }},},
-            contentType: 'application/json',
+            //contentType: 'application/json',         // 必须注释掉！否则获取不到course.id
             dataType: 'json',
             async: true,
             cache: false,
@@ -417,7 +417,6 @@
 
 
 </script>
-
 
 </body>
 </html>
