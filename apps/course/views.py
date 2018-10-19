@@ -145,7 +145,7 @@ class CourseStudyView(View):
 
             return JsonResponse({"status": "success", "msg": "开启学习之旅..."})
         else:
-            return JsonResponse({"status": "fail", "msg": "出错了"})
+            return JsonResponse({"status": "fail", "msg": "出错了！"})
 
 
 class CourseVideoView(View):
