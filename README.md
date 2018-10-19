@@ -13,3 +13,5 @@ b.将与requirement.txt同目录的所有文件替换你的工程根目录下的
 c.打开终端进入虚拟环境执行"pip install -r requirement.txt"安装工程所需模块；
 
 d.启动Django服务器，测试。
+
+(U/P:admin/wcwnina)
