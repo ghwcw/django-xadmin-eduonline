@@ -394,10 +394,10 @@
                 if (data.status === 'fail') {
                     if (data.msg === '用户未登录') {
                         alert('您还未登录！请点击右上角登录后才能开始学习。');
-                        location.reload();
+                        //location.reload();        // 什么也不做。如果重载页面，那么除谷歌以外的浏览器可能控制失效
                     } else {
                         alert(data.msg);
-                        location.reload();
+                        //location.reload();        // 什么也不做。
                     }
                 }
                 else if (data.status === 'success') {
@@ -406,7 +406,7 @@
                     if (boo){
                         location.assign('{% url "course:course_video" course.id %}');
                     }else {
-                        location.reload();
+                        //location.reload();        // 什么也不做。
                     }
 
                 }
