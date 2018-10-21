@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 
 # Create your views here.
@@ -82,6 +82,12 @@ class CourseDetailView(View):
             succ_msg = ''
 
         course = get_object_or_404(Course, pk=course_id)
+        # 功能同下：
+        # try:
+        #     course = Course.objects.get(pk=course_id)
+        # except Course.DoesNotExist:
+        #     raise Http404('找不到页面！')             # 抛出404异常
+        #     # return HttpResponseNotFound('<h2>找不到页面！</h2>')    # 返回自定义页面
 
         # 点击量加1
         course.click_nums += 1
