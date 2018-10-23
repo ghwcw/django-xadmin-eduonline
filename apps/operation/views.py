@@ -102,12 +102,12 @@ class AddFavView(View):
 
 
 # 处理全局404页面
-def http404_error(request):
+def page_not_found(request):
     return render(request, 'errpage/404.html', status=404)
 
 
 # 处理全局500页面
-def http500_error(request):
+def server_error(request):
     return render(request, 'errpage/500.html', status=500)
 
 

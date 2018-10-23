@@ -10,7 +10,7 @@ Description :
 -------------------------------------------------------------
 """
 # import os
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eduonline.settings')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eduonline.settings')     # environ字典
 # import django
 # django.setup()
 

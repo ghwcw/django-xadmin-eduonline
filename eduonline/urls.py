@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.views.defaults import page_not_found
 from django.views.generic import TemplateView
 from django.views.static import serve
 
@@ -52,6 +53,12 @@ urlpatterns = [
 
 ]
 
-# 处理全局404，500页面
-handler404 = 'apps.operation.views.http404_error'
-handler500 = 'apps.operation.views.http500_error'
+# 自定义的处理全局404，500页面视图（对应的视图路径）
+handler404 = 'apps.operation.views.page_not_found'
+handler500 = 'apps.operation.views.server_error'
+
+# 系统默认的处理全局404，500页面视图（对应的视图路径）
+handler404 = 'django.views.defaults.page_not_found'
+handler500 = 'django.views.defaults.server_error'
+handler400 = 'django.views.defaults.bad_requuest'
+handler403 = 'django.views.defaults.permission_denied'
