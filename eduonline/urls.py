@@ -54,8 +54,8 @@ urlpatterns = [
 ]
 
 # 自定义的处理全局404，500页面视图（对应的视图路径）
-handler404 = 'apps.operation.views.page_not_found'
-handler500 = 'apps.operation.views.server_error'
+# handler404 = 'apps.operation.views.page_not_found'
+# handler500 = 'apps.operation.views.server_error'
 
 # 系统默认的处理全局404，500页面视图（对应的视图路径）
 handler404 = 'django.views.defaults.page_not_found'
