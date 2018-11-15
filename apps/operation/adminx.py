@@ -38,6 +38,16 @@ class UserMessageAdmin():
     list_filter = ['id', 'user', 'message', 'has_read', 'add_time']
     search_fields = ['message']
     model_icon = 'fa fa-commenting'
+    actions = ['make_read']
+
+    def make_read(self, request, queryset):
+        if not request:
+            self.message_user('未选中条目！', 'error')
+        else:
+            aff_rows = queryset.update(has_read=True)
+            self.message_user('共%s条数据更新成功！' % aff_rows, 'success')
+
+    make_read.short_description = '✔ 设为已读'
 
 
 class UserCourseAdmin():

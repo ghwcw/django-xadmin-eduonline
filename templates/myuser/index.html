@@ -21,7 +21,7 @@
         <div class="header">
             <div class="top">
                 <div class="wp">
-                    <div class="fl"><p>服务电话：<b>010-12346688</b></p></div>
+                    <div class="fl"><p>服务电话：<b>010-12346688</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前访问时间：<b>{% now 'DATETIME_FORMAT' %}</b></p></div>
 
                     <!--登录判断-->
 
@@ -74,7 +74,7 @@
                     <div>
                         <marquee id="mq"
                                  style="position: absolute; width: 850px; margin-left: 5px; color: red; font-size: medium">
-                            ☛&nbsp;※&nbsp;欢迎访问！有问题请联系开发者——汪春旺，个人博客：<a style="color: red" href="http://www.cnblogs.com/wcwnina" target="_blank">www.cnblogs.com/wcwnina</a>
+                            ☛&nbsp;※&nbsp;欢迎访问！有问题请联系开发者——汪春旺，个人博客：{{ 'www.cnblogs.com/wcwnina'|urlize }}
                         </marquee>
                     </div>
                     <div class="searchbox fr">
