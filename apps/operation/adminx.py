@@ -25,6 +25,8 @@ class CourseCommentAdmin():
     list_filter = ['id', 'user', 'course', 'comment', 'add_time']
     search_fields = ['comment']
     model_icon = 'fa fa-paint-brush'
+    list_max_show_all = 2
+    list_per_page = 25
 
 
 class UserFavoriteAdmin():
@@ -38,6 +40,15 @@ class UserMessageAdmin():
     list_filter = ['id', 'user', 'message', 'has_read', 'add_time']
     search_fields = ['message']
     model_icon = 'fa fa-commenting'
+    actions = ['make_read']
+
+    def make_read(self, request, queryset):
+        aff_rows = queryset.update(has_read=True)
+        if int(aff_rows) == 0:
+            pass
+        else:
+            pass
+    make_read.short_description = '✔ 设为已读'
 
 
 class UserCourseAdmin():
