@@ -1,4 +1,4 @@
-# eduonline ©2018（Release v1.0）
+# eduonline ©2018-2019（Release v1.1）
 基于Django-1.11 web框架开发的一套网络课程系统，后台管理系统是基于强大的Xadmin插件。
 
 数据库是Django自带的SQLite3。
