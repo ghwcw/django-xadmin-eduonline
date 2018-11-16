@@ -15,3 +15,10 @@ c.打开终端进入虚拟环境执行"pip install -r requirement.txt"安装工�
 d.启动Django服务器，测试。
 
 (U/P:admin/wcwnina)
+
+# 项目首页展示
+1.网站首页
+![image](https://github.com/ghwcw/django-xadmin-eduonline/blob/master/static/images/README/2018-11-16_160058.png)
+
+2.Xadmin后台管理主页
+![image](https://github.com/ghwcw/django-xadmin-eduonline/blob/master/static/images/README/2018-11-16_160840.png)
