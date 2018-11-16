@@ -18,7 +18,7 @@ d.启动Django服务器，测试。
 
 # 项目首页展示
 1.网站首页
-![image](https://github.com/ghwcw/django-xadmin-eduonline/blob/master/static/images/README/2018-11-16_160058.png)
+![image](https://github.com/ghwcw/django-xadmin-eduonline/blob/master/static/images/README/webindex.png)
 
 2.Xadmin后台管理主页
-![image](https://github.com/ghwcw/django-xadmin-eduonline/blob/master/static/images/README/2018-11-16_160840.png)
+![image](https://github.com/ghwcw/django-xadmin-eduonline/blob/master/static/images/README/xadminhome.png)
