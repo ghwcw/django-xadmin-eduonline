@@ -78,19 +78,19 @@ class AddFavView(View):
                         course = get_object_or_404(Course, id=fav_id)
                         UserMessage.objects.create(user=request.user.id, message='您收藏了课程《%s》' % course.name,
                                                    has_read=False)
-                        course.fav_nums += 1    # 收藏数加1
+                        course.fav_nums += 1  # 收藏数加1
                         course.save()
                     elif fav_type == 2:
                         org = get_object_or_404(CourseOrg, id=fav_id)
                         UserMessage.objects.create(user=request.user.id, message='您收藏了机构“%s”' % org.name,
                                                    has_read=False)
-                        org.fav_nums += 1    # 收藏数加1
+                        org.fav_nums += 1  # 收藏数加1
                         org.save()
                     elif fav_type == 3:
                         teacher = get_object_or_404(Teacher, id=fav_id)
                         UserMessage.objects.create(user=request.user.id, message='您收藏了“%s”老师' % teacher.name,
                                                    has_read=False)
-                        teacher.fav_nums += 1    # 收藏数加1
+                        teacher.fav_nums += 1  # 收藏数加1
                         teacher.save()
 
                     # 收藏课程时，保存用户课程记录（用户ID和课程ID）
@@ -109,5 +109,3 @@ def page_not_found(request):
 # 处理全局500页面
 def server_error(request):
     return render(request, 'errpage/500.html', status=500)
-
-

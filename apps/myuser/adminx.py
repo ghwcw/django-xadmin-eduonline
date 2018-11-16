@@ -23,9 +23,8 @@ class BaseSettings():
 
 class GlobalSettings():
     site_title = '汪春旺网络课程后台管理系统'
-    site_footer = '2018-汪春旺网络课程有限公司'
+    site_footer = '2018-2019 汪春旺网络科技有限公司'
     menu_style = 'accordion'
-
 
 # ********************** End **********************
 

@@ -87,4 +87,4 @@ class UserCenInfoForm(forms.ModelForm):
         if reobj.match(mobile):
             return mobile
         else:
-            raise forms.ValidationError('手机号非法')
+            raise forms.ValidationError('手机号非法！')

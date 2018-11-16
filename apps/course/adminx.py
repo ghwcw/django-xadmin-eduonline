@@ -22,13 +22,21 @@ class CourseAdmin():
     search_fields = ['name', 'desc', 'detail']
     model_icon = 'fa fa-heart'
 
-    def save_models(self):
+    def save_model(self):
         """保存课程时，统计课程机构的课程数"""
         obj = self.new_obj
         obj.save()
         if obj.courseorg:
             obj.courseorg.courses = Course.objects.filter(courseorg=obj.courseorg).count()
             obj.courseorg.save()
+
+    data_charts = {
+        'students': {
+            'title': '学生人数统计图',
+            'x-field': 'id',
+            'y-field': 'students',
+        }
+    }
 
 
 class SectionAdmin():

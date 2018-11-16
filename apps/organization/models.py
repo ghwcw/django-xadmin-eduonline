@@ -22,7 +22,7 @@ class CityDict(models.Model):
 
 class CourseOrg(models.Model):
     '''
-    课程机构表
+    教育机构表
     '''
     CATEGORY_CHOICE = (
         ('pxjg', '培训机构'),
@@ -44,7 +44,7 @@ class CourseOrg(models.Model):
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间')
 
     class Meta:
-        verbose_name = '课程机构表'
+        verbose_name = '教育机构表'
         verbose_name_plural = verbose_name
 
     def __str__(self):

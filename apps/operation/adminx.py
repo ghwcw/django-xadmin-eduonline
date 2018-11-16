@@ -25,8 +25,6 @@ class CourseCommentAdmin():
     list_filter = ['id', 'user', 'course', 'comment', 'add_time']
     search_fields = ['comment']
     model_icon = 'fa fa-paint-brush'
-    list_max_show_all = 2
-    list_per_page = 25
 
 
 class UserFavoriteAdmin():
@@ -43,11 +41,12 @@ class UserMessageAdmin():
     actions = ['make_read']
 
     def make_read(self, request, queryset):
-        aff_rows = queryset.update(has_read=True)
-        if int(aff_rows) == 0:
-            pass
+        if not request:
+            self.message_user('未选中条目！', 'error')
         else:
-            pass
+            aff_rows = queryset.update(has_read=True)
+            self.message_user('共%s条数据更新成功！' % aff_rows, 'success')
+
     make_read.short_description = '✔ 设为已读'
 
 
