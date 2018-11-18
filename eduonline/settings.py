@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'captcha',
     'pure_pagination',
+
 ]
 
 # 自定义的用户表
