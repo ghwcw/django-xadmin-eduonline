@@ -54,11 +54,11 @@ urlpatterns = [
 ]
 
 # 自定义的处理全局404，500页面视图（对应的视图路径）
-# handler404 = 'apps.operation.views.page_not_found'
-# handler500 = 'apps.operation.views.server_error'
+handler404 = 'apps.operation.views.page_not_found'
+handler500 = 'apps.operation.views.server_error'
 
 # 系统默认的处理全局404，500页面视图（对应的视图路径）
-handler404 = 'django.views.defaults.page_not_found'
-handler500 = 'django.views.defaults.server_error'
-handler400 = 'django.views.defaults.bad_requuest'
-handler403 = 'django.views.defaults.permission_denied'
+# handler404 = 'django.views.defaults.page_not_found'
+# handler500 = 'django.views.defaults.server_error'
+# handler400 = 'django.views.defaults.bad_requuest'
+# handler403 = 'django.views.defaults.permission_denied'

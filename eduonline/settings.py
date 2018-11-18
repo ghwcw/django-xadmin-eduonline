@@ -30,9 +30,9 @@ sys.path.append(os.path.join(BASE_DIR, 'extraapps'))
 SECRET_KEY = '81$k-x)bqrs4!!kjyifja)g=^zi*j@62$&n_c%4&ic*ni5q%dd'
 
 # 上线时必须将DEBUG设为False
-DEBUG = True
+DEBUG = False
 
-# 可指定主机，若元素为'*'，表示所有同一局域网内的网络均可访问
+# 可指定主机，若元素为'*'，表示所有同一局域网内的网络均可被访问
 ALLOWED_HOSTS = ['*']
 
 # App加载

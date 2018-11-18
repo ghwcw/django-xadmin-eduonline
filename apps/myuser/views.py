@@ -602,7 +602,7 @@ class UserCenMsgView(LoginRequiredMixin, View):
             page = 1
 
         # Provide Paginator with the request object for complete querystring generation
-        p = Paginator(messages, 5, request=request)
+        p = Paginator(messages, 10, request=request)
         page_obj = p.page(page)
 
         return render(request, 'usercenter/usercenter-message.html', context={
