@@ -33,7 +33,8 @@ SECRET_KEY = '81$k-x)bqrs4!!kjyifja)g=^zi*j@62$&n_c%4&ic*ni5q%dd'
 DEBUG = False
 
 # 可指定主机，若元素为'*'，表示所有同一局域网内的网络均可被访问
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.wcwnina.com', '192.168.1.99', '127.0.0.1', 'localhost']
+ALLOWED_PORT = ['8080']
 
 # App加载
 INSTALLED_APPS = [

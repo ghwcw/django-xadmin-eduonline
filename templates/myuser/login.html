@@ -67,7 +67,7 @@
                 <div class="unslider-arrow next"></div>
             </div>
             <div class="fl form-box">
-                <h2>帐号登录<small style="margin-left: 100px; color: red">本机IP：{{ remote_ip }}</small></h2>
+                <h2>帐号登录<small style="margin-left: 90px; color: red">本机IP：{{ remote_ip }}</small></h2>
                 <form action="{% url 'myuser:login' %}" method="post" autocomplete="off">
                     {% csrf_token %}
                     <div class="form-group marb20 {% if form_data.errors.username %}errorput{% endif %}">

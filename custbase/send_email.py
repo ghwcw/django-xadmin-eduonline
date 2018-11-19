@@ -65,7 +65,9 @@ class SendEmail(object):
         email_valid.send_type = self.send_type
         email_valid.save()
 
-        ip_port = '127.0.0.1:8000'
+        # 获取主机域名和端口
+        ip_port = settings.ALLOWED_HOSTS[0] + ':' + settings.ALLOWED_PORT[0]
+
         if self.send_type == 'register':
             subject = '网络教育在线注册激活'
             text_content = '请确认邮件后，点击该链接进行账号激活：http://{0}/activate/reg/{1}'.format(ip_port, code)
@@ -88,7 +90,7 @@ class SendEmail(object):
             subject = '网络教育在线重置密码'
             text_content = '请确认邮件后，点击该链接进行重置密码：http://{0}/activate/resetpwd/{1}'.format(ip_port, code)
             html_content = '<h2>请确认邮件后，点击下方链接进行重置密码：</h2><a href="http://{0}/activate/forget/{1}">http://{0}/activate/forget/{1}</a>'.format(
-               ip_port, code)
+                ip_port, code)
             # mail_status = mail.send_mail(subject=subject, message=text_content,
             #                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER),
             #                              recipient_list=[self.email])

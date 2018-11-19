@@ -20,6 +20,7 @@ from apps.operation.models import UserCourse, UserFavorite, UserMessage
 from apps.organization.models import CourseOrg, Teacher
 from custbase.login_required import LoginRequiredMixin
 from custbase.send_email import SendEmail
+from eduonline import settings
 
 
 class CustomBackend(ModelBackend):  # 继承ModelBackend类
@@ -39,7 +40,7 @@ class CustomBackend(ModelBackend):  # 继承ModelBackend类
 
 class HomePageView(View):
     """
-    基于通用类视图的首页(127.0.0.1:8000)
+    基于通用类视图的首页(IP:port)
     """
     def get(self, request):
         return redirect(reverse('index'))
@@ -47,7 +48,7 @@ class HomePageView(View):
 
 class IndexView(View):
     """
-    基于通用类视图的首页(127.0.0.1:8000/index)
+    基于通用类视图的首页(IP:port/index)
     """
 
     def get(self, request):
@@ -186,7 +187,11 @@ class ActivateRegView(View):
             # 记录消息
             UserMessage.objects.create(user=request.user.id, message='欢迎注册。', has_read=False)
 
-            return HttpResponse('<h1>✔激活成功☞<a href="http://127.0.0.1:8000/myuser/login" %}">返回登录页面</a></h1>')
+            # 获取主机域名和端口
+            # ip_port = settings.ALLOWED_HOSTS[0] + ':' + settings.ALLOWED_PORT[0]
+            ip_port = request.META.get('SERVER_NAME') + ':' + request.META.get('SERVER_PORT')
+
+            return HttpResponse('<h1>✔激活成功☞<a href="http://{0}/myuser/login" %}">返回登录页面</a></h1>'.format(ip_port))
         else:
             return HttpResponse('<h1>✘激活失败</h1>')
 
@@ -228,10 +233,14 @@ class ActivateForgetView(View):
 
     def get(self, request, activate_forget_code):
         email_vali = EmailValiRecord.objects.filter(code=activate_forget_code).last()
+
+        # 获取主机域名和端口
+        # ip_port = settings.ALLOWED_HOSTS[0] + ':' + settings.ALLOWED_PORT[0]
+        ip_port = request.META.get('SERVER_NAME') + ':' + request.META.get('SERVER_PORT')
         if email_vali:
             return HttpResponse(
-                '<h1>✔验证成功☞<a href="http://127.0.0.1:8000/myuser/reset-pwd/{0}">立即重置密码</a></h1>'.format(
-                    activate_forget_code))
+                '<h1>✔验证成功☞<a href="http://{0}/myuser/reset-pwd/{1}">立即重置密码</a></h1>'.format(
+                    ip_port, activate_forget_code))
         else:
             return HttpResponse('<h1>✘验证失败</h1>')
 
@@ -267,7 +276,11 @@ class ResetPwdView(View):
                 if user_id:
                     UserMessage.objects.create(user=user_id, message='修改密码成功。', has_read=False)
 
-                return HttpResponse('<h1>密码修改成功！<<<a href="http://127.0.0.1:8000/myuser/login">请返回登录页面</a></h1>')
+                # 获取主机域名和端口
+                # ip_port = settings.ALLOWED_HOSTS[0] + ':' + settings.ALLOWED_PORT[0]
+                ip_port = request.META.get('SERVER_NAME') + ':' + request.META.get('SERVER_PORT')
+
+                return HttpResponse('<h1>密码修改成功！<<<a href="http://{0}/myuser/login">请返回登录页面</a></h1>'.format(ip_port))
         return render(request, 'myuser/password_reset.html', context={'reset_pwd_form': reset_pwd_form})
 
 
