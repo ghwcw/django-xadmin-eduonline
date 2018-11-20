@@ -184,14 +184,15 @@ class ActivateRegView(View):
             user.is_active = 1
             user.save()
 
-            # 记录消息
-            UserMessage.objects.create(user=request.user.id, message='欢迎注册。', has_read=False)
-
             # 获取主机域名和端口
             # ip_port = settings.ALLOWED_HOSTS[0] + ':' + settings.ALLOWED_PORT[0]
             ip_port = request.META.get('SERVER_NAME') + ':' + request.META.get('SERVER_PORT')
+            ip_port = ip_port.strip()
 
-            return HttpResponse('<h1>✔激活成功☞<a href="http://{0}/myuser/login" %}">返回登录页面</a></h1>'.format(ip_port))
+            # 记录消息
+            UserMessage.objects.create(user=request.user.id, message='欢迎注册。', has_read=False)
+
+            return HttpResponse('<h1>✔激活成功☞<a href="http://{0}/myuser/login">返回登录页面</a></h1>'.format(ip_port))
         else:
             return HttpResponse('<h1>✘激活失败</h1>')
 
@@ -237,6 +238,8 @@ class ActivateForgetView(View):
         # 获取主机域名和端口
         # ip_port = settings.ALLOWED_HOSTS[0] + ':' + settings.ALLOWED_PORT[0]
         ip_port = request.META.get('SERVER_NAME') + ':' + request.META.get('SERVER_PORT')
+        ip_port = ip_port.strip()
+
         if email_vali:
             return HttpResponse(
                 '<h1>✔验证成功☞<a href="http://{0}/myuser/reset-pwd/{1}">立即重置密码</a></h1>'.format(
@@ -279,6 +282,7 @@ class ResetPwdView(View):
                 # 获取主机域名和端口
                 # ip_port = settings.ALLOWED_HOSTS[0] + ':' + settings.ALLOWED_PORT[0]
                 ip_port = request.META.get('SERVER_NAME') + ':' + request.META.get('SERVER_PORT')
+                ip_port = ip_port.strip()
 
                 return HttpResponse('<h1>密码修改成功！<<<a href="http://{0}/myuser/login">请返回登录页面</a></h1>'.format(ip_port))
         return render(request, 'myuser/password_reset.html', context={'reset_pwd_form': reset_pwd_form})

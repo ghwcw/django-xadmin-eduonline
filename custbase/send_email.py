@@ -67,6 +67,7 @@ class SendEmail(object):
 
         # 获取主机域名和端口
         ip_port = settings.ALLOWED_HOSTS[0] + ':' + settings.ALLOWED_PORT[0]
+        ip_port = ip_port.strip()
 
         if self.send_type == 'register':
             subject = '网络教育在线注册激活'
