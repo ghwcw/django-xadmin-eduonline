@@ -112,19 +112,20 @@ class PermissionAdmin(object):
 
     def show_name(self, p):
         return get_permission_name(p)
+
     show_name.short_description = _('Permission Name')
     show_name.is_column = True
 
     model_icon = 'fa fa-lock'
-    list_display = ('show_name', )
+    list_display = ('show_name',)
+
 
 site.register(Group, GroupAdmin)
-site.register(User, UserAdmin)
+# site.register(User, UserAdmin)
 site.register(Permission, PermissionAdmin)
 
 
 class UserFieldPlugin(BaseAdminPlugin):
-
     user_fields = []
 
     def get_field_attrs(self, __, db_field, **kwargs):
@@ -134,17 +135,17 @@ class UserFieldPlugin(BaseAdminPlugin):
 
     def get_form_datas(self, datas):
         if self.user_fields and 'data' in datas:
-            if hasattr(datas['data'],'_mutable') and not datas['data']._mutable:
+            if hasattr(datas['data'], '_mutable') and not datas['data']._mutable:
                 datas['data'] = datas['data'].copy()
             for f in self.user_fields:
                 datas['data'][f] = self.user.id
         return datas
 
+
 site.register_plugin(UserFieldPlugin, ModelFormAdminView)
 
 
 class ModelPermissionPlugin(BaseAdminPlugin):
-
     user_can_access_owned_objects_only = False
     user_owned_objects_field = 'user'
 
@@ -162,13 +163,16 @@ class ModelPermissionPlugin(BaseAdminPlugin):
             list_display.remove(self.user_owned_objects_field)
         return list_display
 
+
 site.register_plugin(ModelPermissionPlugin, ModelAdminView)
 
 
 class AccountMenuPlugin(BaseAdminPlugin):
 
     def block_top_account_menu(self, context, nodes):
-        return '<li><a href="%s"><i class="fa fa-key"></i> %s</a></li>' % (self.get_admin_url('account_password'), _('Change Password'))
+        return '<li><a href="%s"><i class="fa fa-key"></i> %s</a></li>' % (
+        self.get_admin_url('account_password'), _('Change Password'))
+
 
 site.register_plugin(AccountMenuPlugin, CommAdminView)
 
@@ -262,7 +266,7 @@ class ChangeAccountPasswordView(ChangePasswordView):
             return self.get_response()
 
 
-user_model = settings.AUTH_USER_MODEL.lower().replace('.','/')
+user_model = settings.AUTH_USER_MODEL.lower().replace('.', '/')
 site.register_view(r'^%s/(.+)/password/$' % user_model,
                    ChangePasswordView, name='user_change_password')
 site.register_view(r'^account/password/$', ChangeAccountPasswordView,

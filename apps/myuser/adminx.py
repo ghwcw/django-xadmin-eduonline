@@ -10,12 +10,14 @@ Description :
 -------------------------------------------------------------
 """
 import xadmin
-from apps.myuser.models import EmailValiRecord, Banner
+from apps.myuser.models import EmailValiRecord, Banner, UserProfile
 from xadmin import views
+from xadmin.plugins.auth import UserAdmin
 
 
 # 定制Xadmin界面
 # ********************** Begin **********************
+
 class BaseSettings():
     enable_themes = True
     use_bootswatch = True
@@ -43,7 +45,14 @@ class BannerAdmin():
     model_icon = 'fa fa-window-maximize'
 
 
+class UserProfileAdmin(UserAdmin):
+    def __init__(self, *args, **kwargs):
+        super(UserProfileAdmin, self).__init__(*args, **kwargs)
+        self.list_display = ['id', 'username', 'nick_name', 'email', 'is_active', 'is_staff', 'date_joined']
+
+
 xadmin.site.register(EmailValiRecord, EmailValiRecordAdmin)
 xadmin.site.register(Banner, BannerAdmin)
 xadmin.site.register(views.BaseAdminView, BaseSettings)
 xadmin.site.register(views.CommAdminView, GlobalSettings)
+xadmin.site.register(UserProfile, UserProfileAdmin)
