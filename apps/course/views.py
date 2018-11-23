@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse, Http404, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, get_list_or_404
@@ -9,6 +10,7 @@ from pure_pagination import Paginator, PageNotAnInteger
 from apps.course.models import Course, CourseResource
 from apps.operation.models import UserFavorite, UserCourse, CourseComment, UserMessage
 from apps.organization.models import CourseOrg
+from custbase.login_required import LoginRequiredMixin
 
 
 class CourseListView(View):
@@ -154,7 +156,7 @@ class CourseStudyView(View):
             return JsonResponse({"status": "fail", "msg": "出错了！"})
 
 
-class CourseVideoView(View):
+class CourseVideoView(LoginRequiredMixin, View):
     """
     “开始学习”--课程章节
     """
@@ -198,6 +200,7 @@ class CourseVideoView(View):
         })
 
 
+@login_required(login_url='/myuser/login/')
 def play_video(request):
     """
     “开始学习”--视频播放页
@@ -205,7 +208,7 @@ def play_video(request):
     return render(request, 'course/videoplay.html')
 
 
-class CourseCommentView(View):
+class CourseCommentView(LoginRequiredMixin, View):
     """
     “开始学习”--课程评论
     """
