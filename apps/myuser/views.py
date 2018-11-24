@@ -32,7 +32,6 @@ class CustomBackend(ModelBackend):  # 继承ModelBackend类
         try:
             user = UserProfile.objects.get(Q(username=username) | Q(email=username))
             if user.check_password(password):
-
                 return user
         except Exception as e:
             return None
@@ -42,6 +41,7 @@ class HomePageView(View):
     """
     基于通用类视图的首页(IP:port)
     """
+
     def get(self, request):
         return redirect(reverse('index'))
 
@@ -93,6 +93,8 @@ class LoginView(View):
         # 设置会话有效期，浏览器关闭失效
         request.session.set_expiry(0)
         remote_ip = request.META.get('REMOTE_ADDR', '获取IP失败')
+        global next
+        next = request.GET.get('next', '')
         return render(request, 'myuser/login.html', context={'remote_ip': remote_ip})
 
     def post(self, request):
@@ -114,7 +116,12 @@ class LoginView(View):
                     # 记录消息
                     UserMessage.objects.create(user=request.user.id, message='您在这时候登录过。', has_read=False)
 
-                    return redirect(reverse('index'), username=username, succ_msg=succ_msg)
+                    # 用户登录验证重定向，next是LoginRequiredMixin中login_required的默认参数redirect_field_name值
+                    if not next:
+                        return redirect(reverse('index'), username=username, succ_msg=succ_msg)
+                    else:
+                        return redirect(next)
+
                 else:
                     messages.error(request, '用户名未激活！')
                     return render(request, 'myuser/login.html', locals())

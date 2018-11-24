@@ -11,59 +11,61 @@
 
 </head>
 <body>
-<div class="loginbox dialogbox">
-    <h1>账号登录</h1>
-    <div class="close jsCloseDialog"><img src="{% static 'images/dig_close.png' %}"/></div>
-    <div class="cont">
-        <form id="jsLoginForm" autocomplete="off">
-            <div class="box">
-                <span class="word3">用户名</span>
-                <input type="text" name="account_l" id="account_l" placeholder="手机号/邮箱" />
-            </div>
-            <div class="box">
-                <span class="word2">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
-                <input type="password" name="password_l" id="password_l" placeholder="请输入您的密码"/>
-            </div>
-            <div class="error btns login-form-tips" id="jsLoginTips"></div> <!--登录错误提示-->
-            <div class="btns">
-                <span><input type="checkbox" id="jsAutoLogin" />&nbsp;自动登录</span>
-                <span class="forget btn fr">忘记密码</span>
-            </div>
-            <div class="button">
-                <input type="button" value="登录" id="jsLoginBtn" />
-            </div>
-            <div class="btns">
-                <span class="fr">没有账号？<span class="regist btn">立即注册</span></span>
-            </div>
-        </form>
-    </div>
-</div>
 
-<div class="dialog" id="jsDialog">
-    <!--提示弹出框-->
-    <div class="successbox dialogbox" id="jsSuccessTips">
-        <h1>成功提交</h1>
-        <div class="close jsCloseDialog"><img src="{% static 'images/dig_close.png' %}"/></div>
-        <div class="cont">
-            <h2>您的需求提交成功！</h2>
-            <p></p>
-        </div>
-    </div>
-    <div  class="noactivebox dialogbox" id="jsUnactiveForm" >
-        <h1>邮件验证提示</h1>
-        <div class="close jsCloseDialog"><img src="{% static 'images/dig_close.png' %}"/></div>
-        <div class="center">
-            <img src="{% static 'images/send.png' %}"/>
-            <p>我们已经向您的邮箱<span class="green" id="jsEmailToActive">12@13.com</span>发送了邮件，<br/>为保证您的账号安全，请及时验证邮箱</p>
-            <p class="a"><a class="btn" id="jsGoToEmail" target="_blank" href="http://mail.qq.com">去邮箱验证</a></p>
-            <p class="zy_success upmove"></p>
-            <p style="display: none;" class="sendE2">没收到，您可以查看您的垃圾邮件和被过滤邮件，也可以再次发送验证邮件（<span class="c5c">60s</span>）</p>
-            <p class="sendE">没收到，您可以查看您的垃圾邮件和被过滤邮件，<br/>也可以<span class="c5c green" id="jsSenEmailAgin" style="cursor: pointer;">再次发送验证邮件</span></p>
-        </div>
-    </div>
-</div>
+{#<div class="loginbox dialogbox">#}
+{#    <h1>账号登录</h1>#}
+{#    <div class="close jsCloseDialog"><img src="{% static 'images/dig_close.png' %}"/></div>#}
+{#    <div class="cont">#}
+{#        <form id="jsLoginForm" autocomplete="off">#}
+{#            <div class="box">#}
+{#                <span class="word3">用户名</span>#}
+{#                <input type="text" name="account_l" id="account_l" placeholder="手机号/邮箱" autofocus />#}
+{#            </div>#}
+{#            <div class="box">#}
+{#                <span class="word2">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>#}
+{#                <input type="password" name="password_l" id="password_l" placeholder="请输入您的密码"/>#}
+{#            </div>#}
+{#            <div class="error btns login-form-tips" id="jsLoginTips"></div> <!--登录错误提示-->#}
+{#            <div class="btns">#}
+{#                <span><input type="checkbox" id="jsAutoLogin" />&nbsp;自动登录</span>#}
+{#                <span class="forget btn fr">忘记密码</span>#}
+{#            </div>#}
+{#            <div class="button">#}
+{#                <input type="button" value="登录" id="jsLoginBtn" />#}
+{#            </div>#}
+{#            <div class="btns">#}
+{#                <span class="fr">没有账号？<span class="regist btn">立即注册</span></span>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#<div class="dialog" id="jsDialog">#}
+{#    <!--提示弹出框-->#}
+{#    <div class="successbox dialogbox" id="jsSuccessTips">#}
+{#        <h1>成功提交</h1>#}
+{#        <div class="close jsCloseDialog"><img src="{% static 'images/dig_close.png' %}"/></div>#}
+{#        <div class="cont">#}
+{#            <h2>您的需求提交成功！</h2>#}
+{#            <p></p>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div  class="noactivebox dialogbox" id="jsUnactiveForm" >#}
+{#        <h1>邮件验证提示</h1>#}
+{#        <div class="close jsCloseDialog"><img src="{% static 'images/dig_close.png' %}"/></div>#}
+{#        <div class="center">#}
+{#            <img src="{% static 'images/send.png' %}"/>#}
+{#            <p>我们已经向您的邮箱<span class="green" id="jsEmailToActive">12@13.com</span>发送了邮件，<br/>为保证您的账号安全，请及时验证邮箱</p>#}
+{#            <p class="a"><a class="btn" id="jsGoToEmail" target="_blank" href="http://mail.qq.com">去邮箱验证</a></p>#}
+{#            <p class="zy_success upmove"></p>#}
+{#            <p style="display: none;" class="sendE2">没收到，您可以查看您的垃圾邮件和被过滤邮件，也可以再次发送验证邮件（<span class="c5c">60s</span>）</p>#}
+{#            <p class="sendE">没收到，您可以查看您的垃圾邮件和被过滤邮件，<br/>也可以<span class="c5c green" id="jsSenEmailAgin" style="cursor: pointer;">再次发送验证邮件</span></p>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#<div class="bg" id="dialogBg"></div>#}
 
-<div class="bg" id="dialogBg"></div>
 <header>
     <div class="c-box fff-box">
         <div class="wp header-box">
@@ -138,7 +140,7 @@
                     <form id="email_register_form" method="post" action="{% url 'myuser:register' %}" autocomplete="off">
                         <div class="form-group marb20 {% if reg_form.errors.email %}errorput{% endif %}">
                             <label>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-                            <input  type="text" id="id_email" name="email" value="" placeholder="请输入您的邮箱地址" />
+                            <input  type="text" id="id_email" name="email" value="" placeholder="请输入您的邮箱地址" autofocus />
                         </div>
                         <div class="form-group marb8 {% if reg_form.errors.password %}errorput{% endif %}">
                             <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
