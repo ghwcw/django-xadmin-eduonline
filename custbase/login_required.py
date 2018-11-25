@@ -17,7 +17,7 @@ class LoginRequiredMixin(object):
     """
     登录验证：
     如果验证未登录，用户自动重定向到登录页面login_url='/myuser/login/'；
-    如果验证成功，用户应当自动跳反到默认存储名为"next"的查询参数中的路径。
+    如果验证成功，用户应当自动跳返到原来的路径，这个原来的路径默认存储在"next"查询参数中。
     """
 
     # method_decorator类方法装饰器，传入login_required装饰器。redirect_field_name默认即为"next"

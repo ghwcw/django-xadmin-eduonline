@@ -93,6 +93,7 @@ class LoginView(View):
         # 设置会话有效期，浏览器关闭失效
         request.session.set_expiry(0)
         remote_ip = request.META.get('REMOTE_ADDR', '获取IP失败')
+        # 用户登录验证重定向，next是LoginRequiredMixin中login_required的默认参数redirect_field_name值
         global next
         next = request.GET.get('next', '')
         return render(request, 'myuser/login.html', context={'remote_ip': remote_ip})
@@ -402,6 +403,7 @@ class UserCenUpdatePwdView(LoginRequiredMixin, View):
 
             # 记录消息
             UserMessage.objects.create(user=request.user.id, message='修改密码成功。', has_read=False)
+            # auth.update_session_auth_hash(request, user)     # 使用新密码哈希更新会话，以便用户更改密码后不会自行注销
 
             return JsonResponse({'status': 'success', 'msg': '密码修改成功！'})
         else:
