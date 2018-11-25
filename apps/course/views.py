@@ -160,6 +160,8 @@ class CourseVideoView(LoginRequiredMixin, View):
     """
     “开始学习”--课程章节
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def get(self, request, course_id):
         try:
@@ -212,6 +214,8 @@ class CourseCommentView(LoginRequiredMixin, View):
     """
     “开始学习”--课程评论
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def get(self, request, course_id):
         try:

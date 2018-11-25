@@ -4,6 +4,7 @@ import json
 from django.contrib import messages, auth
 from django.contrib.auth import authenticate, hashers
 from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
@@ -18,7 +19,7 @@ from apps.myuser.forms import LoginForm, RegisterForm, ForgetPwdForm, ResetPwdFo
 from apps.myuser.models import UserProfile, EmailValiRecord, Banner
 from apps.operation.models import UserCourse, UserFavorite, UserMessage
 from apps.organization.models import CourseOrg, Teacher
-from custbase.login_required import LoginRequiredMixin
+# from custbase.login_required import LoginRequiredMixin
 from custbase.send_email import SendEmail
 
 
@@ -298,6 +299,8 @@ class UserCenInfoView(LoginRequiredMixin, View):
     """
     个人中心-个人资料
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         # 若未登录
@@ -346,6 +349,8 @@ class UserCenUploadHeadimgView(LoginRequiredMixin, View):
     """
     个人中心-用户头像修改
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def post(self, request):
         # 若未登录
@@ -377,6 +382,8 @@ class UserCenUpdatePwdView(LoginRequiredMixin, View):
     """
     个人中心-修改密码
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def post(self, request):
         # 若未登录
@@ -406,6 +413,8 @@ class UserCenSendEmailcodeView(LoginRequiredMixin, View):
     """
     个人中心-发送邮箱验证码
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         # 若未登录
@@ -430,6 +439,8 @@ class UserCenUpdateEmailDoneView(LoginRequiredMixin, View):
     """
     个人中心-修改邮箱完成
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def post(self, request):
         # 若未登录
@@ -464,6 +475,8 @@ class UserCenCoursesView(LoginRequiredMixin, View):
     """
     个人中心-我的课程
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         # 若未登录
@@ -495,6 +508,8 @@ class UserCenFavOrgView(LoginRequiredMixin, View):
     """
     个人中心-我的收藏机构
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         # 若未登录
@@ -532,6 +547,8 @@ class UserCenFavTeacherView(LoginRequiredMixin, View):
     """
     个人中心-我的收藏教师
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         # 若未登录
@@ -569,6 +586,8 @@ class UserCenFavCourseView(LoginRequiredMixin, View):
     """
     个人中心-我的收藏课程
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         # 若未登录
@@ -600,6 +619,8 @@ class UserCenMsgView(LoginRequiredMixin, View):
     """
     个人中心-我的消息
     """
+    login_url = '/myuser/login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         # 若未登录
