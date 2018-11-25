@@ -20,7 +20,6 @@ from apps.operation.models import UserCourse, UserFavorite, UserMessage
 from apps.organization.models import CourseOrg, Teacher
 from custbase.login_required import LoginRequiredMixin
 from custbase.send_email import SendEmail
-from eduonline import settings
 
 
 class CustomBackend(ModelBackend):  # 继承ModelBackend类
