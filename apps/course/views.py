@@ -278,6 +278,8 @@ class CourseAddCommentView(View):
             course = get_object_or_404(Course, id=int(course_id))
             user = request.user
             CourseComment.objects.create(user=user, course=course, comment=comment)
+            # 记录消息
+            UserMessage.objects.create(user=request.user.pk, message='您评论了《%s》。评论内容：%s' % (course, comment), has_read=False)
             return JsonResponse({"status": "success", "msg": "评论成功"})
         else:
             return JsonResponse({"status": "fail", "msg": "评论失败"})
