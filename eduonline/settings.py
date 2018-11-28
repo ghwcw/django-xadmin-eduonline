@@ -102,7 +102,7 @@ DATABASES = {
     }
 }
 
-# 用户验证
+# 密码验证
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -157,11 +157,13 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 
-# 缓存配置，下方一般限开发者用
-# 可以缓存于内存（locmem.LocMemCache）或文件（filebased.FileBasedCache）
+# 缓存配置（Django支持许多开箱即用的缓存后端）
+# Django默认缓存后端是本地内存（LocMemCache）。虚拟DummyCache用于开发（实际上并不缓存，它只是实现缓存接口而不做任何事情。）
+# Django支持的缓存类型：Memcached（MemcachedCache）、本地内存（LocMemCache）、数据库（DatabaseCache）、文件（FileBasedCache）、虚拟（DummyCache）
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': ['127.0.0.1:8080', '127.0.0.1:88', '192.168.1.99:8080', '192.168.1.2:88'],
     }
 }
 
