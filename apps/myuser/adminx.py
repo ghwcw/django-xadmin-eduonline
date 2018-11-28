@@ -49,7 +49,6 @@ class UserProfileAdmin(UserAdmin):
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
     #     self.list_display = ['id', 'username', 'nick_name', 'email', 'is_active', 'is_staff', 'date_joined']
-
     list_display = ['id', 'username', 'nick_name', 'email', 'is_active', 'is_staff', 'date_joined']
 
 
