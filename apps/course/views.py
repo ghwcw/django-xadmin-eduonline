@@ -140,6 +140,9 @@ class CourseStudyView(View):
             # 记录到用户课程
             if not UserCourse.objects.filter(user=request.user, course_id=course_id):
                 UserCourse.objects.create(user=request.user, course_id=int(course_id))
+            # 开始学习后就默认用户收藏
+            if not UserFavorite.objects.filter(user=request.user, fav_type=1, fav_id=course_id):
+                UserFavorite.objects.create(user=request.user, fav_type=1, fav_id=course_id)
 
             course = Course.objects.get(id=int(course_id))
             # 课程及其机构学习人数加1
