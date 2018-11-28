@@ -33,7 +33,7 @@ class CustomBackend(ModelBackend):  # 继承ModelBackend类
             user = UserProfile.objects.get(Q(username=username) | Q(email=username))
             if user.check_password(password):
                 return user
-        except Exception as e:
+        except Exception:
             return None
 
 
