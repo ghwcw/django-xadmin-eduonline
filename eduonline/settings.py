@@ -163,7 +163,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': ['127.0.0.1:8080', '127.0.0.1:88', '192.168.1.99:8080', '192.168.1.2:88'],
+        'LOCATION': ['127.0.0.1:8080', '127.0.0.1:88', '192.168.1.99:8080', '192.168.1.2:88'],      # 缓存位置
+        'TIMEOUT': 30*60,     # 缓存超时，默认300s
+        'OPTIONS': {
+            'server_max_value_length': 1024*1024*2,     # 缓存最大值（这里的键值根据缓存类型不同而变化，一般默认也可）
+        }
     }
 }
 
