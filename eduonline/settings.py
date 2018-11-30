@@ -62,6 +62,7 @@ AUTHENTICATION_BACKENDS = ['apps.myuser.views.CustomBackend', ]
 
 # 中间件
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',        # 缓存配置，必须在第一个
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',       # 防止点击劫持
     # 'custbase.http.SetRemoteAddrFromForwardedFor',
+    'django.middleware.cache.FetchFromCacheMiddleware',     # 缓存配置，必须在最后一个
 ]
 
 ROOT_URLCONF = 'eduonline.urls'  # 这里需要据实修改
@@ -157,17 +159,28 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 
-# 缓存配置（Django支持许多开箱即用的缓存后端）
+# 缓存后端配置（Django支持许多开箱即用的缓存后端）
 # Django默认缓存后端是本地内存（LocMemCache）。虚拟DummyCache用于开发（实际上并不缓存，它只是实现缓存接口而不做任何事情。）
 # Django支持的缓存类型：Memcached（MemcachedCache）、本地内存（LocMemCache）、数据库（DatabaseCache）、文件（FileBasedCache）、虚拟（DummyCache）
+# Memcached缓存数据库下载与安装教程：http://www.runoob.com/memcached/window-install-memcached.html（菜鸟教程提供）
+# 下载安装Memcached本身后，您还需要安装Memcached绑定模块。最常见的两个绑定模块是python-memcached和pylibmc（pip安装）
+# 设置缓存后端后，使用缓存的最简单方法是缓存整个站点
+# 在中间件列表中的[开头]和[末尾]添加如下2个中间件：'django.middleware.cache.UpdateCacheMiddleware'和'django.middleware.cache.FetchFromCacheMiddleware'
+# 测试，进入Python shell：
+# >>> from django.core.cache import cache
+# >>> cache.set('test', 'successful', 60)           第一个参数是key，第二个参数value，第三个参数是过期时间（秒）
+# >>> cache.get('test')
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': ['127.0.0.1:8080', '127.0.0.1:88', '192.168.1.99:8080', '192.168.1.2:88'],      # 缓存位置
-        'TIMEOUT': 30*60,     # 缓存超时，默认300s
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',       # 取决于您选择的Memcached绑定
+        'LOCATION': ['127.0.0.1:11211', ],              # 缓存后端服务器位置，支持分布式，可多个
+        'TIMEOUT': 30,                                # 缓存超时，默认300s
         'OPTIONS': {
-            'server_max_value_length': 1024*1024*2,     # 缓存最大值（这里的键值根据缓存类型不同而变化，一般默认也可）
-        }
+            'server_max_value_length': 2*1024*1024,     # 缓存最大值（这里的键值根据缓存类型不同而变化，一般默认也可）
+        },
+        'CACHE_MIDDLEWARE_ALIAS': 'DJCACHE',            # 用于存储的缓存别名
+        'CACHE_MIDDLEWARE_SECONDS': 30,               # 每个页面应缓存的秒数
+        'CACHE_MIDDLEWARE_KEY_PREFIX': '',              # 缓存键前缀。如果使用相同的Django在多个站点之间共享缓存，将其设置为站点名称（或其他）以防止发生密钥冲突
     }
 }
 
