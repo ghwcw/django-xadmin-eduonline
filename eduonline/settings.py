@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',         # 依赖于会话Session
     'django.middleware.clickjacking.XFrameOptionsMiddleware',       # 防止点击劫持
     # 'custbase.http.SetRemoteAddrFromForwardedFor',
     'django.middleware.cache.FetchFromCacheMiddleware',     # 缓存配置，必须在最后一个
