@@ -32,6 +32,7 @@ SECRET_KEY = '81$k-x)bqrs4!!kjyifja)g=^zi*j@62$&n_c%4&ic*ni5q%dd'
 DEBUG = True
 
 # 可指定主机，若元素为'*'，表示所有同一局域网内的网络均可被访问
+# 主机和端口不要轻易改动
 ALLOWED_HOSTS = ['www.wcwnina.com', '192.168.1.99', '127.0.0.1', 'localhost']
 ALLOWED_PORT = ['8080']
 
@@ -174,12 +175,12 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',       # 取决于您选择的Memcached绑定
         'LOCATION': ['127.0.0.1:11211', ],              # 缓存后端服务器位置，支持分布式，可多个
-        'TIMEOUT': 30,                                # 缓存超时，默认300s
+        'TIMEOUT': 30,                                  # 缓存超时，默认300s
         'OPTIONS': {
             'server_max_value_length': 2*1024*1024,     # 缓存最大值（这里的键值根据缓存类型不同而变化，一般默认也可）
         },
         'CACHE_MIDDLEWARE_ALIAS': 'DJCACHE',            # 用于存储的缓存别名
-        'CACHE_MIDDLEWARE_SECONDS': 30,               # 每个页面应缓存的秒数
+        'CACHE_MIDDLEWARE_SECONDS': 30,                 # 每个页面应缓存的秒数
         'CACHE_MIDDLEWARE_KEY_PREFIX': '',              # 缓存键前缀。如果使用相同的Django在多个站点之间共享缓存，将其设置为站点名称（或其他）以防止发生密钥冲突
     }
 }
