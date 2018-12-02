@@ -11,7 +11,8 @@ Description :
 """
 from django.conf.urls import url
 
-from apps.course.views import CourseListView, CourseDetailView, CourseVideoView, play_video, CourseStudyView
+from apps.course.views import CourseListView, CourseDetailView, CourseVideoView, play_video, CourseStudyView, \
+    AllCourseRss, AllCourseAtom
 
 urlpatterns = [
     url(r'^course-list/$', CourseListView.as_view(), name='course_list'),
@@ -20,5 +21,8 @@ urlpatterns = [
     url(r'^course-study/$', CourseStudyView.as_view(), name='course_study'),
     url(r'^course-video/(?P<course_id>\d+)/$', CourseVideoView.as_view(), name='course_video'),
     url(r'^video-play/$', play_video, name='video_play'),
+
+    url(r'^course-rss/$', AllCourseRss(), name='course_rss'),
+    url(r'^course-atom/$', AllCourseAtom(), name='course_atom'),
 
 ]

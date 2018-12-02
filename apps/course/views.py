@@ -1,9 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.syndication.views import Feed
 from django.db.models import Q
 from django.http import JsonResponse, Http404, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 
 # Create your views here.
+from django.urls import reverse
+from django.utils.feedgenerator import Atom1Feed
 from django.views.generic.base import View
 from pure_pagination import Paginator, PageNotAnInteger
 
@@ -55,7 +58,9 @@ class CourseListView(View):
             page = 1
 
         # Provide Paginator with the request object for complete querystring generation
+        # 返回Paginator对象，总
         p = Paginator(all_courses, 6, request=request)
+        # 返回Page对象，分
         page_obj = p.page(page)
 
         return render(request, 'course/course-list.html', context={
@@ -286,3 +291,31 @@ class CourseAddCommentView(View):
             return JsonResponse({"status": "success", "msg": "评论成功"})
         else:
             return JsonResponse({"status": "fail", "msg": "评论失败"})
+
+
+class AllCourseRss(Feed):
+    """
+    咨询聚合订阅
+    """
+    title = 'Course site'
+    description = 'Course site-All course show'
+    link = '/course-feed/'
+
+    # 覆盖几个项目item方法
+    def items(self):
+        return Course.objects.all()
+
+    def item_title(self, item):
+        return item.name
+
+    def item_description(self, item):
+        return item.desc
+
+    def item_link(self, item):
+        return reverse('course:course_detail', args=[item.pk])
+
+
+class AllCourseAtom(AllCourseRss):
+    feed_type = Atom1Feed
+    subtitle = AllCourseRss.description
+

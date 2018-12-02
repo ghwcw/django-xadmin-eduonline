@@ -137,7 +137,7 @@
                     <div class="tab_cont " id="content">
                         <div class="group_list">
 
-                            {#                            课程列表 #}
+                            {# 课程列表 #}
                             {% for course in page_obj.object_list %}
                                 <div class="box">
                                     <a href="{% url 'course:course_detail' course_id=course.id %}">
@@ -165,7 +165,7 @@
 
                     </div>
 
-                    {#        分页按钮#}
+                    {# 分页按钮 #}
                     <div class="pageturn">
                         <ul class="pagelist">
 
