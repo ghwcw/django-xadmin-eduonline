@@ -113,6 +113,8 @@ class LoginView(View):
                     succ_msg = '欢迎，登录成功！'
                     request.session['username'] = username
                     request.session['succ_msg'] = succ_msg
+                    # request.session.set_expiry(1*24*60*60)
+                    request.session.set_expiry(0)
 
                     # 记录消息
                     UserMessage.objects.create(user=request.user.id, message='您在这时候登录过。', has_read=False)
