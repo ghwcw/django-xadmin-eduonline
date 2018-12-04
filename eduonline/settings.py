@@ -185,7 +185,10 @@ CACHES = {
     }
 }
 
-# 会话生存期设置，浏览器关闭，则会话失效（可能对Chrome浏览器无效）
-# 在登录视图get请求中添加语句"request.session.set_expiry(0)"，对Chrome会有效
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# 会话使用的缓存（CACHES），默认"default"
+# SESSION_CACHE_ALIAS = "default"
+# 会话缓存期限，默认2周
+# SESSION_COOKIE_AGE = 1209600
+# 会话生存期设置，浏览器关闭，则会话失效（可能对Chrome浏览器无效）。在登录视图get请求中添加语句"request.session.set_expiry(0)"，对Chrome会有效
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True      # 默认False
 
