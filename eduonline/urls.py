@@ -14,11 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.contrib.sitemaps.views import sitemap
 from django.views.defaults import page_not_found
 from django.views.generic import TemplateView
 from django.views.static import serve
 
 import xadmin
+from apps.course.views import CourseSitemap
 from apps.myuser.views import IndexView, HomePageView, ActivateRegView, ActivateForgetView
 from eduonline import settings
 
@@ -50,6 +52,9 @@ urlpatterns = [
 
     # 课程相关
     url(r'^course/', include('apps.course.courseurl', namespace='course')),
+
+    # 站点地图
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'course': CourseSitemap}}, name='sitemap'),
 
 ]
 

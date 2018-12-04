@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.sitemaps import Sitemap
 from django.contrib.syndication.views import Feed
 from django.db.models import Q
 from django.http import JsonResponse, Http404, HttpResponseNotFound
@@ -318,4 +319,12 @@ class AllCourseRss(Feed):
 class AllCourseAtom(AllCourseRss):
     feed_type = Atom1Feed
     subtitle = AllCourseRss.description
+
+
+class CourseSitemap(Sitemap):
+    """
+    站点地图使用
+    """
+    def items(self):
+        return Course.objects.all().order_by('-add_time')
 
