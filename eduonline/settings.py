@@ -64,7 +64,7 @@ AUTHENTICATION_BACKENDS = ['apps.myuser.views.CustomBackend', ]
 
 # 中间件
 MIDDLEWARE = [
-    'django.middleware.cache.UpdateCacheMiddleware',        # 缓存配置，必须在第一个
+    # 'django.middleware.cache.UpdateCacheMiddleware',        # 缓存配置，必须在第一个
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,7 +73,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',         # 依赖于会话Session
     'django.middleware.clickjacking.XFrameOptionsMiddleware',       # 防止点击劫持
     # 'custbase.http.SetRemoteAddrFromForwardedFor',
-    'django.middleware.cache.FetchFromCacheMiddleware',     # 缓存配置，必须在最后一个
+    # 'django.middleware.cache.FetchFromCacheMiddleware',     # 缓存配置，必须在最后一个
 ]
 
 ROOT_URLCONF = 'eduonline.urls'  # 这里需要据实修改
@@ -172,19 +172,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 # >>> from django.core.cache import cache
 # >>> cache.set('test', 'successful', 60)           第一个参数是key，第二个参数value，第三个参数是过期时间（秒）
 # >>> cache.get('test')
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',       # 取决于您选择的Memcached绑定
-        'LOCATION': ['127.0.0.1:11211', ],              # 缓存后端服务器位置，支持分布式，可多个
-        'TIMEOUT': 30,                                  # 缓存超时，默认300s
-        'OPTIONS': {
-            'server_max_value_length': 2*1024*1024,     # 缓存最大值（这里的键值根据缓存类型不同而变化，一般默认也可）
-        },
-        'CACHE_MIDDLEWARE_ALIAS': 'DJCACHE',            # 用于存储的缓存别名
-        'CACHE_MIDDLEWARE_SECONDS': 30,                 # 每个页面应缓存的秒数
-        'CACHE_MIDDLEWARE_KEY_PREFIX': '',              # 缓存键前缀。如果使用相同的Django在多个站点之间共享缓存，将其设置为站点名称（或其他）以防止发生密钥冲突
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',       # 取决于您选择的Memcached绑定
+#         'LOCATION': ['127.0.0.1:11211', ],              # 缓存后端服务器位置，支持分布式，可多个
+#         'TIMEOUT': 30,                                  # 缓存超时，默认300s
+#         'OPTIONS': {
+#             'server_max_value_length': 2*1024*1024,     # 缓存最大值（这里的键值根据缓存类型不同而变化，一般默认也可）
+#         },
+#         'CACHE_MIDDLEWARE_ALIAS': 'DJCACHE',            # 用于存储的缓存别名
+#         'CACHE_MIDDLEWARE_SECONDS': 30,                 # 每个页面应缓存的秒数
+#         'CACHE_MIDDLEWARE_KEY_PREFIX': '',              # 缓存键前缀。如果使用相同的Django在多个站点之间共享缓存，将其设置为站点名称（或其他）以防止发生密钥冲突
+#     }
+# }
 
 # 会话使用的缓存（CACHES），默认"default"
 # SESSION_CACHE_ALIAS = "default"
