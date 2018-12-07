@@ -9,10 +9,12 @@
 Description : 
 -------------------------------------------------------------
 """
-
+import datetime
 import os
 import django
 from django.core.mail import send_mail
+from django.core.signals import request_finished
+from django.dispatch import receiver, Signal
 from django.http import HttpResponse
 from django.utils.translation import gettext
 
@@ -26,14 +28,32 @@ django.setup()
 #
 # print(my_view().getvalue())
 
-subject = 'Django测试'
-message = '这是测试邮件，请忽略'
-html_message = '<h2 style="color:red;">这是测试邮件，请忽略</h2>'
-res = send_mail(subject=subject, message=message, from_email='Django管理员<wangchunwang@dhcc.com.cn>',
-                recipient_list=['wcwnina@foxmail.com'],
-                html_message=html_message)
+# subject = 'Django测试'
+# message = '这是测试邮件，请忽略'
+# html_message = '<h2 style="color:red;">这是测试邮件，请忽略</h2>'
+# res = send_mail(subject=subject, message=message, from_email='Django管理员<wangchunwang@dhcc.com.cn>',
+#                 recipient_list=['wcwnina@foxmail.com'],
+#                 html_message=html_message)
+#
+# if res:
+#     print('发送成功')
+# else:
+#     print('发送失败')
 
-if res:
-    print('发送成功')
-else:
-    print('发送失败')
+test_signal = Signal(['hostname', 'msg', 'time'])
+
+
+# 发送信号
+def signal_sender(request):
+    hostname = request.get_host()
+    msg = 'Django Signal Test'
+    time = datetime.date.today()
+    test_signal.send(sender=signal_sender, hostname=hostname, msg=msg, time=time)
+    return HttpResponse('200 OK')
+
+
+# 接收和处理信号
+@receiver(test_signal, sender=signal_sender)
+def signal_handler(sender, **kwargs):
+    print('接收到信号内容：{hostname}|{msg}|{time}'.format(hostname=kwargs['hostname'], msg=kwargs['msg'], time=kwargs['time']))
+
