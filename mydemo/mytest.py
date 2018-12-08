@@ -48,12 +48,12 @@ def signal_sender(request):
     hostname = request.get_host()
     msg = 'Django Signal Test'
     time = datetime.date.today()
-    test_signal.send(sender=signal_sender, hostname=hostname, msg=msg, time=time)
+    test_signal.send(sender=signal_sender, hostname=hostname, msg=msg, time=time)     # 关键一行
     return HttpResponse('200 OK')
 
 
 # 接收和处理信号
-@receiver(test_signal, sender=signal_sender)
-def signal_handler(sender, **kwargs):
-    print('接收到信号内容：{hostname}|{msg}|{time}'.format(hostname=kwargs['hostname'], msg=kwargs['msg'], time=kwargs['time']))
+@receiver(test_signal, sender=signal_sender)      # 装饰器把处理函数注册成接收器
+def signal_handler(sender, **kwargs):             # kwargs字典接收信号参数
+    print('接收到信号内容：{hostname}|"{msg}"|{time}'.format(hostname=kwargs['hostname'], msg=kwargs['msg'], time=kwargs['time']))
 
