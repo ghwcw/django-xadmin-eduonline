@@ -143,7 +143,7 @@ EMAIL_USE_SSL = False
 # 静态文件配置 (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-# 静态文件的URL名称，用于程序中，如{{static '路径'}}
+# 静态文件的访问目录，自动指向"STATIC_ROOT"或"STATICFILES_DIRS"的目录值。用于程序中，如{{static '静态文件指向目录下的子路径'}}
 STATIC_URL = '/collectstatic/'
 
 # 静态文件的生产环境根目录，当运行"python manage.py collectstatic"的时候，会将STATICFILES_DIRS以及各app中static的所有的文件复制收集到STATIC_ROOT
