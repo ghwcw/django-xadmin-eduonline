@@ -19,7 +19,7 @@ import sys
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 如果包含外部APP，Mark成Source Root后可能还需要添加如下配置，否则运行manage.py会报错No module named 'xx'
-# "extraapps"是外部APP上级目录包（Mark成Source Root）
+# 如"extraapps"是外部APP上级目录包（Mark成Source Root）:
 sys.path.append(os.path.join(BASE_DIR, 'extraapps'))
 
 # Quick-start development settings - unsuitable for production
