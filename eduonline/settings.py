@@ -70,8 +70,8 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',         # 依赖于会话Session
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',       # 防止点击劫持
+    'django.contrib.messages.middleware.MessageMiddleware',  # 依赖于会话Session
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  # 防止点击劫持
     # 'custbase.http.SetRemoteAddrFromForwardedFor',
     # 'django.middleware.cache.FetchFromCacheMiddleware',     # 缓存配置，必须在最后一个
 ]
@@ -142,23 +142,21 @@ EMAIL_USE_SSL = False
 
 # 静态文件配置 (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 # 静态文件的访问目录，自动指向"STATIC_ROOT"或"STATICFILES_DIRS"的目录值。用于程序中，如{{commstatic '静态文件指向目录下的子路径'}}
-# 这里的静态文件URL，即/commstatic/也用于Apache或Nginx配置文件中的静态文件访问配置
+# 这里的静态文件URL，即/static/也用于 Apache 或 Nginx 配置文件中的静态文件访问配置（生产策略!）
 STATIC_URL = '/static/'
-
 # 静态文件的生产环境根目录，当运行"python manage.py collectstatic"的时候，会将STATICFILES_DIRS以及各app中static的所有的文件复制收集到STATIC_ROOT
-# 把这些文件放到一起是为了用Apache等上线部署的时候更方便
-# 需要配置URL，如"url(r'^commstatic/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})"
+# 把这些文件放到一起是为了用Apache、Nginx等上线部署的时候更方便
+# 模板调用示例：{% static 'images/123.jpg' %}
 STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
 
 # 静态文件的公用目录，但不能与STATIC_ROOT冲突！
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'commstatic')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'commstatic')]
 
-# 媒体文件(用户上传的文件)配置
-# 不能像静态文件那样调用，而是先配置"TEMPLATES"中的"context_processors"添加'django.template.context_processors.media'；
-# 然后配置URL，如"url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})"；
-# 调用示例：{{ MEDIA_URL }}{{ modelobj.fieldname }}
+# 媒体文件(用户上传的文件)配置，类似于上面的静态文件配置
+# 不能像静态文件那样调用，而是先在settings的"TEMPLATES"中的"context_processors"添加：'django.template.context_processors.media'
+# (调试策略！手动指定视图访问media文件目录，部署生产请注释掉) 添加URL路由，如"url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})"
+# 模板调用示例：{{ MEDIA_URL }}{{ modelobj.fieldname }}
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -192,5 +190,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # 会话缓存期限，默认2周
 # SESSION_COOKIE_AGE = 1209600
 # 会话生存期设置，浏览器关闭，则会话失效（可能对Chrome浏览器无效）。在登录视图get请求中添加语句"request.session.set_expiry(0)"，对Chrome会有效
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True      # 默认False
-
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 默认False
