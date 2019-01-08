@@ -144,10 +144,10 @@ EMAIL_USE_SSL = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 # 静态文件的访问目录，自动指向"STATIC_ROOT"或"STATICFILES_DIRS"的目录值。用于程序中，如{{commstatic '静态文件指向目录下的子路径'}}
 # 这里的静态文件URL，即/static/也用于 Apache 或 Nginx 配置文件中的静态文件访问配置（生产策略!）
+# 模板调用示例：{% static 'images/123.jpg' %}
 STATIC_URL = '/static/'
 # 静态文件的生产环境根目录，当运行"python manage.py collectstatic"的时候，会将STATICFILES_DIRS以及各app中static的所有的文件复制收集到STATIC_ROOT
 # 把这些文件放到一起是为了用Apache、Nginx等上线部署的时候更方便
-# 模板调用示例：{% static 'images/123.jpg' %}
 STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
 
 # 静态文件的公用目录，但不能与STATIC_ROOT冲突！
