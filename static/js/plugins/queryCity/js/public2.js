@@ -366,7 +366,7 @@
 function sendCitiesAjax() {
     $.ajax({
         type: "get",
-        url: '/commstatic/js/plugins/queryCity/js/queryAllCities.js',
+        url: '/static/js/plugins/queryCity/js/queryAllCities.js',
         async: false,
         dataType: "json",
         success: function(data) {
@@ -701,7 +701,7 @@ var pa_currentPage = 1;
 function sendAllProvinceAjax() {
     $.ajax({
         type: "get",
-        url: '/commstatic/js/plugins/queryCity/js/queryAllProvinces.js',
+        url: '/static/js/plugins/queryCity/js/queryAllProvinces.js',
         async: false,
         dataType: "json",
         success: function(data) {
@@ -718,7 +718,7 @@ function sendAllProvinceAjax() {
 function sendAllCitiesAjax() {
     $.ajax({
         type: "get",
-        url: '/commstatic/js/plugins/queryCity/js/queryCities.js',
+        url: '/static/js/plugins/queryCity/js/queryCities.js',
         async: false,
         dataType: "json",
         success: function(data) {
@@ -735,7 +735,7 @@ function sendAllCitiesAjax() {
 function sendAllCountiesAjax(){
     $.ajax({
         type: "get",
-        url: "/commstatic/js/plugins/queryCity/js/queryAllAreas.js",
+        url: "/static/js/plugins/queryCity/js/queryAllAreas.js",
         async: false,
         dataType: "json",
         success: function(data) {

@@ -8553,7 +8553,7 @@ jQuery.offset = {
 			curElem = jQuery( elem ),
 			props = {};
 
-		// Set position first, in-case top/left are set even on commstatic elem
+		// Set position first, in-case top/left are set even on static elem
 		if ( position === "static" ) {
 			elem.style.position = "relative";
 		}

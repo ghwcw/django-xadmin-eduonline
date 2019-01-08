@@ -93,7 +93,7 @@ a:active {
     display: block;
     height: 60px;
     width: 140px;
-    background: url(/commstatic/img/common/logo.png?t=1) no-repeat center center;
+    background: url(/static/img/common/logo.png?t=1) no-repeat center center;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -130,7 +130,7 @@ a:active {
     top: 4px;
     left: 20px;
     cursor: pointer;
-    background: url(/commstatic/img/nlogin.png) no-repeat 0 0;
+    background: url(/static/img/nlogin.png) no-repeat 0 0;
     transition: transform 0.2s;
     -webkit-transition: transform 0.2s;
     -moz-transition: transform 0.2s;
@@ -176,13 +176,13 @@ a:active {
     top: -10px;
     width: 16px;
     height: 16px;
-    background: url(/commstatic/img/common/new.png) no-repeat 0 0;
+    background: url(/static/img/common/new.png) no-repeat 0 0;
 }
 .header-app-icon {
     display: inline-block;
     width: 11px;
     height: 16px;
-    background: url(/commstatic/img/head-app-icon.png) no-repeat 0 0;
+    background: url(/static/img/head-app-icon.png) no-repeat 0 0;
     vertical-align: -3px;
     margin-right: 5px;
     transition: .3s;
@@ -522,7 +522,7 @@ a:active {
     border: 2px solid #adb0b1;
     vertical-align: middle;
     display: inline-block;
-    background: url(/commstatic/img/menu_icon.png) no-repeat 0 0;
+    background: url(/static/img/menu_icon.png) no-repeat 0 0;
 }
 #nav_list {
     display: none;
@@ -539,7 +539,7 @@ a:active {
     height: 39px;
     line-height: 39px;
     font-size: 14px;
-    background-image: url(/commstatic/img/menu_icon.png?t=10);
+    background-image: url(/static/img/menu_icon.png?t=10);
     background-repeat: no-repeat;
     display: block;
     color: #fff;
@@ -578,7 +578,7 @@ a:active {
 .myspace_remind {
     width: 10px;
     height: 10px;
-    background: url(/commstatic/img/space-remind.png) no-repeat 0 0;
+    background: url(/static/img/space-remind.png) no-repeat 0 0;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -605,7 +605,7 @@ a:active {
 .footer_logo {
     display: none;
     float: left;
-    background: url(/commstatic/img/common/footer-sprite.png) 0 -230px no-repeat;
+    background: url(/static/img/common/footer-sprite.png) 0 -230px no-repeat;
     height: 40px;
     width: 120px;
     margin: 0 20px;
@@ -622,7 +622,7 @@ a:active {
     position: relative;
     width: 32px;
     height: 32px;
-    background-image: url(/commstatic/img/common/footer-sprite.png);
+    background-image: url(/static/img/common/footer-sprite.png);
     background-repeat: no-repeat;
     margin: 3px 6px 0;
     opacity: 0.5;
@@ -642,7 +642,7 @@ a:active {
     height: 220px;
     left: -69px;
     bottom: 35px;
-    background: url(/commstatic/img/common/footer-sprite.png?1) no-repeat 0 0;
+    background: url(/static/img/common/footer-sprite.png?1) no-repeat 0 0;
 }
 .followus .followus-weixin {
     background-position: 0 -279px;
@@ -811,7 +811,7 @@ select:focus {
 /*收藏*/
 a.btn-add-collection {
     display: block;
-    background: url(/commstatic/img/course/new_add_collection.png) no-repeat 46px top;
+    background: url(/static/img/course/new_add_collection.png) no-repeat 46px top;
     height: 32px;
     color: #909b9e;
     text-align: center;
@@ -924,7 +924,7 @@ progress::-webkit-progress-value {
     -webkit-transform-origin: 100% 95%;
     -ms-transform-origin: 100% 95%;
     transform-origin: 100% 95%;
-    background: url(/commstatic/img/common/elevator.png) no-repeat 0 -220px;
+    background: url(/static/img/common/elevator.png) no-repeat 0 -220px;
 }
 .elevator .elevator-app:hover .elevator-app-box {
     display: block;
@@ -954,7 +954,7 @@ progress::-webkit-progress-value {
     -webkit-transform-origin: 100% 95%;
     -ms-transform-origin: 100% 95%;
     transform-origin: 100% 95%;
-    background: url(/commstatic/img/common/elevator.png) no-repeat 0 0;
+    background: url(/static/img/common/elevator.png) no-repeat 0 0;
 }
 .elevator .elevator-weixin:hover .elevator-weixin-box {
     display: block;
@@ -983,7 +983,7 @@ progress::-webkit-progress-value {
   height: 52px;
   width: 52px;
   .transition(background-position .15s);
-  background: url(/commstatic/img/common/elevator.png?1) no-repeat;
+  background: url(/static/img/common/elevator.png?1) no-repeat;
 }
 .elevator .elevator-diaocha {
   background-position: 0 -798px;
@@ -998,7 +998,7 @@ progress::-webkit-progress-value {
   bottom: -10px; //sub shadow expand
   right: 46px; //sub shadow expand
   .elevator-box-mixin;
-  background: url(/commstatic/img/common/elevator.png) no-repeat 0 -222px;
+  background: url(/static/img/common/elevator.png) no-repeat 0 -222px;
 }
 .elevator .elevator-app {
   background-position: 0 -550px;
@@ -1039,7 +1039,7 @@ progress::-webkit-progress-value {
   bottom: -10px; //sub shadow expand
   right: 46px; //sub shadow expand
   .elevator-box-mixin;
-  background: url(/commstatic/img/common/elevator.png) no-repeat 0 0;
+  background: url(/static/img/common/elevator.png) no-repeat 0 0;
 }
 .elevator .elevator-weixin {
   background-position: 0 -860px;
@@ -1096,7 +1096,7 @@ input::-moz-focus-inner {
     min-width: 800px;
     height: 30px;
     line-height: 30px;
-    background: url(/commstatic/img/iebg.gif) repeat-x;
+    background: url(/static/img/iebg.gif) repeat-x;
     z-index: 999999;
 }
 .cpt-ct {
@@ -1110,7 +1110,7 @@ input::-moz-focus-inner {
     height: 14px;
     vertical-align: -2px;
     margin-right: 5px;
-    background: url(/commstatic/img/iefixed-sprite.png) no-repeat 0 0;
+    background: url(/static/img/iefixed-sprite.png) no-repeat 0 0;
 }
 .cpt-ct a {
     color: #39b94e;
@@ -1152,7 +1152,7 @@ input::-moz-focus-inner {
     height: 8px;
     width: 8px;
     vertical-align: 1px;
-    background: url(/commstatic/img/iefixed-sprite.png) no-repeat 0 -24px;
+    background: url(/static/img/iefixed-sprite.png) no-repeat 0 -24px;
 }
 .cpt-close:hover i {
     background-position: 0 -42px;
@@ -1172,7 +1172,7 @@ input::-moz-focus-inner {
     top: -11px;
     width: 19px;
     height: 11px;
-    background: url(/commstatic/img/dot_usercard.png);
+    background: url(/static/img/dot_usercard.png);
 }
 .layer-usercard-header {
     height: 110px;
@@ -1614,7 +1614,7 @@ fieldset[disabled] .btn {
 .g-user-card .card-top {
     padding-left: 100px;
     height: 100px;
-    background: #f34131 url(/commstatic/img/common/user_card_top.png) no-repeat center 0;
+    background: #f34131 url(/static/img/common/user_card_top.png) no-repeat center 0;
     color: #fff;
     position: relative;
 }
@@ -1960,7 +1960,7 @@ fieldset[disabled] .btn {
         border-radius: 22px;
         vertical-align: middle;
         display: inline-block;
-        background: url("/commstatic/img/menu_icon.png") no-repeat;
+        background: url("/static/img/menu_icon.png") no-repeat;
     }
     body.slide-left .nav-item {
         display: block;
@@ -1974,8 +1974,8 @@ fieldset[disabled] .btn {
 }
 @font-face {
     font-family: 'icomoon';
-    src: url('/commstatic/fonts/fonts/icomoon.eot?d848nx');
-    src: url('/commstatic/fonts/fonts/icomoon.eot?d848nx#iefix') format('embedded-opentype'), url('/commstatic/fonts/fonts/icomoon.ttf?d848nx') format('truetype'), url('/commstatic/fonts/fonts/icomoon.woff?d848nx') format('woff'), url('/commstatic/fonts/fonts/icomoon.svg?d848nx#icomoon') format('svg');
+    src: url('/static/fonts/fonts/icomoon.eot?d848nx');
+    src: url('/static/fonts/fonts/icomoon.eot?d848nx#iefix') format('embedded-opentype'), url('/static/fonts/fonts/icomoon.ttf?d848nx') format('truetype'), url('/static/fonts/fonts/icomoon.woff?d848nx') format('woff'), url('/static/fonts/fonts/icomoon.svg?d848nx#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
