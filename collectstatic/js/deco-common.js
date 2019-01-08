@@ -620,6 +620,6 @@ $(function() {
     });
 
     $('img').on('error', function(){
-        $(this).off('error').attr('src', '/static/images/error-img.png');
+        $(this).off('error').attr('src', '/commstatic/images/error-img.png');
     });
 });
