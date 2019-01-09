@@ -8,15 +8,15 @@
 
 a.自行安装python3解释器和python3虚拟环境；
 
-b.本仓库中没有上传settings.py，请参考以下链接进行配置：https://www.cnblogs.com/wcwnina/p/8540330.html ；
+b.本仓库中没有上传配置文件settings.py，请参考以下链接进行配置：https://www.cnblogs.com/wcwnina/p/8540330.html ；
 
-b.将与requirement.txt同目录的所有文件替换你的工程根目录下的文件。我这的项目名称是“eduonline”，注意你的项目名称，如不一致，请相应修改之；
+c.将与requirement.txt同目录的所有文件替换你的工程根目录下的文件。我这的项目名称是“eduonline”，注意你的项目名称，如不一致，请相应修改之；
 
-c.打开终端进入虚拟环境执行"pip install -r requirement.txt"安装工程所需模块；
+d.打开终端进入虚拟环境执行"pip install -r requirement.txt"安装工程所需模块；
 
-d.根据实际情况修改settings.py配置文件参数ALLOWED_HOSTS、ALLOWED_PORT；
+e.根据实际情况修改settings.py配置文件参数ALLOWED_HOSTS、ALLOWED_PORT；
 
-e.启动Django服务器，测试。
+f.启动Django服务器，测试。
 
 (U/P:admin/wcwnina)
 
