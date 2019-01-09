@@ -42,7 +42,7 @@ urlpatterns = [
 
     # 用户上传文件（调试策略）
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    # 静态文件
+    # 静态文件，一般用不到
     # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 
     # 机构相关
