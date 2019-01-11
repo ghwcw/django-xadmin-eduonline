@@ -157,11 +157,11 @@ class RegisterView(View):
     def post(self, request):
         reg_form = RegisterForm(request.POST)
         if reg_form.is_valid():
-            email = reg_form.cleaned_data.get('email')
+            email = reg_form.cleaned_data.get('email', None)
             if UserProfile.objects.filter(email=email):
                 messages.error(request, '用户名已存在！')
                 return render(request, 'myuser/register.html', {'reg_form': reg_form})
-            password = reg_form.cleaned_data.get('password')
+            password = reg_form.cleaned_data.get('password', None)
             user_profile = UserProfile()
             user_profile.username = email
             user_profile.email = email
