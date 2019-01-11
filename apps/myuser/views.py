@@ -341,7 +341,7 @@ class UserCenInfoView(LoginRequiredMixin, View):        # 需要登录权限
             info_form.save()
 
             # 记录消息
-            UserMessage.objects.create(user=request.user.id, message='个人资料保存成功。', has_read=False)
+            UserMessage.objects.create(user=request.user.id, message='个人资料保存成功！', has_read=False)
 
             return JsonResponse(data={'status': 'success'})
         else:
