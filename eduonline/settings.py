@@ -137,7 +137,7 @@ USE_TZ = False  # 若使用了本地时间，必须设为False!!(默认值True)
 EMAIL_HOST = 'smtp.exmail.qq.com'  # 发送者邮箱服务器
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'wangchunwang@dhcc.com.cn'  # 发送者用户名（邮箱地址）
-EMAIL_HOST_PASSWORD = 'DHC@wcw0807'  # 发送者密码
+EMAIL_HOST_PASSWORD = 'DHCwcw'  # 发送者密码
 EMAIL_USE_SSL = False
 
 # 静态文件配置 (CSS, JavaScript, Images)
