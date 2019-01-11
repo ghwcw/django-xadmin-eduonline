@@ -8,7 +8,7 @@
 
 a.自行安装python3解释器和python3虚拟环境；
 
-b.根据项目实际情况修改配置文件settings.py，请参考本人博客进行配置:https://www.cnblogs.com/wcwnina/p/8540330.html；
+b.根据项目实际情况修改配置文件settings.py，请参考本人博客进行配置:https://www.cnblogs.com/wcwnina/p/8540330.html ；
 
 c.将与requirement.txt同目录的所有文件替换你的工程根目录下的文件。我这的项目名称是“eduonline”，注意你的项目名称，如不一致，请相应修改之；
 
