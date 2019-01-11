@@ -77,10 +77,13 @@ class SendEmail(object):
             # mail_status = mail.send_mail(subject=subject, message=text_content,
             #                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER),
             #                              recipient_list=[self.email])
-            msg = mail.EmailMultiAlternatives(subject=subject, body=text_content,
-                                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER), to=[self.email])
-            msg.attach_alternative(content=html_content, mimetype='text/html')
-            mail_status = msg.send()
+            try:
+                msg = mail.EmailMultiAlternatives(subject=subject, body=text_content,
+                                                  from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER), to=[self.email])
+                msg.attach_alternative(content=html_content, mimetype='text/html')
+                mail_status = msg.send()
+            except TimeoutError:
+                raise Exception('发送邮件失败！请检查：1.网络是否正常；2.邮箱服务器、用户、密码等等是否正确。')
 
             if mail_status:
                 return True
@@ -95,10 +98,13 @@ class SendEmail(object):
             # mail_status = mail.send_mail(subject=subject, message=text_content,
             #                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER),
             #                              recipient_list=[self.email])
-            msg = mail.EmailMultiAlternatives(subject=subject, body=text_content,
-                                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER), to=[self.email])
-            msg.attach_alternative(content=html_content, mimetype='text/html')
-            mail_status = msg.send()
+            try:
+                msg = mail.EmailMultiAlternatives(subject=subject, body=text_content,
+                                                  from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER), to=[self.email])
+                msg.attach_alternative(content=html_content, mimetype='text/html')
+                mail_status = msg.send()
+            except TimeoutError:
+                raise Exception('发送邮件失败！请检查：1.网络是否正常；2.邮箱服务器、用户、密码等等是否正确。')
 
             if mail_status:
                 return True
@@ -124,10 +130,13 @@ class SendEmail(object):
             # mail_status = mail.send_mail(subject=subject, message=text_content,
             #                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER),
             #                              recipient_list=[self.email])
-            msg = mail.EmailMultiAlternatives(subject=subject, body=text_content,
-                                              from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER), to=[self.email])
-            msg.attach_alternative(content=html_content, mimetype='text/html')
-            mail_status = msg.send()
+            try:
+                msg = mail.EmailMultiAlternatives(subject=subject, body=text_content,
+                                                  from_email='网络教育<{0}>'.format(settings.EMAIL_HOST_USER), to=[self.email])
+                msg.attach_alternative(content=html_content, mimetype='text/html')
+                mail_status = msg.send()
+            except TimeoutError:
+                raise Exception('发送邮件失败！请检查：1.网络是否正常；2.邮箱服务器、用户、密码等等是否正确。')
 
             if mail_status:
                 return True
