@@ -298,7 +298,7 @@ class ResetPwdView(View):
         return render(request, 'myuser/password_reset.html', context={'reset_pwd_form': reset_pwd_form})
 
 
-class UserCenInfoView(LoginRequiredMixin, View):
+class UserCenInfoView(LoginRequiredMixin, View):        # 需要登录权限
     """
     个人中心-个人资料
     """
