@@ -219,7 +219,7 @@ class ForgetPwdView(View):
     def post(self, request):
         forget_pwd_form = ForgetPwdForm(request.POST)
         if forget_pwd_form.is_valid():
-            email = forget_pwd_form.cleaned_data.get('email', '')
+            email = forget_pwd_form.cleaned_data.get('email', None)
             user = UserProfile.objects.filter(email=email)
             if not user:
                 messages.error(request, '用户名不存在！')
@@ -239,7 +239,7 @@ class ForgetPwdView(View):
 
 class ActivateForgetView(View):
     """
-    邮箱重置密码验证
+    重置密码邮箱验证
     """
 
     def get(self, request, activate_forget_code):
@@ -284,7 +284,7 @@ class ResetPwdView(View):
                 user.password = hashers.make_password(password=pwd1)
                 user.save()
 
-                # 记录消息，这里波许判断是否登陆
+                # 记录消息，这里不需判断是否登陆
                 user_id = UserProfile.objects.get(email=email).id
                 if user_id:
                     UserMessage.objects.create(user=user_id, message='修改密码成功。', has_read=False)
