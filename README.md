@@ -14,7 +14,7 @@ c.打开终端进入虚拟环境执行"pip install -r requirement.txt"安装工�
 
 d.根据实际情况修改settings.py配置文件，如ALLOWED_HOSTS、ALLOWED_PORT等等，详情可参考本人博客进行配置：https://www.cnblogs.com/wcwnina/p/8540330.html ；
 
-e.启动Django服务器，在浏览器上输入地址测试。
+e.启动Django服务器，打开浏览器输入地址测试。
 
 (U/P:admin/wcwnina)
 
