@@ -336,7 +336,8 @@ class UserCenInfoView(LoginRequiredMixin, View):        # 需要登录权限
         # if not request.user.is_authenticated():
         #     return redirect(reverse('myuser:login'))
 
-        info_form = UserCenInfoForm(request.POST, instance=request.user)
+        # 使用ModelForm快捷保存，需要传入实例参数instance=request.user
+        info_form = UserCenInfoForm(data=request.POST, instance=request.user)
         if info_form.is_valid():
             info_form.save()
 
@@ -409,7 +410,7 @@ class UserCenUpdatePwdView(LoginRequiredMixin, View):
 
             return JsonResponse({'status': 'success', 'msg': '密码修改成功！'})
         else:
-            json_str = json.dumps(update_pwd_form.errors)
+            json_str = json.dumps(update_pwd_form.errors)      # dumps()的结果是字符串
             return HttpResponse(json_str, content_type='application/json')
 
 
@@ -425,7 +426,7 @@ class UserCenSendEmailcodeView(LoginRequiredMixin, View):
         # if not request.user.is_authenticated():
         #     return redirect(reverse('myuser:login'))
 
-        email = request.GET.get('email', '')
+        email = request.GET.get('email', '')        # ajax传来的值
 
         # 判断email是否已绑定
         if UserProfile.objects.filter(email=email):
