@@ -21,5 +21,6 @@ e.启动Django服务器，打开浏览器输入地址测试。如下图所示。
 
 1.网站首页
 ![image](https://github.com/ghwcw/django-xadmin-eduonline/blob/master/static/images/README/webindex.png)
+
 2.Xadmin后台管理主页
 ![image](https://github.com/ghwcw/django-xadmin-eduonline/blob/master/static/images/README/xadminhome.png)
