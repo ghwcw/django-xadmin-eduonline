@@ -497,7 +497,7 @@ class UserCenCoursesView(LoginRequiredMixin, View):
 
         # 查询用户课程
         user_objs = UserCourse.objects.select_related('course').filter(user=request.user)
-        courses = (user_obj.course for user_obj in user_objs)  # 使用了生成器
+        courses = (user_obj.course for user_obj in user_objs)  # 生成器
         # 消息数
         msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
@@ -608,7 +608,7 @@ class UserCenFavCourseView(LoginRequiredMixin, View):
 
         # 查询用户课程
         user_objs = UserCourse.objects.select_related('course').filter(user=request.user)
-        courses = (user_obj.course for user_obj in user_objs)  # 使用了生成器
+        courses = (user_obj.course for user_obj in user_objs)  # 生成器
         # 消息数
         msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
@@ -650,7 +650,7 @@ class UserCenMsgView(LoginRequiredMixin, View):
         except PageNotAnInteger:
             page = 1
 
-        # Provide Paginator with the request object for complete querystring generation
+        # 为Paginator提供完整的querystring生成的请求对象
         p = Paginator(messages, 10, request=request)
         page_obj = p.page(page)
 

@@ -43,6 +43,7 @@ class AddFavView(View):
             # 查询收藏表和用户课程表是否存在记录
             exist_fav_rec = UserFavorite.objects.filter(user=request.user, fav_id=fav_id, fav_type=fav_type)
             exist_usercourse_rec = UserCourse.objects.filter(user=request.user, course_id=fav_id)
+            # ---删除收藏---
             if exist_fav_rec or exist_usercourse_rec:
                 exist_fav_rec.delete()
                 exist_usercourse_rec.delete()
@@ -66,6 +67,7 @@ class AddFavView(View):
 
                 return HttpResponse('{"status":"success", "msg":"收藏"}', content_type='application/json')
             else:
+                # ---添加收藏---
                 if fav_id > 0 and fav_type > 0:
                     user_fav = UserFavorite()
                     user_fav.user = request.user
