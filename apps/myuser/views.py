@@ -672,7 +672,7 @@ class UserCenMsgView(LoginRequiredMixin, View):
         one_key = request.POST.get('one_key', '')
 
         if one_key:
-            UserMessage.objects.filter(user=request.user.id).update(has_read=True)
+            UserMessage.objects.filter(user=request.user.id, has_read=False).update(has_read=True)
             return JsonResponse({'status': 'success'})
 
         if msg_id:

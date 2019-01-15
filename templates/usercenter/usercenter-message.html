@@ -86,68 +86,71 @@
 
     {% block cust_script %}
         <script>
-            $(function () {
-                $("#read-msg > code").click(function () {
-                    //alert($);
-                    msg_id = $(this).attr("data-msgid");
-                    has_read = $(this).attr("data-hasread");
-                    if (has_read === 'True') {
-                        return;
+        $(function () {
+
+            // 标为已读
+            $("#read-msg > code").click(function () {
+                //alert($);
+                msg_id = $(this).attr("data-msgid");
+                has_read = $(this).attr("data-hasread");
+                if (has_read === 'True') {
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    cache: false,
+                    url: "/myuser/usercen-mymsg/",
+                    data: {
+                        msg_id: msg_id,
+                        has_read: has_read,
+                        one_key: "",
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        if (data.status === "success") {
+                            $(this).html("已读");
+                            location.reload();
+                        }
+                        else {
+                            $(this).html("标为已读");
+                            location.reload();
+                        }
+                    },
+
+                })
+            });
+
+            // 一键标为已读
+            $("#one-key").click(function () {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/myuser/usercen-mymsg/",
+                    data: {
+                        one_key: "one_key",
+                        msg_id: "0",
+                        has_read: "",
+                    },
+                    cache: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    },
+                    success: function (data) {
+                        if (data.status === "success") {
+                            $("#read-msg > code").html("已读");
+                            location.reload();
+                        }
                     }
 
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        cache: false,
-                        url: "/myuser/usercen-mymsg/",
-                        data: {
-                            msg_id: msg_id,
-                            has_read: has_read,
-                            one_key: "",
-                        },
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-                        },
-                        success: function (data) {
-                            if (data.status === "success") {
-                                $(this).html("已读");
-                                location.reload();
-                            }
-                            else {
-                                $(this).html("标为已读");
-                                location.reload();
-                            }
-                        },
-
-                    })
-                });
-
-                $("#one-key").click(function () {
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: "/myuser/usercen-mymsg/",
-                        data: {
-                            one_key: "one_key",
-                            msg_id: "0",
-                            has_read: "",
-                        },
-                        cache: false,
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-                        },
-                        success: function (data) {
-                            if (data.status === "success") {
-                                $("#read-msg > code").html("已读");
-                                location.reload();
-                            }
-                        }
-
-                    })
-                });
+                })
+            });
 
 
-            })
+        })
         </script>
     {% endblock %}
 
