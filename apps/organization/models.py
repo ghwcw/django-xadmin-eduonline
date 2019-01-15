@@ -9,7 +9,7 @@ class CityDict(models.Model):
     城市字典表
     '''
     name = models.CharField(max_length=10, verbose_name='城市名')
-    desc = models.CharField(max_length=200, verbose_name='机构描述')
+    desc = models.CharField(max_length=200, verbose_name='城市详细描述')
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间')
 
     class Meta:
