@@ -150,7 +150,7 @@
                                 <span class="{% if city_id == '' %} active2 {% endif %}">全部</span>
                             </a>
 
-                            {#  城市列表 #}
+                            {#  城市列表。href属性只需要赋值URL查询参数，前面的部分会自动补上#}
                             {% for city in all_city %}
                                 <a href="?category={{ category }}&city={{ city.id }}">
                                     <span class="{% if city_id == city.id|stringformat:'i' %} active2 {% endif %}">{{ city.name }}</span>

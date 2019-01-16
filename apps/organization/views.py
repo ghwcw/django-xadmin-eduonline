@@ -25,7 +25,7 @@ class OrgListView(View):
         all_city = CityDict.objects.all()
         all_org = CourseOrg.objects.all()
 
-        hot_org = CourseOrg.objects.order_by('-click_nums')[:3]  # 用于机构排行
+        hot_org = CourseOrg.objects.order_by('-click_nums')[:3]  # 用于机构排行，按访问量
 
         # 搜索机构
         keywords = request.GET.get('keywords', '')
@@ -64,7 +64,7 @@ class OrgListView(View):
         p = Paginator(all_org, 4, request=request)
         page_obj = p.page(page)
 
-        # 更新课程数。缺点：影响加载速度，已在apps.course.adminx文件中用方法替代.
+        # 更新课程数。缺点：严重影响当前页加载速度，已在apps.course.adminx文件中用方法替代.
         # org_courses = (org for org in all_org)
         # for org in org_courses:
         #     counts = org.course_set.count()

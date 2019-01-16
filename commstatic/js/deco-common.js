@@ -66,6 +66,8 @@ function search_click(){
     // if(keywords === ""){
     //     return;
     // }
+
+    // 这里是通过URL查询参数的方式（GET）传给URL路由，再传给对应的视图去处理，所以可以不用ajax提交。
     if(type === "course"){
         request_url = "/course/course-list?keywords="+keywords;
     }else if(type === "teacher"){
@@ -73,7 +75,8 @@ function search_click(){
     }else if(type === "org"){
         request_url = "/org/org-list?keywords="+keywords;
     }
-    location.href = request_url;
+    //location.href = request_url;
+    location.assign(request_url);
 }
 
 //刷新验证码
