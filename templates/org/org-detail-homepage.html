@@ -83,8 +83,7 @@
                             <span class="key">5.0</span>
                         </p>
                     </div>
-                    <div class="btn fr collectionbtn  notlogin
-                         " data-favid="22" data-fav-type="1">
+                    <div class="btn fr collectionbtn  notlogin" data-favid="{{ course_org.id }}" data-fav-type="2">
                         {% if is_fav %}
                             取消收藏
                         {% else %}
@@ -238,7 +237,9 @@
     }
 
     $('.collectionbtn').on('click', function () {
-        add_fav($(this), {{ course_org.id }}, 2);
+        var data_favid = $('.collectionbtn').attr('data-favid');
+        var data_fav_type = $('.collectionbtn').attr('data-fav-type');
+        add_fav($(this), data_favid, data_fav_type);
     });
 
 
