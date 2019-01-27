@@ -28,6 +28,8 @@ django.setup()
 #
 # print(my_view().getvalue())
 
+# ---------------------------------------------- #
+
 # subject = 'Django测试'
 # message = '这是测试邮件，请忽略'
 # html_message = '<h2 style="color:red;">这是测试邮件，请忽略</h2>'
@@ -40,20 +42,68 @@ django.setup()
 # else:
 #     print('发送失败')
 
-test_signal = Signal(['hostname', 'msg', 'time'])
+# test_signal = Signal(['hostname', 'msg', 'time'])
+
+# ---------------------------------------------- #
+
+# # 发送信号
+# def signal_sender(request):
+#     hostname = request.get_host()
+#     msg = 'Django Signal Test'
+#     time = datetime.date.today()
+#     test_signal.send(sender=signal_sender, hostname=hostname, msg=msg, time=time)     # 关键一行
+#     return HttpResponse('200 OK')
+#
+#
+# # 接收和处理信号
+# @receiver(test_signal, sender=signal_sender)      # 装饰器把处理函数注册成接收器
+# def signal_handler(sender, **kwargs):             # kwargs字典接收信号参数
+#     print('接收到信号内容：{hostname}|"{msg}"|{time}'.format(hostname=kwargs['hostname'], msg=kwargs['msg'], time=kwargs['time']))
+#
+
+# ---------------------------------------------- #
+
+# li = [11, 12, 13, 14, 15, 16, 17, 18, 19, 110]
+#
+#
+# def bin_search(arr, find):
+#     mid = len(arr) // 2
+#     if len(arr) >= 1:
+#         if find < arr[mid]:
+#             bin_search(arr[:mid], find)
+#         elif find > arr[mid]:
+#             bin_search(arr[mid + 1:], find)
+#         else:
+#             # return mid
+#             print(mid)
+#     else:
+#         # return '-1'
+#         print("not found !")
+#
+#
+# # recursion_search(li, 11)
+# bin_search(li, 11)
+
+# ---------------------------------------------- #
 
 
-# 发送信号
-def signal_sender(request):
-    hostname = request.get_host()
-    msg = 'Django Signal Test'
-    time = datetime.date.today()
-    test_signal.send(sender=signal_sender, hostname=hostname, msg=msg, time=time)     # 关键一行
-    return HttpResponse('200 OK')
+class Foo():
+    def bar(self):
+        print('from parent class.')
 
 
-# 接收和处理信号
-@receiver(test_signal, sender=signal_sender)      # 装饰器把处理函数注册成接收器
-def signal_handler(sender, **kwargs):             # kwargs字典接收信号参数
-    print('接收到信号内容：{hostname}|"{msg}"|{time}'.format(hostname=kwargs['hostname'], msg=kwargs['msg'], time=kwargs['time']))
+class Child(Foo):
+    def bar(self):
+        super(Child, self).bar()
+        print('from child class.')
+
+
+c = Child()
+c.bar()
+
+
+
+
+
+
 
