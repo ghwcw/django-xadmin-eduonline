@@ -23,7 +23,7 @@ import xadmin
 from apps.course.views import CourseSitemap
 from apps.myuser.views import IndexView, HomePageView, ActivateRegView, ActivateForgetView
 from eduonline import settings
-from mydemo.mytest import signal_sender
+# from mydemo.mytest import signal_sender
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -58,7 +58,7 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'course': CourseSitemap}}, name='sitemap'),
 
     # 信号测试
-    url(r'^signal/$', signal_sender),
+    # url(r'^signal/$', signal_sender),
 
 ]
 
