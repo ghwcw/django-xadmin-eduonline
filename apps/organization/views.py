@@ -1,3 +1,4 @@
+from django.core import paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 
@@ -55,14 +56,15 @@ class OrgListView(View):
         msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
         # 分页
-        try:
-            page = request.GET.get('page', 1)
-        except PageNotAnInteger:
-            page = 1
-
         # Provide Paginator with the request object for complete querystring generation
         p = Paginator(all_org, 4, request=request)
-        page_obj = p.page(page)
+        page = request.GET.get('page', 1)
+        try:
+            page_obj = p.page(page)
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except paginator.InvalidPage:
+            page_obj = p.page(p.num_pages)
 
         # 更新课程数。缺点：严重影响当前页加载速度，已在apps.course.adminx文件中用方法替代.
         # org_courses = (org for org in all_org)
@@ -262,13 +264,15 @@ class TeacherListView(View):
         msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
         # 分页
-        try:
-            page = request.GET.get('page', 1)
-        except PageNotAnInteger:
-            page = 1
 
         p = Paginator(all_teachers, 3, request=request)
-        page_obj = p.page(page)
+        page = request.GET.get('page', 1)
+        try:
+            page_obj = p.page(page)
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except paginator.InvalidPage:
+            page_obj = p.page(p.num_pages)
 
         return render(request, 'org/teachers-list.html', context={
             'username': username,

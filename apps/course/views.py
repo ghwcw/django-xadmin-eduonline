@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.sitemaps import Sitemap
 from django.contrib.syndication.views import Feed
+from django.core import paginator
 from django.db.models import Q
 from django.http import JsonResponse, Http404, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, get_list_or_404
@@ -53,16 +54,17 @@ class CourseListView(View):
         msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
         # 分页
-        try:
-            page = request.GET.get('page', 1)
-        except PageNotAnInteger:
-            page = 1
-
         # Provide Paginator with the request object for complete querystring generation
         # 返回Paginator对象，总
         p = Paginator(all_courses, 6, request=request)
         # 返回Page对象，分
-        page_obj = p.page(page)
+        page = request.GET.get('page', 1)
+        try:
+            page_obj = p.page(page)
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except paginator.InvalidPage:
+            page_obj = p.page(p.num_pages)
 
         return render(request, 'course/course-list.html', context={
             'username': username,

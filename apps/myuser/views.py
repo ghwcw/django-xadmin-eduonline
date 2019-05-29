@@ -5,6 +5,7 @@ from django.contrib import messages, auth
 from django.contrib.auth import authenticate, hashers
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core import paginator
 from django.core.paginator import PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
@@ -645,14 +646,15 @@ class UserCenMsgView(LoginRequiredMixin, View):
         msg_counts = UserMessage.objects.filter(user=request.user.id, has_read=False).count()
 
         # 分页
-        try:
-            page = request.GET.get('page', 1)
-        except PageNotAnInteger:
-            page = 1
-
         # 为Paginator提供完整的querystring生成的请求对象
         p = Paginator(messages, 10, request=request)
-        page_obj = p.page(page)
+        page = request.GET.get('page', 1)
+        try:
+            page_obj = p.page(page)
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except paginator.InvalidPage:
+            page_obj = p.page(p.num_pages)
 
         return render(request, 'usercenter/usercenter-message.html', context={
             'username': username,
