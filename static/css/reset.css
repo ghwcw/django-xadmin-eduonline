@@ -70,6 +70,13 @@ html { overflow-y: scroll; }
 
 /*浮动*/
 .fl{float:left!important;}
+.wp>a>img{
+	float:left;
+	animation: fl 5s infinite alternate;
+}
+@keyframes fl {
+	100%{transform: translate(465px) scale(0.5, 0.5)}
+}
 .fr{float:right!important;}
 .relative{position:relative!important;}
 .clear{ clear:both;}
