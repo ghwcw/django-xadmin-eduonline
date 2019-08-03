@@ -3317,13 +3317,16 @@ footer .footer .line {
 .butler_list .des {
     width: 903px;
     height: 160px;
-    border-bottom: 1px solid #e3e3e3;
+    border: 1px solid #e3e3e3;
     padding: 20px;
     position: relative;
+    border-radius: 15px;
+    margin-top: 5px;
 }
 
 .butler_list .des:last-child {
-    border: 0;
+    //border: 0;
+    margin-bottom: 5px;
 }
 
 .butler_list_box dt {
