@@ -175,7 +175,7 @@
         <div class="wp">
             <h1>公开课程</h1>
             <div class="module1 eachmod">
-                <div class="module1_1 left">
+                <div class="module1_1 left module-box">
                     <img width="228" height="614" src="{% static '/images/kcleft.png' %}"/>
                     <p class="fisrt_word">名师授课<br/>专业权威</p>
                     <a class="more" href="{% url 'course:course_list' %}">查看更多课程 ></a>
@@ -201,7 +201,7 @@
                     </div>
 
                     {% for course in courseall %}
-                        <div class="module1_{{ forloop.counter|add:2 }} box">
+                        <div class="module1_{{ forloop.counter|add:2 }} box module-box">
                             <a href="{% url 'course:course_detail' course_id=course.id %}">
                                 <img width="233" height="190" src="{{ MEDIA_URL }}{{ course.image }}"/>
                             </a>

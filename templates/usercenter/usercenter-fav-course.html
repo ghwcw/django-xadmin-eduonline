@@ -34,7 +34,7 @@
                 <div class="group_list brief">
 
                     {% for course in courses %}
-                        <div class="module1_5 box">
+                        <div class="module1_5 box module-box">
                             <a href="{% url 'course:course_detail' course.id %}">
                                 <img width="214" height="190"
                                      src="{{ MEDIA_URL }}{{ course.image }}"/>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="bottom">
                                 <span class="fl">{{ course.courseorg.name }}</span>
-                                <span class="delete-group fr jsDeleteFav_course" data-favid="{{ course.id }}"></span>
+                                <span class="delete-group fr jsDeleteFav_course" data-favid="{{ course.id }}" title="删除"></span>
                             </div>
                         </div>
 

@@ -1987,8 +1987,13 @@ textarea:focus {
     width: 470px !important;
     height: 300px;
     overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 8px 8px 6px gray;
 }
-
+.module-box{
+    border-radius: 8px;
+    box-shadow: 8px 8px 6px gray;
+}
 .active2 {
     color: #3d9328 !important;
 }
@@ -2796,9 +2801,9 @@ footer .footer .line {
 
 /*groupPurchase*/
 .list .group_list {
-    width: 100%;
-    height: auto;
-    overflow: hidden;
+    width: 105%;
+    height: 105%;
+    //overflow: hidden;
 }
 
 .list .group_list .box {
@@ -4947,6 +4952,8 @@ footer .footer .line {
 
 .butler_list.company .difdes {
     border: 1px solid #eaeaea;
+    border-radius: 15px;
+    margin-top: 5px;
 }
 
 .butler_list.company .buy {

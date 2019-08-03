@@ -26,7 +26,7 @@
                 <div class="group_list brief">
 
                     {% for course in courses %}
-                        <div class="module1_5 box">
+                        <div class="module1_5 box module-box">
                             <a href="{% url 'course:course_detail' course.id %}">
                                 <img width="214" height="190" class="scrollLoading"
                                      src="{{ MEDIA_URL }}{{ course.image }}"/>
