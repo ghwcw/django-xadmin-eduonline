@@ -21,7 +21,8 @@
         <div class="header">
             <div class="top">
                 <div class="wp">
-                    <div class="fl"><p>服务电话：<b>010-12346688</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前访问时间：<b id="get_curr_time"></b></p></div>
+                    <div class="fl"><p>服务电话：<b>010-12346688</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前访问时间：<b
+                            id="get_curr_time"></b></p></div>
 
                     <!--登录判断-->
 
@@ -232,12 +233,13 @@
                 <div class="module3_1 left">
                     <img width="228" height="463" src="{% static 'images/jgleft.png' %}"/>
                     <p class="fisrt_word" style="color: #FF7800">名校来袭<br/>权威认证</p>
-                    <a class="more" style="color: #FF7800; border-color:#FF7800" href="{% url 'org:orglist' %}">查看更多机构 ></a>
+                    <a class="more" style="color: #FF7800; border-color:#FF7800" href="{% url 'org:orglist' %}">查看更多机构
+                        ></a>
                 </div>
                 <div class="right">
                     <ul>
                         {% for org in orgs %}
-                             <li class="{% if forloop.counter == 5 or forloop.counter == 10 or forloop.counter == 15 %}five{% endif %}">
+                            <li class="{% if forloop.counter == 5 or forloop.counter == 10 or forloop.counter == 15 %}five{% endif %}">
                                 <a href="{% url 'org:orghome' org_id=org.id %}">
                                     <div class="company">
                                         <img width="184" height="100" src="{{ MEDIA_URL }}{{ org.image }}"/>
@@ -307,7 +309,7 @@
     });
 
     // 给index.html添加时间
-    function get_curr_time(){
+    function get_curr_time() {
         var today = new Date();
         var year = today.getFullYear();
         var month = today.getMonth() + 1;
@@ -319,14 +321,14 @@
         minutes = zero_prefix(minutes);
         second = zero_prefix(second);
         //alert(year+'年'+month+'月'+date+'日 '+hour+':'+minutes+':'+second);
-        $('#get_curr_time').text(year+'年'+month+'月'+date+'日 '+hour+':'+minutes+':'+second);
-        setInterval('get_curr_time()', 1000);
+        $('#get_curr_time').text(year + '年' + month + '月' + date + '日 ' + hour + ':' + minutes + ':' + second);
+        setTimeout('get_curr_time()', 1000);
 
     }
 
     // 时间数字不足10补零前缀
-    function zero_prefix(t){
-        if(t<10){
+    function zero_prefix(t) {
+        if (t < 10) {
             t = '0' + t;
         }
         return t;
