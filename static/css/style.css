@@ -1,3 +1,12 @@
+/*国家哀悼日全站灰色处理*/
+/*html{*/
+    /*-webkit-filter: grayscale(100%);*/
+    /*-moz-filter: grayscale(100%);*/
+    /*-ms-filter: grayscale(100%);*/
+    /*-o-filter: grayscale(100%);*/
+    /*filter: grayscale(100%);*/
+/*}*/
+
 body {
     overflow: auto;
 }

@@ -9,18 +9,21 @@
 Description : 
 -------------------------------------------------------------
 """
-import datetime
+
 import os
 import django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eduonline.settings')
+django.setup()
+
+import timeit
+import datetime
 from django.core.mail import send_mail
 from django.core.signals import request_finished
 from django.dispatch import receiver, Signal
 from django.http import HttpResponse
 from django.utils.translation import gettext
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eduonline.settings')
-django.setup()
-
+from apps.course.models import Course
 # def my_view():
 #     output = gettext("Welcome to my site.")
 #     return HttpResponse(output)
@@ -86,24 +89,46 @@ django.setup()
 
 # ---------------------------------------------- #
 
-
-class Foo():
-    def bar(self):
-        print('from parent class.')
-
-
-class Child(Foo):
-    def bar(self):
-        super(Child, self).bar()
-        print('from child class.')
-
-
-c = Child()
-c.bar()
-
-
+#
+# class Foo():
+#     def bar(self):
+#         print('from parent class.')
+#
+#
+# class Child(Foo):
+#     def bar(self):
+#         super(Child, self).bar()
+#         print('from child class.')
+#
+#
+# c = Child()
+# c.bar()
 
 
+class CourseTeacher():
+    @classmethod
+    def get_course_by_teacherid(cls, teacherid):
+        """
+        根据教师ID获取关联课程
+        :param teacherid:
+        :return:
+        """
+        courses = Course.objects.select_related('teacher').filter(teacher=teacherid)
+        result = ''
+        for course in courses:
+            course_id = course.id
+            course_name = course.name
+            course_str = str(course_id) + '@' + course_name
+            result = result + '^' + course_str
+
+        if not courses: return '教师ID：' + str(teacherid) + '不存在！请核实。'
+        return result, courses.count()
+
+
+
+if __name__ == '__main__':
+    print(CourseTeacher.get_course_by_teacherid(1))
+    print(timeit.timeit(stmt='CourseTeacher.get_course_by_teacherid(1)', setup='from __main__ import CourseTeacher', number=100))
 
 
 

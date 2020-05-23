@@ -305,15 +305,17 @@
         });
         $("#mq").mouseout(function () {
             this.start();
-        })
+        });
+
     });
 
-    // 给index.html添加时间
+
+    // 给index.html添加即时时间
     function get_curr_time() {
         var today = new Date();
         var year = today.getFullYear();
-        var month = today.getMonth() + 1;
-        var date = today.getDate();
+        var month = zero_prefix(today.getMonth() + 1);
+        var date = zero_prefix(today.getDate());
         var hour = today.getHours();
         var minutes = today.getMinutes();
         var second = today.getSeconds();
@@ -322,7 +324,7 @@
         second = zero_prefix(second);
         //alert(year+'年'+month+'月'+date+'日 '+hour+':'+minutes+':'+second);
         $('#get_curr_time').text(year + '年' + month + '月' + date + '日 ' + hour + ':' + minutes + ':' + second);
-        setTimeout('get_curr_time()', 1000);
+        //setTimeout('get_curr_time()', 1000);
 
     }
 
@@ -333,6 +335,9 @@
         }
         return t;
     }
+
+    setInterval('get_curr_time()', 1000);
+
 
 </script>
 

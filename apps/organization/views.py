@@ -331,4 +331,3 @@ class TeacherDetailView(View):
             'msg_counts': msg_counts,
         })
 
-

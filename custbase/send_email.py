@@ -9,6 +9,7 @@
 Description : 
 -------------------------------------------------------------
 """
+
 # import os
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eduonline.settings')     # environ字典
 # import django
@@ -142,3 +143,9 @@ class SendEmail(object):
                 return True
             else:
                 return False
+
+
+# if __name__ == '__main__':
+#     m = SendEmail('wongnina@vip.qq.com', 'update_email')
+#     m.send_vali_emailcode()
+

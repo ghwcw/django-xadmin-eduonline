@@ -33,8 +33,8 @@ DEBUG = True
 
 # 可指定主机，若元素为'*'，表示所有同一局域网内的网络均可被访问
 # 主机和端口不要轻易改动
-ALLOWED_HOSTS = ['www.wcwnina.com', '192.168.1.99', '127.0.0.1', 'localhost']
-ALLOWED_PORT = ['8080']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_PORT = ['70', '&*']
 
 # App加载
 INSTALLED_APPS = [
@@ -137,7 +137,7 @@ USE_TZ = False  # 若使用了本地时间，必须设为False!!(默认值True)
 EMAIL_HOST = 'smtp.exmail.qq.com'  # 发送者邮箱服务器
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'wangchunwang@dhcc.com.cn'  # 发送者用户名（邮箱地址）
-EMAIL_HOST_PASSWORD = 'DHCwcw'  # 发送者密码
+EMAIL_HOST_PASSWORD = 'DHC@wcw070134'  # 发送者密码
 EMAIL_USE_SSL = False
 
 # 静态文件配置 (CSS, JavaScript, Images)
