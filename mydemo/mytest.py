@@ -9,7 +9,7 @@
 Description : 
 -------------------------------------------------------------
 """
-
+import abc
 import os
 import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eduonline.settings')
@@ -105,30 +105,36 @@ from apps.course.models import Course
 # c.bar()
 
 
-class CourseTeacher():
-    @classmethod
-    def get_course_by_teacherid(cls, teacherid):
-        """
-        根据教师ID获取关联课程
-        :param teacherid:
-        :return:
-        """
-        courses = Course.objects.select_related('teacher').filter(teacher=teacherid)
-        result = ''
-        for course in courses:
-            course_id = course.id
-            course_name = course.name
-            course_str = str(course_id) + '@' + course_name
-            result = result + '^' + course_str
+# class CourseTeacher():
+#     @classmethod
+#     def get_course_by_teacherid(cls, teacherid):
+#         """
+#         根据教师ID获取关联课程
+#         :param teacherid:
+#         :return:
+#         """
+#         courses = Course.objects.select_related('teacher').filter(teacher=teacherid)
+#         result = ''
+#         for course in courses:
+#             course_id = course.id
+#             course_name = course.name
+#             course_str = str(course_id) + '@' + course_name
+#             result = result + '^' + course_str
+#
+#         if not courses: return '教师ID：' + str(teacherid) + '不存在！请核实。'
+#         return result, courses.count()
+#
+#
+#
+# if __name__ == '__main__':
+#     print(CourseTeacher.get_course_by_teacherid(1))
+#     print(timeit.timeit(stmt='CourseTeacher.get_course_by_teacherid(1)', setup='from __main__ import CourseTeacher', number=100))
+#
 
-        if not courses: return '教师ID：' + str(teacherid) + '不存在！请核实。'
-        return result, courses.count()
+class Person(metaclass=abc.ABCMeta):
+    perID = ''
 
-
-
-if __name__ == '__main__':
-    print(CourseTeacher.get_course_by_teacherid(1))
-    print(timeit.timeit(stmt='CourseTeacher.get_course_by_teacherid(1)', setup='from __main__ import CourseTeacher', number=100))
-
-
+    @abc.abstractmethod
+    def f1(self):
+        pass
 

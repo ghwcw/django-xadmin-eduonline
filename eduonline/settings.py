@@ -29,12 +29,12 @@ sys.path.append(os.path.join(BASE_DIR, 'extraapps'))
 SECRET_KEY = '81$k-x)bqrs4!!kjyifja)g=^zi*j@62$&n_c%4&ic*ni5q%dd'
 
 # 上线时必须将DEBUG设为False
-DEBUG = True
+DEBUG = False
 
 # 可指定主机，若元素为'*'，表示所有同一局域网内的网络均可被访问
 # 主机和端口不要轻易改动
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-ALLOWED_PORT = ['70', '&*']
+ALLOWED_PORT = ['70', '*']
 
 # App加载
 INSTALLED_APPS = [
@@ -60,7 +60,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'myuser.UserProfile'
 
 # 自定义的用户验证后端类
-AUTHENTICATION_BACKENDS = ['apps.myuser.views.CustomBackend', ]
+AUTHENTICATION_BACKENDS = ['apps.myuser.views.CustomBackend']
 
 # 中间件
 MIDDLEWARE = [
@@ -125,13 +125,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # 国际化
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
-LANGUAGE_CODE = 'zh-hans'  # 中文简体是'zh-hans'，Admin后台管理系统的页面语言随之改变
-
-# 本地时间
-TIME_ZONE = 'Asia/Shanghai'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = False  # 若使用了本地时间，必须设为False!!(默认值True)
+LANGUAGE_CODE = 'en-us'       # 系统语言。中文简体是'zh-hans'(此时USE_I18N必须为True)，Admin后台管理系统的页面语言随之改变
+TIME_ZONE = 'Asia/Shanghai'   # 时区
+USE_I18N = True               # 翻译
+USE_L10N = True               # 本地化
+USE_TZ = False                # 若使用了本地时间，必须设为False!!(默认值True)
 
 # 邮件服务配置
 EMAIL_HOST = 'smtp.exmail.qq.com'  # 发送者邮箱服务器
@@ -164,7 +162,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Django默认缓存后端是本地内存（LocMemCache）。虚拟DummyCache用于开发（实际上并不缓存，它只是实现缓存接口而不做任何事情。）
 # Django支持的缓存类型：Memcached（MemcachedCache）、本地内存（LocMemCache）、数据库（DatabaseCache）、文件（FileBasedCache）、虚拟（DummyCache）
 # Memcached缓存数据库下载与安装教程：http://www.runoob.com/memcached/window-install-memcached.html（菜鸟教程提供）
-# 下载安装Memcached本身后，您还需要安装Memcached绑定模块。最常见的两个绑定模块是python-memcached和pylibmc（pip安装）
+# 下载安装Memcached本身后，您还需要安装其依赖模块。最常见的两个依赖模块是python-memcached和pylibmc（pip安装）
 # 设置缓存后端后，使用缓存的最简单方法是缓存整个站点
 # 在中间件列表中的[开头]和[末尾]添加如下2个中间件：'django.middleware.cache.UpdateCacheMiddleware'和'django.middleware.cache.FetchFromCacheMiddleware'
 # 测试，进入Python shell：

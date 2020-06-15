@@ -24,7 +24,7 @@ class CourseAdmin():
 
     def save_model(self):
         """保存课程时，统计课程机构的课程数"""
-        obj = self.new_obj
+        obj = self.new_obj      # 获取Course对象obj，固定写法
         obj.save()
         if obj.courseorg:
             obj.courseorg.courses = Course.objects.filter(courseorg=obj.courseorg).count()

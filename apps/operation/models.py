@@ -22,6 +22,16 @@ class UserAsk(models.Model):
         return self.name
 
 
+class PryUserAsk(UserAsk):
+    '''
+    代理测试
+    '''
+    class Meta:
+        proxy = True
+        verbose_name = '用户咨询表(代理)'
+        verbose_name_plural = verbose_name
+
+
 class CourseComment(models.Model):
     '''
     课程评论表
