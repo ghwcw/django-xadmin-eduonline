@@ -36,7 +36,7 @@ from apps.course.models import Course
 # subject = 'Django测试'
 # message = '这是测试邮件，请忽略'
 # html_message = '<h2 style="color:red;">这是测试邮件，请忽略</h2>'
-# res = send_mail(subject=subject, message=message, from_email='Django管理员<wangchunwang@dhcc.com.cn>',
+# res = send_mail(subject=subject, message=message, from_email='Django管理员<wang@qq.com>',
 #                 recipient_list=['wcwnina@foxmail.com'],
 #                 html_message=html_message)
 #
