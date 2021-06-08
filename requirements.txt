@@ -13,7 +13,7 @@ jdcal==1.4
 mod-wsgi==4.6.8+ap24vc14
 odfpy==1.3.6
 openpyxl==2.5.4
-Pillow==5.1.0
+Pillow==8.2.0
 pytz==2018.4
 PyYAML==3.12
 six==1.11.0
